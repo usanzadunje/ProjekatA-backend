@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('app');
-});
+Route::any('{any}', function() {
+    return redirect('//127.0.0.1:8100', '308');
+})->where('any', '.*')->name('home');

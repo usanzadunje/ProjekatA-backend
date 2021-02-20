@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CafeController;
+use App\Http\Controllers\TableController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function(Request $request) {
     return $request->user();
 });
+
+Route::prefix('cafes')->group(function() {
+    Route::get('/', [CafeController::class, 'index']);
+    Route::get('/{cafe}', [CafeController::class, 'show']);
+});
+
+Route::prefix('tables')->group(function() {
+    Route::get('/{cafe}', [TableController::class, 'index']);
+    Route::get('/{cafe}/{serialNumber}', [TableController::class, 'show']);
+});
+
