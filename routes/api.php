@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CafeController;
 use App\Http\Controllers\TableController;
 use Illuminate\Http\Request;
@@ -16,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function(Request $request) {
-    return $request->user();
+Route::middleware(['auth:sanctum'])->group(function() {
+    Route::get('/users/auth', AuthController::class);
 });
 
 Route::prefix('cafes')->group(function() {
