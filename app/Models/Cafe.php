@@ -18,7 +18,7 @@ class Cafe extends Model
 
     public function getTableWithSerialNumber($serialNumber)
     {
-        return $this->tables()->where('serial_number', $serialNumber)->first();
+        return $this->tables()->where('serial_number', $serialNumber)->firstOrFail();
     }
 
 }

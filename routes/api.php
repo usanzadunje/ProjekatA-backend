@@ -26,8 +26,8 @@ Route::prefix('cafes')->group(function() {
     Route::get('/{cafe}', [CafeController::class, 'show']);
 });
 
-Route::prefix('tables')->group(function() {
-    Route::get('/{cafe}', [TableController::class, 'index']);
-    Route::get('/{cafe}/{serialNumber}', [TableController::class, 'show']);
+Route::prefix('cafe')->group(function() {
+    Route::get('/{cafe}/tables', [TableController::class, 'index']);
+    Route::get('/{cafe}/tables/{serialNumber}', [TableController::class, 'show']);
 });
 

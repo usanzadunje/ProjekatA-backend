@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CafeResource;
 use App\Http\Resources\TableResource;
 use App\Models\Cafe;
 use App\Models\Table;
@@ -16,7 +17,7 @@ class TableController extends Controller
      */
     public function index(Cafe $cafe)
     {
-        return TableResource::collection($cafe->tables);
+        return new CafeResource($cafe->load('tables'));
     }
 
     /**
