@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::any('{any}', function() {
-    return redirect('//127.0.0.1:8100', '308');
+    return redirect('//localhost:8100', '308');
 })->where('any', '.*')->name('home');
