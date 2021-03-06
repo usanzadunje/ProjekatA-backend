@@ -16,6 +16,11 @@ class Cafe extends Model
         return $this->hasMany(Table::class);
     }
 
+    public function subscribedUsers()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
     public function getTableWithSerialNumber($serialNumber)
     {
         return $this->tables()->where('serial_number', $serialNumber)->firstOrFail();
