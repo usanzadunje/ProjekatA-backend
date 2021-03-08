@@ -25,4 +25,11 @@ class Table extends Model
     {
         return $value !== null ? ($value ? 'Dozvoljeno' : 'Zabranjeno') : 'N/A';
     }
+
+    public function toggleAvailability()
+    {
+        $this->empty = $this->empty == 'Slobodan' ? false : true;
+        $this->save();
+        return $this;
+    }
 }

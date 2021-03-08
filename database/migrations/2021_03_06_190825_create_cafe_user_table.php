@@ -13,11 +13,12 @@ class CreateCafeUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('cafe_user', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('cafe_id')->constrained();
-            $table->timestamps();
-        });
+        // IF USER NEEDS TO SEE WHAT CAFES HE IS SUB TO
+        //Schema::create('cafe_user', function (Blueprint $table) {
+        //    $table->foreignId('user_id')->constrained();
+        //    $table->foreignId('cafe_id')->constrained();
+        //    $table->timestamps();
+        //});
     }
 
     /**
