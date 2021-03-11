@@ -7,9 +7,25 @@ use App\Events\TestEvent;
 use App\Models\Cafe;
 use App\Models\Table;
 use Illuminate\Http\Request;
+use Kutia\Larafirebase\Facades\Larafirebase;
 
 class StaffController extends Controller
 {
+    public function sendNotification()
+    {
+        $deviceTokens = [
+            '{TOKEN_1}',
+        ];
+
+        return Larafirebase::withTitle('Test Title')
+            ->withBody('Test body')
+            ->withImage('https://firebase.google.com/images/social.png')
+            ->withClickAction('admin/notifications')
+            ->withPriority('high')
+            ->sendNotification($deviceTokens);
+
+    }
+
     /**
      * Toggle table availability.
      * @param Table $table
