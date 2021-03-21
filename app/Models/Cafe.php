@@ -16,10 +16,10 @@ class Cafe extends Model
         return $this->hasMany(Table::class);
     }
 
-    //public function subscribedUsers()
-    //{
-    //    return $this->belongsToMany(User::class);
-    //}
+    public function subscribedUsers()
+    {
+        return $this->belongsToMany(User::class);
+    }
 
     public function getTableWithSerialNumber($serialNumber)
     {

@@ -21,17 +21,20 @@ use Illuminate\Support\Facades\Route;
 
 Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
+// Authentication routes
 Route::middleware(['auth:sanctum'])->group(function() {
     Route::get('/users/auth', AuthController::class);
+    Route::post('/users/fcm-token', [AuthController::class, 'setFcmToken']);
+    Route::post('/users/subscribe/cafe/{cafeId}', [CafeController::class, 'subscribe']);
 });
 
-//Routes for responding with cafes
+//Routes for cafes
 Route::prefix('cafes')->group(function() {
     Route::get('/', [CafeController::class, 'index']);
     Route::get('/{cafe}', [CafeController::class, 'show']);
 });
 
-//Route for responding with tables in certain cafe
+//Route for tables in certain cafe
 Route::prefix('cafe')->group(function() {
     Route::get('/{cafe}/tables', [TableController::class, 'index']);
     Route::get('/{cafe}/tables/{serialNumber}', [TableController::class, 'show']);

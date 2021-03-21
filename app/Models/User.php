@@ -52,4 +52,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return !!$this->email_verified_at;
     }
+
+    /**
+     * Specifies the user's FCM token
+     *
+     * @return string|array
+     */
+    public function routeNotificationForFcm()
+    {
+        return $this->fcm_token;
+    }
 }
