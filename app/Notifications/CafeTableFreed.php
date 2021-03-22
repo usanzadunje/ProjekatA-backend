@@ -13,6 +13,7 @@ use NotificationChannels\Fcm\Resources\AndroidFcmOptions;
 use NotificationChannels\Fcm\Resources\AndroidNotification;
 use NotificationChannels\Fcm\Resources\ApnsConfig;
 use NotificationChannels\Fcm\Resources\ApnsFcmOptions;
+use NotificationChannels\Fcm\Resources\NotificationPriority;
 
 class CafeTableFreed extends Notification
 {
@@ -45,7 +46,11 @@ class CafeTableFreed extends Notification
             ->setAndroid(
                 AndroidConfig::create()
                     ->setFcmOptions(AndroidFcmOptions::create()->setAnalyticsLabel('analytics'))
-                    ->setNotification(AndroidNotification::create()->setColor('#0000FF'))
+                    ->setNotification(AndroidNotification::create()
+                        ->setColor('#9E0300')
+                        ->setSound('sound.wav')
+                        ->setNotificationPriority(NotificationPriority::PRIORITY_HIGH())
+                        ->setDefaultVibrateTimings(true))
             )->setApns(
                 ApnsConfig::create()
                     ->setFcmOptions(ApnsFcmOptions::create()->setAnalyticsLabel('analytics_ios')));

@@ -13,8 +13,8 @@ class AddFcmTokenToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function(Blueprint $table) {
-            $table->string('fcm_token', '255');
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('fcm_token', '255')->nullable();
         });
     }
 
@@ -25,7 +25,7 @@ class AddFcmTokenToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function(Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
         });
     }

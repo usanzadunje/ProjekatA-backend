@@ -18,10 +18,6 @@ class CreateCafeUserTable extends Migration
             $table->integer('cafe_id');
             $table->timestamps();
             $table->primary(['user_id', 'cafe_id']);
-            $table->foreign('user_id')->references('id')->on('users')
-                ->onDelete('cascade');
-            $table->foreign('cafe_id')->references('id')->on('cafes')
-                ->onDelete('cascade');
         });
     }
 
