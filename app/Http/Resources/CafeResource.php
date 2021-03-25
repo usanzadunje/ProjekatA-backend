@@ -21,6 +21,7 @@ class CafeResource extends JsonResource
             'address' => $this->address,
             'email' => $this->email,
             'phone' => $this->phone,
+            'free_tables' => $this->freeTablesCount(),
             'tables' => TableResource::collection($this->whenLoaded('tables')),
         ];
     }

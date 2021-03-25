@@ -31,4 +31,9 @@ class Cafe extends Model
         return $this->tables()->where('empty', false)->count() === $this->tables()->count();
     }
 
+    public function freeTablesCount()
+    {
+        return $this->tables()->where('empty', true)->count();
+    }
+
 }

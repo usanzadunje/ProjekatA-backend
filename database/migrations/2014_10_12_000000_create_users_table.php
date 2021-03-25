@@ -17,12 +17,14 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('fname');
             $table->string('lname');
-            $table->date('bday');
+            $table->date('bday')->nullable();
             $table->string('phone')->unique()->nullable();
             $table->string('username')->unique()->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->rememberToken();
+            $table->string('fcm_token', '255')->nullable();
             $table->timestamps();
         });
     }

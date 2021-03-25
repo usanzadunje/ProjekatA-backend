@@ -62,4 +62,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->fcm_token;
     }
+
+    public function isStaff()
+    {
+        return $this->cafe_id;
+    }
 }

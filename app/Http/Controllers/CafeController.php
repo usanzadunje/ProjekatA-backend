@@ -34,7 +34,7 @@ class CafeController extends Controller
     {
         CafeUser::create([
             'user_id' => auth()->id(),
-            'cafe_id' => $cafeId
+            'cafe_id' => $cafeId,
         ]);
 
         return true;

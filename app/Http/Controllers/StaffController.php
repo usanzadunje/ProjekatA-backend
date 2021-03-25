@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cafe;
 use App\Models\Table;
 use App\Models\User;
+use App\Notifications\CafeTableAvailabilityChanged;
 use App\Notifications\CafeTableFreed;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;

@@ -4,7 +4,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CafeController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TableController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
@@ -41,7 +40,7 @@ Route::prefix('cafe')->group(function() {
 });
 
 //Route for changing availability of tables in a certain cafe
-Route::prefix('staff')->group(function() {
+Route::prefix('staff')->middleware('staff')->group(function() {
     Route::post('/tables/{table}/toggle', [StaffController::class, 'toggleAvailability']);
 });
 
