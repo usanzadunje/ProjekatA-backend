@@ -30,11 +30,11 @@ class CafeController extends Controller
         return new CafeResource($cafe->load('tables'));
     }
 
-    public function subscribe($cafeId)
+    public function subscribe(Cafe $cafe)
     {
         CafeUser::create([
             'user_id' => auth()->id(),
-            'cafe_id' => $cafeId,
+            'cafe_id' => $cafe->id,
         ]);
 
         return true;

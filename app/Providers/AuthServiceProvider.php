@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Cafe;
+use App\Models\User;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -27,6 +29,9 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
         ResetPassword::createUrlUsing(function($user, string $token) {
             return env('SPA_URL') . '/reset-password?token=' . $token;
+        });
+        Gate::define('toggle-table', function(User $user, Cafe $cafe) {
+            return $user->cafe_id === $cafe->id;
         });
     }
 }

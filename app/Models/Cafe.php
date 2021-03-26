@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Notifications\CafeTableFreed;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Notification;
 
 class Cafe extends Model
 {
@@ -29,6 +31,12 @@ class Cafe extends Model
     public function isFull()
     {
         return $this->tables()->where('empty', false)->count() === $this->tables()->count();
+    }
+
+    public function sendTableFreedNotificationToSubscribers()
+    {
+        Notification::send($this->subscribedUsers, new CafeTableFreed($this));
+        $this->subscribedUsers()->detach();
     }
 
     public function freeTablesCount()
