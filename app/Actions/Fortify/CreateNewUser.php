@@ -25,7 +25,7 @@ class CreateNewUser implements CreatesNewUsers
             'lname' => ['required', 'alpha', 'string', 'max:50'],
             'bday' => ['date', 'nullable'],
             'phone' => ['regex:/^[0-9]+$/', 'nullable'],
-            'username' => ['string', 'max:50', 'required'],
+            'username' => ['string', 'max:50', 'required', Rule::unique(User::class),],
             'email' => [
                 'required',
                 'string',
