@@ -6,30 +6,40 @@ use App\Http\Resources\CafeResource;
 use App\Models\Cafe;
 use App\Models\CafeUser;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
+use phpDocumentor\Reflection\Types\Integer;
+use phpDocumentor\Reflection\Types\Resource_;
 
 class CafeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return object
+     * @return ResourceCollection
      */
     public function index()
     {
-        if(request()->query('columns') === 'cafeCardInfo')
-        {
-            // Passing only columns needed to Resource Cafe
-            return CafeResource::collection(Cafe::all('id', 'name'));
-        }
-
-        // If no query pass everything except created and updated columns
+        // Return everything except created and updated columns
         return CafeResource::collection(Cafe::all('id', 'name', 'city', 'address', 'email', 'phone'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param integer $start
+     * @param integer $numberOfCafes
+     * @return ResourceCollection
+     */
+    public function chunkedIndex($start = 0, $numberOfCafes = 20)
+    {
+        // Passing only columns needed to Resource Cafe
+        return CafeResource::collection(Cafe::takeChunks($start, $numberOfCafes));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Cafe $cafe
+     * @param integer $cafeId
      * @return CafeResource
      */
     public function show($cafeId)
@@ -38,6 +48,12 @@ class CafeController extends Controller
         return new CafeResource(Cafe::select('id', 'name', 'city', 'address', 'email', 'phone')->findOrFail($cafeId));
     }
 
+    /**
+     * Subscribing to specific cafe
+     *
+     * @param integer $cafeId
+     * @return boolean
+     */
     public function subscribe($cafeId)
     {
         CafeUser::create([

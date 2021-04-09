@@ -30,6 +30,8 @@ Route::middleware(['auth:sanctum'])->group(function() {
 //Routes for cafes
 Route::prefix('cafes')->group(function() {
     Route::get('/', [CafeController::class, 'index']);
+    Route::get('/chunked/start/number-of-cafes/{start?}/{numberOfCafes?}', [CafeController::class, 'chunkedIndex'])
+        ->where(['start' => '[0-9]+', 'numberOfCafes' => '[0-9]+']);
     Route::get('/{cafe}', [CafeController::class, 'show']);
 });
 

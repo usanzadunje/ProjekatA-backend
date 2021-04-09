@@ -18,6 +18,11 @@ class Cafe extends Model
         return $this->hasMany(Table::class);
     }
 
+    public static function takeChunks($start, $numberOfCafes)
+    {
+        return (new static)::select('id', 'name')->skip($start)->take($numberOfCafes)->get();
+    }
+
     public function subscribedUsers()
     {
         return $this->belongsToMany(User::class);
