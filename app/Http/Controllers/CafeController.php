@@ -16,7 +16,14 @@ class CafeController extends Controller
      */
     public function index()
     {
-        return CafeResource::collection(Cafe::all());
+        if(request()->query('columns') === 'cafeCardInfo')
+        {
+            // Passing only columns needed to Resource Cafe
+            return CafeResource::collection(Cafe::all('id', 'name'));
+        }
+
+        // If no query pass everything except created and updated columns
+        return CafeResource::collection(Cafe::all('id', 'name', 'city', 'address', 'email', 'phone'));
     }
 
     /**
@@ -25,16 +32,17 @@ class CafeController extends Controller
      * @param \App\Models\Cafe $cafe
      * @return CafeResource
      */
-    public function show(Cafe $cafe)
+    public function show($cafeId)
     {
-        return new CafeResource($cafe->load('tables'));
+        // Passing only columns needed to show only one cafe
+        return new CafeResource(Cafe::select('id', 'name', 'city', 'address', 'email', 'phone')->findOrFail($cafeId));
     }
 
-    public function subscribe(Cafe $cafe)
+    public function subscribe($cafeId)
     {
         CafeUser::create([
             'user_id' => auth()->id(),
-            'cafe_id' => $cafe->id,
+            'cafe_id' => $cafeId,
         ]);
 
         return true;
