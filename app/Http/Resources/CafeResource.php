@@ -22,7 +22,7 @@ class CafeResource extends JsonResource
             'address' => $this->when($request->route()->getName() !== 'cafes/chunked', $this->address),
             'email' => $this->when($request->route()->getName() !== 'cafes/chunked', $this->email),
             'phone' => $this->when($request->route()->getName() !== 'cafes/chunked', $this->phone),
-            'free_tables' => $this->freeTablesCount(),
+            'taken_capacity' => $this->takenMaxCapacityTableRatio(),
             //'has_food' => $this->,
             //'has_garden' => $this->,
             //'open_hours' => $this->,

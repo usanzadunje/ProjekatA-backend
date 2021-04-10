@@ -54,4 +54,13 @@ class Cafe extends Model
         return $this->tables()->where('empty', true)->count();
     }
 
+    public function takenMaxCapacityTableRatio()
+    {
+        // Returning how many tables are taken out of cafe capacity
+        // in a form taken/capacity *20/40*
+        $cafeCapacity = $this->tables()->count();
+        $tablesTaken = $this->tables()->where('empty', 'false')->count();
+        return $tablesTaken . '/' . $cafeCapacity;
+    }
+
 }
