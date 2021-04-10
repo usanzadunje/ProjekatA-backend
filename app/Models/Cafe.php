@@ -18,9 +18,14 @@ class Cafe extends Model
         return $this->hasMany(Table::class);
     }
 
-    public static function takeChunks($start, $numberOfCafes)
+    public static function takeChunks($start, $numberOfCafes, $filter = '', $sortBy = 'name')
     {
-        return (new static)::select('id', 'name')->skip($start)->take($numberOfCafes)->get();
+        return (new static)::select('id', 'name')
+            ->where('name', 'LIKE', '%' . $filter . '%')
+            ->skip($start)
+            ->take($numberOfCafes)
+            ->orderBy($sortBy)
+            ->get();
     }
 
     public function subscribedUsers()

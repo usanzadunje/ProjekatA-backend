@@ -29,10 +29,10 @@ Route::middleware(['auth:sanctum'])->group(function() {
 
 //Routes for cafes
 Route::prefix('cafes')->group(function() {
-    Route::get('/', [CafeController::class, 'index']);
+    Route::get('/', [CafeController::class, 'index'])->name('cafes/index');
     Route::get('/chunked/start/number-of-cafes/{start?}/{numberOfCafes?}', [CafeController::class, 'chunkedIndex'])
-        ->where(['start' => '[0-9]+', 'numberOfCafes' => '[0-9]+']);
-    Route::get('/{cafe}', [CafeController::class, 'show']);
+        ->where(['start' => '[0-9]+', 'numberOfCafes' => '[0-9]+'])->name('cafes/chunked');
+    Route::get('/{cafe}', [CafeController::class, 'show'])->name('cafes/show');
 });
 
 //Route for tables in certain cafe

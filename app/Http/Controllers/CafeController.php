@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CafeResource;
 use App\Models\Cafe;
 use App\Models\CafeUser;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use phpDocumentor\Reflection\Types\Integer;
@@ -28,12 +29,20 @@ class CafeController extends Controller
      *
      * @param integer $start
      * @param integer $numberOfCafes
-     * @return ResourceCollection
+     * @return ResourceCollection | string
      */
     public function chunkedIndex($start = 0, $numberOfCafes = 20)
     {
+        $filter = request('filter') ??  '';
+        $sortBy = request('sortBy') ?? 'name';
+
+        // Returning false if there are no records to be returned
+        // in order to disable infinite scroll on frontend
+        if(count(Cafe::takeChunks($start, $numberOfCafes)) <= 0)
+            return json_encode(false);
+
         // Passing only columns needed to Resource Cafe
-        return CafeResource::collection(Cafe::takeChunks($start, $numberOfCafes));
+        else return CafeResource::collection(Cafe::takeChunks($start, $numberOfCafes, $filter, $sortBy));
     }
 
     /**
