@@ -35,6 +35,7 @@ class CafeController extends Controller
     {
         $filter = request('filter') ??  '';
         $sortBy = request('sortBy') ?? 'name';
+        $getAllColumns = request('getAllColumns') === 'true';
 
         // Returning false if there are no records to be returned
         // in order to disable infinite scroll on frontend
@@ -42,7 +43,7 @@ class CafeController extends Controller
             return json_encode(false);
 
         // Passing only columns needed to Resource Cafe
-        else return CafeResource::collection(Cafe::takeChunks($start, $numberOfCafes, $filter, $sortBy));
+        else return CafeResource::collection(Cafe::takeChunks($start, $numberOfCafes, $filter, $sortBy, $getAllColumns));
     }
 
     /**

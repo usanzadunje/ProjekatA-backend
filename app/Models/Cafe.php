@@ -18,8 +18,18 @@ class Cafe extends Model
         return $this->hasMany(Table::class);
     }
 
-    public static function takeChunks($start, $numberOfCafes, $filter = '', $sortBy = 'name')
+    public static function takeChunks($start, $numberOfCafes, $filter = '', $sortBy = 'name', $getAllColumns = false)
     {
+        if($getAllColumns)
+        {
+            return (new static)::select('id', 'name', 'city', 'address', 'email', 'phone')
+                ->where('name', 'LIKE', '%' . $filter . '%')
+                ->skip($start)
+                ->take($numberOfCafes)
+                ->orderBy($sortBy)
+                ->get();
+        }
+
         return (new static)::select('id', 'name')
             ->where('name', 'LIKE', '%' . $filter . '%')
             ->skip($start)
@@ -60,6 +70,7 @@ class Cafe extends Model
         // in a form taken/capacity *20/40*
         $cafeCapacity = $this->tables()->count();
         $tablesTaken = $this->tables()->where('empty', 'false')->count();
+
         return $tablesTaken . '/' . $cafeCapacity;
     }
 
