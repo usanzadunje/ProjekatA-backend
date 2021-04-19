@@ -9,7 +9,10 @@ class CafeUser extends Pivot
 {
     use HasFactory;
 
+    protected $primaryKey = ['user_id', 'cafe_id'];
+
     protected $guarded = [];
 
-    protected $primaryKey = ['user_id', 'cafe_id'];
+
+
 }

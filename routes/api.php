@@ -24,7 +24,8 @@ Broadcast::routes(['middleware' => ['auth:sanctum']]);
 Route::middleware(['auth:sanctum'])->group(function() {
     Route::get('/users/auth', AuthController::class);
     Route::post('/users/fcm-token', [AuthController::class, 'setFcmToken']);
-    Route::post('/users/subscribe/cafe/{cafe}', [CafeController::class, 'subscribe']);
+    Route::post('/users/subscribe/cafe/{cafeId}/notify-in-next/{notificationTime?}', [CafeController::class, 'subscribe'])
+        ->where(['cafeId' => '[0-9]+', 'notificationTime' => '[0-9]+']);
 });
 
 //Routes for cafes
