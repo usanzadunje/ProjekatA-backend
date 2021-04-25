@@ -106,4 +106,15 @@ class CafeController extends Controller
         return true;
     }
 
+    /**
+     * Checking if user is subscribed to specific cafe
+     *
+     * @param int $cafeId
+     */
+    public function isUserSubscribed(int $cafeId): bool
+    {
+        $exists = CafeUser::where('user_id', auth()->id())->where('cafe_id', $cafeId)->first();
+        return !!$exists;
+    }
+
 }
