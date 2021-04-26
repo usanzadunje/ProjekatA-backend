@@ -28,6 +28,7 @@ Route::prefix('users')->middleware(['auth:sanctum'])->group(function() {
         ->where(['cafeId' => '[0-9]+', 'notificationTime' => '[0-9]+']);
     Route::post('/subscribed/cafe/{cafeId}', [CafeController::class, 'isUserSubscribed'])
         ->where(['cafeId' => '[0-9]+']);
+    Route::get('/cafes/subscriptions', [CafeController::class, 'getAllCafesUserSubscribedTo']);
 });
 
 //Routes for cafes

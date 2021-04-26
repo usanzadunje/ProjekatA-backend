@@ -37,11 +37,11 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    // IF NEEDED TO SHOW WHICH CAFES USER IS SUBSCRIBED TO
-    //public function subscribedToCafes()
-    //{
-    //    return $this->belongsToMany(Cafe::class);
-    //}
+    //Cafes user has subscribed to
+    public function subscribedToCafes()
+    {
+        return $this->belongsToMany(Cafe::class)->select('id', 'name');
+    }
 
     public function getEmailVerifiedAtAttribute($value)
     {

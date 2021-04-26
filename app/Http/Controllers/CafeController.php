@@ -56,7 +56,7 @@ class CafeController extends Controller
     public function show(int $cafeId): CafeResource
     {
         // Passing only columns needed to show only one cafe
-        return new CafeResource(Cafe::select('id', 'name', 'city', 'address', 'email', 'phone')->findOrFail($cafeId));
+        return new CafeResource(Cafe::findOrFail($cafeId, ['id', 'name', 'city', 'address', 'email', 'phone']));
     }
 
     /**
@@ -116,5 +116,14 @@ class CafeController extends Controller
         $exists = CafeUser::where('user_id', auth()->id())->where('cafe_id', $cafeId)->first();
         return !!$exists;
     }
+
+    /*
+     * Returning all cafes logged in user has subscribed to
+     */
+    public function getAllCafesUserSubscribedTo(): ResourceCollection
+    {
+        return CafeResource::collection(User::find(1)->subscribedToCafes->makeHidden(['pivot'])  );
+    }
+
 
 }

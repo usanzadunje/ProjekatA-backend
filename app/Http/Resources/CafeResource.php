@@ -37,10 +37,6 @@ class CafeResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'city' => $this->when($request->route()->getName() !== 'cafes/chunked', $this->city),
-            'address' => $this->when($request->route()->getName() !== 'cafes/chunked', $this->address),
-            'email' => $this->when($request->route()->getName() !== 'cafes/chunked', $this->email),
-            'phone' => $this->when($request->route()->getName() !== 'cafes/chunked', $this->phone),
             'taken_capacity' => $this->takenMaxCapacityTableRatio(),
             //'has_food' => $this->,
             //'has_garden' => $this->,
