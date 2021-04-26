@@ -114,6 +114,7 @@ class CafeController extends Controller
     public function isUserSubscribed(int $cafeId): bool
     {
         $exists = CafeUser::where('user_id', auth()->id())->where('cafe_id', $cafeId)->first();
+
         return !!$exists;
     }
 
@@ -122,8 +123,8 @@ class CafeController extends Controller
      */
     public function getAllCafesUserSubscribedTo(): ResourceCollection
     {
-        return CafeResource::collection(User::find(1)->subscribedToCafes->makeHidden(['pivot'])  );
+        $sortBy = request('sortBy') ?? 'name';
+        return CafeResource::collection(auth()->user()->subscribedToCafes($sortBy)->get()->makeHidden(['pivot']));
     }
-
 
 }

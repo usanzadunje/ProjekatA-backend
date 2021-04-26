@@ -38,9 +38,9 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     //Cafes user has subscribed to
-    public function subscribedToCafes()
+    public function subscribedToCafes($sortBy)
     {
-        return $this->belongsToMany(Cafe::class)->select('id', 'name');
+        return $this->belongsToMany(Cafe::class)->select('id', 'name')->orderBy($sortBy);
     }
 
     public function getEmailVerifiedAtAttribute($value)
