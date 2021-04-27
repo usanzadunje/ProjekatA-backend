@@ -17,7 +17,7 @@ use phpDocumentor\Reflection\Types\Resource_;
 
 class CafeController extends Controller
 {
-    /**
+    /*
      * Display a listing of the resource.
      */
     public function index(): ResourceCollection
@@ -26,7 +26,7 @@ class CafeController extends Controller
         return CafeResource::collection(Cafe::all('id', 'name', 'city', 'address', 'email', 'phone'));
     }
 
-    /**
+    /*
      * Display a listing of the resource.
      *
      * @param int $start
@@ -48,7 +48,7 @@ class CafeController extends Controller
         else return CafeResource::collection(Cafe::takeChunks($start, $numberOfCafes, $filter, $sortBy, $getAllColumns));
     }
 
-    /**
+    /*
      * Display the specified resource.
      *
      * @param int $cafeId
@@ -59,7 +59,7 @@ class CafeController extends Controller
         return new CafeResource(Cafe::findOrFail($cafeId, ['id', 'name', 'city', 'address', 'email', 'phone']));
     }
 
-    /**
+    /*
      * Subscribing to specific cafe
      *
      * @param int $cafeId
@@ -106,7 +106,33 @@ class CafeController extends Controller
         return true;
     }
 
-    /**
+    /*
+     * Unsubscribing specific cafe
+     *
+     * @param int $cafeId
+     */
+    public function unsubscribe(int $cafeId): bool
+    {
+        Validator::make(
+            ['cafe_id' => $cafeId],
+            [
+                'cafe_id' => [
+                    'required',
+                    'numeric',
+                    'exists:cafe_user'
+                ],
+            ],
+        )->validate();
+
+        if(auth()->user()->cafes()->detach($cafeId)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    /*
      * Checking if user is subscribed to specific cafe
      *
      * @param int $cafeId
@@ -124,7 +150,7 @@ class CafeController extends Controller
     public function getAllCafesUserSubscribedTo(): ResourceCollection
     {
         $sortBy = request('sortBy') ?? 'name';
-        return CafeResource::collection(auth()->user()->subscribedToCafes($sortBy)->get()->makeHidden(['pivot']));
+        return CafeResource::collection(auth()->user()->subscribedToCafes($sortBy)->makeHidden(['pivot']));
     }
 
 }

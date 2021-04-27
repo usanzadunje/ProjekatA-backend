@@ -26,4 +26,11 @@ class AuthController extends Controller
 
         return true;
     }
+
+    public function removeFcmToken()
+    {
+        auth()->user()->update(['fcm_token' => null]);
+
+        return true;
+    }
 }
