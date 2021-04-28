@@ -91,7 +91,7 @@ class CafeController extends Controller
             $cafeUserUniqueMessage
         )->validate();
 
-        $subscription = CafeUser::create([
+        CafeUser::create([
             'user_id' => auth()->id(),
             'cafe_id' => $cafeId,
             'notify_in' => $notificationTime,
@@ -99,7 +99,7 @@ class CafeController extends Controller
 
         if($notificationTime)
         {
-            RemoveUserSubscriptionOnCafe::dispatch($subscription)
+            RemoveUserSubscriptionOnCafe::dispatch(auth()->id(), $cafeId)
                 ->delay(now()->addMinutes($notificationTime));
         }
 
@@ -119,15 +119,17 @@ class CafeController extends Controller
                 'cafe_id' => [
                     'required',
                     'numeric',
-                    'exists:cafe_user'
+                    'exists:cafe_user',
                 ],
             ],
         )->validate();
 
-        if(auth()->user()->cafes()->detach($cafeId)){
+        if(auth()->user()->cafes()->detach($cafeId))
+        {
             return true;
         }
-        else{
+        else
+        {
             return false;
         }
     }
@@ -150,6 +152,7 @@ class CafeController extends Controller
     public function getAllCafesUserSubscribedTo(): ResourceCollection
     {
         $sortBy = request('sortBy') ?? 'name';
+
         return CafeResource::collection(auth()->user()->subscribedToCafes($sortBy)->makeHidden(['pivot']));
     }
 

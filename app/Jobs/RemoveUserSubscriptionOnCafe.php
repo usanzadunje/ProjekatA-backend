@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Models\Cafe;
 use App\Models\CafeUser;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -21,16 +20,19 @@ class RemoveUserSubscriptionOnCafe implements ShouldQueue
      *
      * @var \App\Models\CafeUser
      */
-    protected $subscription;
+    protected $userId;
+    protected $cafeId;
 
     /**
      * Create a new job instance.
-     * @param CafeUser
+     * @param int $userId
+     * @param int $cafeId
      * @return void
      */
-    public function __construct(CafeUser $subscription)
+    public function __construct(int $userId, int $cafeId)
     {
-        $this->subscription = $subscription->withoutRelations();
+        $this->userId = $userId;
+        $this->cafeId = $cafeId;
     }
 
     /**
@@ -40,6 +42,6 @@ class RemoveUserSubscriptionOnCafe implements ShouldQueue
      */
     public function handle()
     {
-        Cafe::find($this->subscription->cafe_id)->subscribedUsers()->detach($this->subscription->user_id);
+        CafeUser::where(['user_id' => $this->userId, 'cafe_id' => $this->cafeId])->delete();
     }
 }
