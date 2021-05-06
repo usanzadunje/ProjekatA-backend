@@ -50,6 +50,6 @@ Route::prefix('cafe')->group(function() {
 
 //Route for changing availability of tables in a certain cafe
 Route::prefix('staff')->middleware('staff')->group(function() {
-    Route::post('/tables/{table}/toggle', [StaffController::class, 'toggleAvailability']);
+    Route::post('/staff/tables/{table}/toggle', [StaffController::class, 'toggleAvailability']);
 });
 

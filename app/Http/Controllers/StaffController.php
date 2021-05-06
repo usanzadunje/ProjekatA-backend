@@ -19,7 +19,7 @@ class StaffController extends Controller
     {
         $cafe = $table->cafe;
 
-        // Check if staff member is trying to change table within cafe he works in
+         //Check if staff member is trying to change table within cafe he works in
         if(!Gate::allows('toggle-table', $cafe))
         {
             if(request()->expectsJson())

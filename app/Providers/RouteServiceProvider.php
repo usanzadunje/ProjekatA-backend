@@ -38,9 +38,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         /* Route patterns that are allowed for route parameters */
-        Route::pattern('cafe', '[0-9]+');
-        Route::pattern('table', '[0-9]+');
-        Route::pattern('serialNumber', '[0-9]+');
+        //Route::pattern('cafe', '[0-9]+');
 
         $this->routes(function() {
             Route::prefix('api')
@@ -62,7 +60,14 @@ class RouteServiceProvider extends ServiceProvider
     protected function configureRateLimiting()
     {
         RateLimiter::for('api', function(Request $request) {
-            return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
+            if(Route::currentRouteName() == 'cafes/chunked')
+            {
+                return Limit::perMinute(420)->by(optional($request->user())->id ?: $request->ip());
+            }
+            else
+            {
+                return Limit::perMinute(100)->by(optional($request->user())->id ?: $request->ip());
+            }
         });
     }
 }
