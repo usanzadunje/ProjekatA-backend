@@ -72,7 +72,7 @@ class CafeController extends Controller
         ];
 
         Validator::make(
-            ['cafe_id' => $cafeId, 'notify_in' => $notificationTime],
+            ['cafe_id' => $cafeId],
             [
                 'cafe_id' => [
                     'required',
@@ -83,10 +83,6 @@ class CafeController extends Controller
                                 ->where('user_id', auth()->id());
                         }),
                 ],
-                'notify_in' => [
-                    'numeric',
-                    'nullable',
-                ],
             ],
             $cafeUserUniqueMessage
         )->validate();
@@ -94,7 +90,6 @@ class CafeController extends Controller
         CafeUser::create([
             'user_id' => auth()->id(),
             'cafe_id' => $cafeId,
-            'notify_in' => $notificationTime,
         ]);
 
         if($notificationTime)

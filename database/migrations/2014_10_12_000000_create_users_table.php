@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->string('fcm_token', '255')->nullable();
+            $table->foreignId('cafe_id')->nullable()->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
