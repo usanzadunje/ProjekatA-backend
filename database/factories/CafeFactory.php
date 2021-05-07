@@ -25,6 +25,8 @@ class CafeFactory extends Factory
             'name' => $this->faker->name,
             'city' => $this->faker->city,
             'address' => $this->faker->address,
+            'latitude' => $this->faker->latitude,
+            'longitude' => $this->faker->longitude,
             'phone' => $this->faker->numberBetween(100000,900000),
             'email' => $this->faker->unique()->safeEmail,
         ];

@@ -26,7 +26,7 @@ class UserFactory extends Factory
             'fname' => $this->faker->name,
             'lname' => $this->faker->name,
             'bday' => $this->faker->date(),
-            'phone' => $this->faker->numberBetween(100000,900000),
+            'phone' => $this->faker->unique()->numberBetween(100000, 900000),
             'username' => $this->faker->unique()->word(),
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
@@ -41,7 +41,7 @@ class UserFactory extends Factory
      */
     public function unverified()
     {
-        return $this->state(function (array $attributes) {
+        return $this->state(function(array $attributes) {
             return [
                 'email_verified_at' => null,
             ];

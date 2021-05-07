@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'bday' => '1997-07-21',
             'phone' => '0640763084',
             'username' => 'usanzadunje',
-            'email' => 'dussann1997@live.com',
+            'email' => 'admin@admin.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
@@ -31,6 +31,8 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Cafe ' . $i,
                 'city' => 'City ' . $i,
                 'address' => 'Address ' . $i,
+                'latitude' => $i,
+                'longitude' => $i,
                 'phone' => $i . $i . $i . $i . $i . $i,
                 'email' => 'cafe' . $i . '@live.com'
             ]);
@@ -60,6 +62,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
          User::factory(2)->create();
-         Cafe::factory(5000)->create();
+         Cafe::factory(10000)->create();
     }
 }
