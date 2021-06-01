@@ -28,9 +28,16 @@ class DatabaseSeeder extends Seeder
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
 
+        /* Offerings factory */
+        $offerings = Offering::factory(10)->create();
+
         /* Cafes factory */
         Cafe::factory(120)
             ->hasTables(4)
+            ->hasAttached($offerings->take(rand(1, 4)), [
+                'created_at' => now(),
+                'updated_at' => now(),
+            ])
             ->create();
 
         /* Users factory */
@@ -43,7 +50,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'cafe1@live.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'cafe_id' => 1
+            'cafe_id' => 1,
         ]);
         User::create([
             'fname' => 'Cafe 2',
@@ -54,22 +61,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'cafe2@live.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'cafe_id' => 2
+            'cafe_id' => 2,
         ]);
-        User::factory(2)->create();
-
-        /* Offerings factory */
-        //for($i = 1; $i < 10; $i++){
-        //    Offering::create([
-        //        'name' => 'Pice ' . $i,
-        //    ]);
-        //}
-        Offering::factory(10)->create();
-
-
-
-
-
-
     }
 }

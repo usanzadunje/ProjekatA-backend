@@ -18,6 +18,11 @@ class Cafe extends Model
         return $this->hasMany(Table::class);
     }
 
+    public function offerings()
+    {
+        return $this->belongsToMany(Offering::class);
+    }
+
     public static function takeChunks($start, $numberOfCafes, $filter = '', $sortBy = 'name', $getAllColumns = false)
     {
         if($getAllColumns)
