@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCafeUserTable extends Migration
+class CreateCafeOfferingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateCafeUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('cafe_user', function (Blueprint $table) {
-            $table->integer('user_id');
+        Schema::create('cafe_offering', function (Blueprint $table) {
             $table->integer('cafe_id');
-            $table->primary(['user_id', 'cafe_id']);
+            $table->integer('offering_id');
+            $table->primary(['cafe_id', 'offering_id']);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateCafeUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cafe_user');
+        Schema::dropIfExists('cafe_offering');
     }
 }

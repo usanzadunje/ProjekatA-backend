@@ -15,10 +15,10 @@ class CreateTablesTable extends Migration
     {
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('cafe_id')->constrained()->cascadeOnDelete();
             $table->integer('serial_number')->nullable();
             $table->boolean('empty');
             $table->boolean('smoking_allowed')->nullable();
-            $table->foreignId('cafe_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
