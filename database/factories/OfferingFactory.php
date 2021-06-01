@@ -23,8 +23,16 @@ class OfferingFactory extends Factory
      */
     public function definition()
     {
+        if(++$this->store < 3){
+            return [
+                'name' => 'Pice ' . $this->store,
+                'tag' => 'hrana',
+            ];
+        }
+
         return [
-            'name' => 'Pice ' . ++$this->store,
+            'name' => 'Pice ' . $this->store,
+            'tag' => 'pice',
         ];
     }
 }
