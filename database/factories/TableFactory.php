@@ -2,19 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Offering;
+use App\Models\Table;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class OfferingFactory extends Factory
+class TableFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Offering::class;
-
-    public $store = 0;
+    protected $model = Table::class;
 
     /**
      * Define the model's default state.
@@ -24,7 +22,9 @@ class OfferingFactory extends Factory
     public function definition()
     {
         return [
-            'name' => 'Pice ' . ++$this->store,
+            'serial_number' => $this->faker->randomDigit,
+            'empty' => 0,
+            'smoking_allowed' => rand(0, 1),
         ];
     }
 }

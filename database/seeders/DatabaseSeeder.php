@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        /* Admin factory */
         User::create([
             'fname' => 'Dusan',
             'lname' => 'Djordjevic',
@@ -27,11 +28,16 @@ class DatabaseSeeder extends Seeder
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
 
+        /* Cafes factory */
+        Cafe::factory(120)
+            ->hasTables(4)
+            ->create();
 
+        /* Users factory */
         User::create([
             'fname' => 'Cafe 1',
             'lname' => 'Cafe 1',
-            'bday' => null,
+            'bday' => '1999-07-21',
             'phone' => '111111',
             'username' => 'cafe1',
             'email' => 'cafe1@live.com',
@@ -42,7 +48,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'fname' => 'Cafe 2',
             'lname' => 'Cafe 2',
-            'bday' => null,
+            'bday' => '1998-07-21',
             'phone' => '222222',
             'username' => 'cafe2',
             'email' => 'cafe2@live.com',
@@ -50,27 +56,20 @@ class DatabaseSeeder extends Seeder
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'cafe_id' => 2
         ]);
-
-        for($i = 1; $i < 25; $i++){
-            Cafe::create([
-                'name' => 'Cafe ' . $i,
-                'city' => 'City ' . $i,
-                'address' => 'Address ' . $i,
-                'latitude' => $i,
-                'longitude' => $i,
-                'phone' => $i . $i . $i . $i . $i . $i,
-                'email' => 'cafe' . $i . '@live.com'
-            ]);
-        }
-
-        for($i = 1; $i < 10; $i++){
-            Offering::create([
-                'name' => 'Pice ' . $i,
-            ]);
-        }
-
         User::factory(2)->create();
-        Cafe::factory(100)->create();
+
+        /* Offerings factory */
+        //for($i = 1; $i < 10; $i++){
+        //    Offering::create([
+        //        'name' => 'Pice ' . $i,
+        //    ]);
+        //}
         Offering::factory(10)->create();
+
+
+
+
+
+
     }
 }
