@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Cafe;
+use App\Models\Offering;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -26,17 +27,6 @@ class DatabaseSeeder extends Seeder
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
 
-        for($i = 1; $i < 25; $i++){
-            Cafe::create([
-                'name' => 'Cafe ' . $i,
-                'city' => 'City ' . $i,
-                'address' => 'Address ' . $i,
-                'latitude' => $i,
-                'longitude' => $i,
-                'phone' => $i . $i . $i . $i . $i . $i,
-                'email' => 'cafe' . $i . '@live.com'
-            ]);
-        }
 
         User::create([
             'fname' => 'Cafe 1',
@@ -61,7 +51,26 @@ class DatabaseSeeder extends Seeder
             'cafe_id' => 2
         ]);
 
-         User::factory(2)->create();
-         Cafe::factory(10000)->create();
+        for($i = 1; $i < 25; $i++){
+            Cafe::create([
+                'name' => 'Cafe ' . $i,
+                'city' => 'City ' . $i,
+                'address' => 'Address ' . $i,
+                'latitude' => $i,
+                'longitude' => $i,
+                'phone' => $i . $i . $i . $i . $i . $i,
+                'email' => 'cafe' . $i . '@live.com'
+            ]);
+        }
+
+        for($i = 1; $i < 10; $i++){
+            Offering::create([
+                'name' => 'Pice ' . $i,
+            ]);
+        }
+
+        User::factory(2)->create();
+        Cafe::factory(100)->create();
+        Offering::factory(10)->create();
     }
 }
