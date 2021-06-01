@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\OfferingResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -26,11 +27,7 @@ class CafeResource extends JsonResource
                 'email' => $this->email,
                 'phone' => $this->phone,
                 'taken_capacity' => $this->takenMaxCapacityTableRatio(),
-                //'has_food' => $this->,
-                //'has_garden' => $this->,
-                //'open_hours' => $this->,
-                //'menu' => $this->,
-                //'drink_menu' => $this->,
+                'offerings' => OfferingResource::collection($this->whenLoaded('offerings')),
             ];
         }
 

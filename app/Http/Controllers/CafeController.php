@@ -56,7 +56,13 @@ class CafeController extends Controller
     public function show(int $cafeId): CafeResource
     {
         // Passing only columns needed to show only one cafe
-        return new CafeResource(Cafe::findOrFail($cafeId, ['id', 'name', 'city', 'address', 'email', 'phone']));
+        return new CafeResource(
+            Cafe::with('offerings')
+                ->findOrFail(
+                    $cafeId,
+                    ['id', 'name', 'city', 'address', 'email', 'phone']
+                )
+        );
     }
 
     /*
