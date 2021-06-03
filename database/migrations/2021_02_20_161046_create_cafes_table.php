@@ -18,8 +18,8 @@ class CreateCafesTable extends Migration
             $table->string('name');
             $table->string('city');
             $table->string('address');
-            $table->string('email')->unique()->nullable();
-            $table->string('phone')->unique()->nullable();
+            $table->string('email')->unique()->nullable()->default(null);
+            $table->string('phone')->unique()->nullable()->default(null);
             $table->float('latitude');
             $table->float('longitude');
             $table->timestamps();

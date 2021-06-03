@@ -14,7 +14,7 @@ class AddCafeIdToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('cafe_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('cafe_id')->nullable()->default(null)->constrained()->cascadeOnDelete();
         });
     }
 

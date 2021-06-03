@@ -16,9 +16,9 @@ class CreateTablesTable extends Migration
         Schema::create('tables', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cafe_id')->constrained()->cascadeOnDelete();
-            $table->integer('serial_number')->nullable();
+            $table->integer('serial_number')->nullable()->default(null);
             $table->boolean('empty');
-            $table->boolean('smoking_allowed')->nullable();
+            $table->boolean('smoking_allowed')->nullable()->default(null);
             $table->timestamps();
         });
     }

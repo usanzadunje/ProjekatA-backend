@@ -37,15 +37,8 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->configureRateLimiting();
 
-        /* Route patterns that are allowed for route parameters */
-        Route::pattern('cafeId', '[0-9]+');
-        Route::pattern('notificationTime', '[0-9]+');
-        Route::pattern('start', '[0-9]+');
-        Route::pattern('numberOfCafes', '[0-9]+');
-        Route::pattern('serialNumber', '[0-9]+');
-
-        // Patterns for staff
-        Route::pattern('table', '[0-9]+');
+        $this->configureUserRoutePatterns();
+        $this->configureStaffRoutePatterns();
 
         $this->routes(function() {
             Route::prefix('api')
@@ -76,5 +69,30 @@ class RouteServiceProvider extends ServiceProvider
                 return Limit::perMinute(100)->by(optional($request->user())->id ?: $request->ip());
             }
         });
+    }
+
+    /**
+     * Route patterns that are allowed for route parameters
+     *
+     * @return void
+     */
+    protected function configureUserRoutePatterns()
+    {
+        Route::pattern('cafeId', '[0-9]+');
+        Route::pattern('notificationTime', '[0-9]+');
+        Route::pattern('start', '[0-9]+');
+        Route::pattern('numberOfCafes', '[0-9]+');
+        Route::pattern('serialNumber', '[0-9]+');
+        Route::pattern('driver', '[a-z]+');
+    }
+
+    /**
+     * Route patterns that are allowed for staff route parameters
+     *
+     * @return void
+     */
+    protected function configureStaffRoutePatterns()
+    {
+        Route::pattern('table', '[0-9]+');
     }
 }

@@ -34,7 +34,12 @@ return [
     'facebook' => [
         'client_id' => env('FACEBOOK_APP_ID'),
         'client_secret' => env('FACEBOOK_APP_SECRET'),
-        'redirect' => 'callback',
+        'redirect' => 'http://192.168.1.203:8200/auth/facebook/callback',
+    ],
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => 'http://192.168.1.203:8200/auth/github/callback',
     ],
 
 ];
