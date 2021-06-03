@@ -23,7 +23,7 @@ class TableFactory extends Factory
     {
         return [
             'serial_number' => $this->faker->randomDigit,
-            'empty' => 0,
+            'empty' => rand(0, 1),
             'smoking_allowed' => rand(0, 1),
         ];
     }

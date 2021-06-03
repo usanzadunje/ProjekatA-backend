@@ -24,13 +24,17 @@ class AuthController extends Controller
             'fcm_token' => $request['fcm_token'],
         ])->save();
 
-        return true;
+        return json_encode([
+            'success' => 'Successfully set FCM token.'
+        ]);
     }
 
     public function removeFcmToken()
     {
         auth()->user()->update(['fcm_token' => null]);
 
-        return true;
+        return json_encode([
+            'success' => 'Successfully removed FCM token.'
+        ]);
     }
 }

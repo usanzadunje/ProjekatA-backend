@@ -38,7 +38,14 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         /* Route patterns that are allowed for route parameters */
-        //Route::pattern('cafe', '[0-9]+');
+        Route::pattern('cafeId', '[0-9]+');
+        Route::pattern('notificationTime', '[0-9]+');
+        Route::pattern('start', '[0-9]+');
+        Route::pattern('numberOfCafes', '[0-9]+');
+        Route::pattern('serialNumber', '[0-9]+');
+
+        // Patterns for staff
+        Route::pattern('table', '[0-9]+');
 
         $this->routes(function() {
             Route::prefix('api')

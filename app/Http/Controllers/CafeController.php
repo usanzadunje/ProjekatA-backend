@@ -71,7 +71,7 @@ class CafeController extends Controller
      * @param int $cafeId
      * @param int $notificationTime
      */
-    public function subscribe(int $cafeId, int $notificationTime = null): bool
+    public function subscribe(int $cafeId, int $notificationTime = null): l
     {
         $cafeUserUniqueMessage = [
             'cafeId' => 'User has already subscribed to cafe.',
@@ -104,7 +104,9 @@ class CafeController extends Controller
                 ->delay(now()->addMinutes($notificationTime));
         }
 
-        return true;
+        return json_encode([
+            'success' => 'User successfully subscribed',
+        ]);
     }
 
     /*
@@ -127,11 +129,15 @@ class CafeController extends Controller
 
         if(auth()->user()->cafes()->detach($cafeId))
         {
-            return true;
+            return json_encode([
+                'success' => 'User successfully unsubscribing',
+            ]);
         }
         else
         {
-            return false;
+            return json_encode([
+                'error' => 'Something went wrong with unsubscribing to cafe. Try again later.',
+            ]);
         }
     }
 

@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
         /* Cafes factory */
         Cafe::factory(120)
             ->hasTables(4)
-            ->hasAttached($offerings->take(rand(1, 4)), [
+            ->hasAttached($offerings->skip(2)->take(4), [
                 'created_at' => now(),
                 'updated_at' => now(),
             ])

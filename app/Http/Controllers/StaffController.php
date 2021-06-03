@@ -19,15 +19,9 @@ class StaffController extends Controller
     {
         $cafe = $table->cafe;
 
-         //Check if staff member is trying to change table within cafe he works in
-        if(!Gate::allows('toggle-table', $cafe))
-        {
-            if(request()->expectsJson())
-            {
-                return response()->json(['error' => 'Unauthorized access.'], 403);
-            }
-            abort(403, 'Unauthorized access.');
-        }
+        //Check if staff member is trying to change table within cafe he works in
+        abort_if(!Gate::allows('toggle-table', $cafe), 403, 'Unauthorized access.');
+
 
         if($cafe->isFull())
         {
@@ -37,6 +31,8 @@ class StaffController extends Controller
         //At the and regardless of income still toggle table.
         $table->toggleAvailability();
 
-        return response()->json(['success' => 'You successfully changed table.']);
+        return json_encode([
+            'success' => 'You successfully changed table.',
+        ]);
     }
 }

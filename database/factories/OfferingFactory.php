@@ -15,6 +15,7 @@ class OfferingFactory extends Factory
     protected $model = Offering::class;
 
     public $store = 0;
+    public $storeOne = 0;
 
     /**
      * Define the model's default state.
@@ -23,15 +24,14 @@ class OfferingFactory extends Factory
      */
     public function definition()
     {
-        if(++$this->store < 3){
+        if(++$this->store < 5){
             return [
-                'name' => 'Pice ' . $this->store,
+                'name' => 'Hrana ' . $this->store,
                 'tag' => 'hrana',
             ];
         }
-
         return [
-            'name' => 'Pice ' . $this->store,
+            'name' => 'Pice ' . ++$this->storeOne,
             'tag' => 'pice',
         ];
     }

@@ -25,12 +25,9 @@ Route::prefix('users')->middleware(['auth:sanctum'])->group(function() {
     Route::get('/auth', AuthController::class);
     Route::post('/fcm-token', [AuthController::class, 'setFcmToken']);
     Route::post('/fcm-token/remove', [AuthController::class, 'removeFcmToken']);
-    Route::post('/subscribe/cafe/{cafeId}/notify-in-next/{notificationTime?}', [CafeController::class, 'subscribe'])
-        ->where(['cafeId' => '[0-9]+', 'notificationTime' => '[0-9]+']);
-    Route::post('/unsubscribe/cafe/{cafeId}', [CafeController::class, 'unsubscribe'])
-        ->where(['cafeId' => '[0-9]+']);
-    Route::post('/subscribed/cafe/{cafeId}', [CafeController::class, 'isUserSubscribed'])
-        ->where(['cafeId' => '[0-9]+']);
+    Route::post('/subscribe/cafe/{cafeId}/notify-in-next/{notificationTime?}', [CafeController::class, 'subscribe']);
+    Route::post('/unsubscribe/cafe/{cafeId}', [CafeController::class, 'unsubscribe']);
+    Route::post('/subscribed/cafe/{cafeId}', [CafeController::class, 'isUserSubscribed']);
     Route::get('/cafes/subscriptions', [CafeController::class, 'getAllCafesUserSubscribedTo']);
 });
 
@@ -38,7 +35,7 @@ Route::prefix('users')->middleware(['auth:sanctum'])->group(function() {
 Route::prefix('cafes')->group(function() {
     Route::get('/', [CafeController::class, 'index'])->name('cafes/index');
     Route::get('/chunked/start/number-of-cafes/{start?}/{numberOfCafes?}', [CafeController::class, 'chunkedIndex'])
-        ->where(['start' => '[0-9]+', 'numberOfCafes' => '[0-9]+'])->name('cafes/chunked');
+        ->name('cafes/chunked');
     Route::get('/{cafe}', [CafeController::class, 'show'])->name('cafes/show');
 });
 
