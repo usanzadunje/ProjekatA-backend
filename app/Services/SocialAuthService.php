@@ -12,7 +12,7 @@ class SocialAuthService
 {
     public function createOrGetUser(ProviderUser $providerUser)
     {
-        $user = User::select('id', 'fname', 'lname', 'bday', 'phone', 'username', 'avatar', 'email', 'email_verified', 'cafe_id')
+        $user = User::select('id', 'fname', 'lname', 'bday', 'phone', 'username', 'avatar', 'email', 'email_verified_at', 'cafe_id')
             ->where('email', $providerUser->getEmail())
             ->where('provider_id', $providerUser->getId())
             ->first();

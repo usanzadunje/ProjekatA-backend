@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Socialite\Facades\Socialite;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -33,7 +34,7 @@ class SocialAuthController extends Controller
         $user = (new SocialAuthService())->createOrGetUser(Socialite::driver($driver)->stateless()->user());
 
         Auth::login($user);
-
-        return auth()->user();
+        return app(LoginResponse::class);
+        //return redirect(env('SPA_URL') . '/home?auth=' . auth()->user()->fname);
     }
 }
