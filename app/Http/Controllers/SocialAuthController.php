@@ -19,22 +19,16 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class SocialAuthController extends Controller
 {
     /*
-     * Redirecting to auth service provider
-    */
-    public function redirectToProvider(string $driver): RedirectResponse
-    {
-        return Socialite::driver($driver)->stateless()->redirect();
-    }
-
-    /*
      * Provider finished and is returning response
     */
-    public function providerResponse(string $driver)
+    public function providerResponse(Request $request)
     {
-        $user = (new SocialAuthService())->createOrGetUser(Socialite::driver($driver)->stateless()->user());
+        $providerUser = $request->only(['fname', 'lname', 'email', 'avatar', 'provider_id']);
+
+        $user = (new SocialAuthService())->createOrGetUser($providerUser);
 
         Auth::login($user);
+
         return app(LoginResponse::class);
-        //return redirect(env('SPA_URL') . '/home?auth=' . auth()->user()->fname);
     }
 }

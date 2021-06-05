@@ -16,10 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('auth')->group(function() {
-    Route::get('{driver}/redirect', [SocialAuthController::class, 'redirectToProvider']);
-    Route::get('{driver}/callback', [SocialAuthController::class, 'providerResponse']);
-});
+
+Route::post('auth/callback', [SocialAuthController::class, 'providerResponse']);
 
 Route::any('{any}', function() {
     return redirect(env('SPA_URL'), '308');
