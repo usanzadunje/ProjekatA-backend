@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CafeController;
+use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Broadcast;
@@ -19,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Broadcast::routes(['middleware' => ['auth:sanctum']]);
+
+Route::post('auth/callback', [SocialAuthController::class, 'providerResponse']);
 
 // Authentication routes
 Route::prefix('users')->middleware(['auth:sanctum'])->group(function() {
@@ -47,6 +50,5 @@ Route::prefix('cafe')->group(function() {
 
 //Route for changing availability of tables in a certain cafe
 Route::prefix('staff')->middleware('staff')->group(function() {
-    Route::post('/staff/tables/{table}/toggle', [StaffController::class, 'toggleAvailability']);
 });
-
+    Route::post('/staff/tables/{table}/toggle', [StaffController::class, 'toggleAvailability']);

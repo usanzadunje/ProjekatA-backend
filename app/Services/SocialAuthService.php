@@ -8,36 +8,35 @@ use Illuminate\Validation\Rule;
 
 class SocialAuthService
 {
-    public function createOrGetUser($providerUser)
+    public function createOrGetUser($providerPayload)
     {
-        $user = User::select('id', 'fname', 'lname', 'bday', 'phone', 'username', 'avatar', 'email', 'email_verified_at', 'cafe_id')
-            ->where('email', $providerUser->email)
-            ->where('provider_id', $providerUser->provider_id)
+        $user = User::select('id')
+            ->where('email', $providerPayload['email'])
+            ->where('provider_id', $providerPayload['provider_id'])
             ->first();
 
         if(!$user)
         {
-            Validator::make([
-                'email' => $providerUser->email,
-                'provider_id' => $providerUser->email,
-            ], [
-                'email' => [
-                    Rule::unique(User::class),
-                ],
-                'provider_id' => [
-                    Rule::unique(User::class),
-                ],
-            ])->validate();
+            Validator::make($providerPayload, [
+                    'email' => [
+                        Rule::unique(User::class),
+                    ],
+                    'provider_id' => [
+                        Rule::unique(User::class),
+                    ],]
+            )->validate();
 
             $user = User::create([
-                'fname' => $providerUser->fname,
-                'lname' => $providerUser->lname,
-                'email' => $providerUser->email,
-                'avatar' => $providerUser->avatar,
-                'provider_id' => $providerUser->provider_id,
+                'fname' => $providerPayload['fname'],
+                'lname' => $providerPayload['lname'],
+                'email' => $providerPayload['email'],
+                'email_verified_at' => now(),
+                'avatar' => $providerPayload['avatar'],
+                'provider_id' => $providerPayload['provider_id'],
             ]);
+            $user->sendEmailVerificationNotification();
         }
 
-        return $user;
+        return $user->id;
     }
 }

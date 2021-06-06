@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\UserResource;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -25,7 +26,7 @@ class AuthController extends Controller
         ])->save();
 
         return json_encode([
-            'success' => 'Successfully set FCM token.'
+            'success' => 'Successfully set FCM token.',
         ]);
     }
 
@@ -33,8 +34,6 @@ class AuthController extends Controller
     {
         auth()->user()->update(['fcm_token' => null]);
 
-        return json_encode([
-            'success' => 'Successfully removed FCM token.'
-        ]);
+        return new JsonResponse('Successfully removed FCM token.', 200);
     }
 }

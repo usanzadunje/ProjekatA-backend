@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->string('fcm_token', '255')->nullable()->default(null);
             $table->timestamps();
-            $table->bigInteger('provider_id')->unique()->nullable()->default(null);
+            $table->string('provider_id')->unique()->nullable()->default(null);
         });
     }
 

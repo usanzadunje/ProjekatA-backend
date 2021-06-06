@@ -6,14 +6,10 @@ use App\Http\Resources\CafeResource;
 use App\Jobs\RemoveUserSubscriptionOnCafe;
 use App\Models\Cafe;
 use App\Models\CafeUser;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use phpDocumentor\Reflection\Types\Integer;
-use phpDocumentor\Reflection\Types\Resource_;
 
 class CafeController extends Controller
 {
@@ -33,7 +29,7 @@ class CafeController extends Controller
      * @param int $numberOfCafes
      * @return ResourceCollection | string
      */
-    public function chunkedIndex(int $start = 0, int $numberOfCafes = 20): ResourceCollection
+    public function chunkedIndex(int $start = 0, int $numberOfCafes = 20)
     {
         $filter = request('filter') ?? '';
         $sortBy = request('sortBy') ?? 'name';
@@ -42,7 +38,7 @@ class CafeController extends Controller
         // Returning false if there are no records to be returned
         // in order to disable infinite scroll on frontend
         if(count(Cafe::takeChunks($start, $numberOfCafes)) <= 0)
-            return json_encode(false);
+            return new JsonResponse('false', '200');
 
         // Passing only columns needed to Resource Cafe
         else return CafeResource::collection(Cafe::takeChunks($start, $numberOfCafes, $filter, $sortBy, $getAllColumns));
@@ -71,7 +67,7 @@ class CafeController extends Controller
      * @param int $cafeId
      * @param int $notificationTime
      */
-    public function subscribe(int $cafeId, int $notificationTime = null): l
+    public function subscribe(int $cafeId, int $notificationTime = null): JsonResponse
     {
         $cafeUserUniqueMessage = [
             'cafeId' => 'User has already subscribed to cafe.',
@@ -104,9 +100,7 @@ class CafeController extends Controller
                 ->delay(now()->addMinutes($notificationTime));
         }
 
-        return json_encode([
-            'success' => 'User successfully subscribed',
-        ]);
+        return new JsonResponse('User successfully subecribed!', '200');
     }
 
     /*
