@@ -56,7 +56,7 @@ class CafeController extends Controller
             Cafe::with('offerings')
                 ->findOrFail(
                     $cafeId,
-                    ['id', 'name', 'city', 'address', 'email', 'phone']
+                    ['id', 'name', 'city', 'address', 'email', 'phone', 'latitude', 'longitude']
                 )
         );
     }
