@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
@@ -48,15 +48,15 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->cafes()->select('id', 'name')->orderBy($sortBy)->get();
     }
 
-    public function getEmailVerifiedAtAttribute($value)
-    {
-        return !!$value;
-    }
-
-    public function emailIsVerified()
-    {
-        return !!$this->email_verified_at;
-    }
+    //public function getEmailVerifiedAtAttribute($value)
+    //{
+    //    return !!$value;
+    //}
+    //
+    //public function emailIsVerified()
+    //{
+    //    return !!$this->email_verified_at;
+    //}
 
     /**
      * Specifies the user's FCM token
