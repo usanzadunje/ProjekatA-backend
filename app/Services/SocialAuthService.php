@@ -34,7 +34,6 @@ class SocialAuthService
                 'avatar' => $providerPayload['avatar'],
                 'provider_id' => $providerPayload['provider_id'],
             ]);
-            $user->sendEmailVerificationNotification();
         }
 
         return $user->id;
