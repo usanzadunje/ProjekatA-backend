@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "ProjekatA",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Backend for my mobile apps",
     "keywords": [
         "framework",
         "laravel"
@@ -17,8 +17,7 @@
         "laravel/fortify": "^1.7",
         "laravel/framework": "^8.12",
         "laravel/sanctum": "^2.9",
-        "laravel/tinker": "^2.5",
-        "pusher/pusher-php-server": "~4.0"
+        "laravel/tinker": "^2.5"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
