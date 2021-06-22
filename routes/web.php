@@ -19,5 +19,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::any('{any}', function() {
-    return redirect(env('SPA_URL'), '308');
+    abort(403);
 })->where('any', '.*')->name('home');

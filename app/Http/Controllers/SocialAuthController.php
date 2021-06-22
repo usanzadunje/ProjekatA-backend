@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Responses\LoginResponse;
 use App\Services\SocialAuthService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Laravel\Fortify\Contracts\LoginResponse;
 
 class SocialAuthController extends Controller
 {
     /*
      * Provider finished and is returning response
     */
-    public function providerResponse(Request $request)
+    public function providerResponse(Request $request) : JsonResponse
     {
         $providerPayload = $request->only(['fname', 'lname', 'email', 'avatar', 'provider_id']);
 
