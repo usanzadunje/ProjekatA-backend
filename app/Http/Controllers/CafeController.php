@@ -38,10 +38,15 @@ class CafeController extends Controller
         // Returning false if there are no records to be returned
         // in order to disable infinite scroll on frontend
         if(count(Cafe::takeChunks($start, $numberOfCafes)) <= 0)
+        {
             return new JsonResponse('false', '200');
+        }
 
         // Passing only columns needed to Resource Cafe
-        else return CafeResource::collection(Cafe::takeChunks($start, $numberOfCafes, $filter, $sortBy, $getAllColumns));
+        else
+        {
+            return CafeResource::collection(Cafe::takeChunks($start, $numberOfCafes, $filter, $sortBy, $getAllColumns));
+        }
     }
 
     /*
