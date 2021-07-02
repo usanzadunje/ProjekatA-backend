@@ -24,10 +24,10 @@ Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
 Route::prefix('auth')->group(function() {
     Route::get('/', AuthController::class);
-    Route::get('/login', AuthController::class);
+    Route::post('/login', [AuthController::class, 'login']);
     Route::post('/callback', [SocialAuthController::class, 'providerResponse']);
-    Route::post('/fcm-token', [AuthController::class, 'setFcmToken']);
-    Route::post('/fcm-token/remove', [AuthController::class, 'removeFcmToken']);
+    Route::post('/fcm-token', [AuthController::class, 'setFcmToken'])->middleware(['auth:sanctum']);
+    Route::post('/fcm-token/remove', [AuthController::class, 'removeFcmToken'])->middleware(['auth:sanctum']);
 });
 
 // Authentication routes
