@@ -26,13 +26,12 @@ Route::prefix('auth')->group(function() {
     Route::get('/', AuthController::class);
     Route::get('/login', AuthController::class);
     Route::post('/callback', [SocialAuthController::class, 'providerResponse']);
-
+    Route::post('/fcm-token', [AuthController::class, 'setFcmToken']);
+    Route::post('/fcm-token/remove', [AuthController::class, 'removeFcmToken']);
 });
 
 // Authentication routes
 Route::prefix('users')->middleware(['auth:sanctum'])->group(function() {
-    Route::post('/fcm-token', [AuthController::class, 'setFcmToken']);
-    Route::post('/fcm-token/remove', [AuthController::class, 'removeFcmToken']);
     Route::post('/subscribe/cafe/{cafeId}/notify-in-next/{notificationTime?}', [CafeController::class, 'subscribe']);
     Route::post('/unsubscribe/cafe/{cafeId}', [CafeController::class, 'unsubscribe']);
     Route::post('/subscribed/cafe/{cafeId}', [CafeController::class, 'isUserSubscribed']);
