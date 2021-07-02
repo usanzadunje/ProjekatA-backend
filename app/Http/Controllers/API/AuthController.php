@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -9,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Fortify;
 
@@ -37,6 +39,46 @@ class AuthController extends Controller
         }
 
         return $user->createToken($request->device_name)->plainTextToken;
+    }
+
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique(User::class),
+            ],
+            'password' => $this->passwordRules(),
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        if(!$user)
+        {
+            throw ValidationException::withMessages([
+                'registration' => ['Something went wrong. Try again later.'],
+            ]);
+        }
+
+        return $user->createToken($request->device_name)->plainTextToken;
+    }
+
+    public function logout(Request $request)
+    {
+        auth()->user()->tokens()->delete();
+        auth()->logout();
+
+        return json_encode([
+            'success' => 'Successfully logged out!',
+        ]);
     }
 
     public function setFcmToken(Request $request)

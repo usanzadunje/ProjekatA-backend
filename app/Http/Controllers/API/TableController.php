@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\CafeResource;
 use App\Http\Resources\TableResource;
 use App\Models\Cafe;
@@ -13,7 +14,7 @@ class TableController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return CafeResource
      */
     public function index(Cafe $cafe)
     {
@@ -44,8 +45,9 @@ class TableController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Table $table
-     * @return \Illuminate\Http\Response
+     * @param Cafe $cafe
+     * @param int $serialNumber
+     * @return TableResource
      */
 
     public function show(Cafe $cafe, $serialNumber)

@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CafeController;
-use App\Http\Controllers\SocialAuthController;
-use App\Http\Controllers\StaffController;
-use App\Http\Controllers\TableController;
+use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\CafeController;
+use App\Http\Controllers\API\SocialAuthController;
+use App\Http\Controllers\API\StaffController;
+use App\Http\Controllers\API\TableController;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +24,8 @@ Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
 Route::get('/auth/user', AuthController::class)->middleware(['auth:sanctum']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum']);
 Route::post('/callback', [SocialAuthController::class, 'providerResponse']);
 Route::post('/fcm-token', [AuthController::class, 'setFcmToken'])->middleware(['auth:sanctum']);
 Route::post('/fcm-token/remove', [AuthController::class, 'removeFcmToken'])->middleware(['auth:sanctum']);

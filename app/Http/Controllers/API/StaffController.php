@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Models\Table;
 use App\Notifications\CafeTableFreed;
 use Illuminate\Http\JsonResponse;
