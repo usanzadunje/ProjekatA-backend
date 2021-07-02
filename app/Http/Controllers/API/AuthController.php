@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Rules\Password;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,7 +53,7 @@ class AuthController extends Controller
                 'max:255',
                 Rule::unique(User::class),
             ],
-            'password' => $this->passwordRules(),
+            'password' => ['required', 'string', new Password, 'confirmed'],
         ]);
 
         $user = User::create([
