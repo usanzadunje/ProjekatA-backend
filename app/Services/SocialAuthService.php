@@ -23,7 +23,11 @@ class SocialAuthService
                     ],
                     'provider_id' => [
                         Rule::unique(User::class),
-                    ],]
+                    ],
+                    'device_name' => [
+                        'required'
+                    ],
+            ]
             )->validate();
 
             $user = User::create([
@@ -36,6 +40,6 @@ class SocialAuthService
             ]);
         }
 
-        return $user->id;
+        return $user;
     }
 }

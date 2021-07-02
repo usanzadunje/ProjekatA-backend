@@ -14,7 +14,6 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "kreait/laravel-firebase": "^3.1",
         "laravel-notification-channels/fcm": "~2.0",
-        "laravel/fortify": "^1.7",
         "laravel/framework": "^8.12",
         "laravel/sanctum": "^2.9",
         "laravel/tinker": "^2.5"

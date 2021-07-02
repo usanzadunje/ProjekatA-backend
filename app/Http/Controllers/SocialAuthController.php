@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Responses\LoginResponse;
 use App\Services\SocialAuthService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -14,13 +13,10 @@ class SocialAuthController extends Controller
     */
     public function providerResponse(Request $request) : JsonResponse
     {
-        $providerPayload = $request->only(['fname', 'lname', 'email', 'avatar', 'provider_id']);
+        $providerPayload = $request->only(['fname', 'lname', 'email', 'avatar', 'provider_id', 'device_name']);
 
-        $userId = (new SocialAuthService())->createOrGetUser($providerPayload);
+        $user = (new SocialAuthService())->createOrGetUser($providerPayload);
 
-        if(auth()->loginUsingId($userId, true))
-        {
-            return app(LoginResponse::class);
-        }
+        return $user->createToken($request->device_name)->plainTextToken;
     }
 }
