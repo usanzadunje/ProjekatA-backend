@@ -16,7 +16,7 @@ class AuthController extends Controller
 {
     public function __invoke()
     {
-        return 'new UserResource(auth()->user())';
+        return new UserResource(auth()->user());
     }
 
     public function login(Request $request)
