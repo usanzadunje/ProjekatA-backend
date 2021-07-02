@@ -24,7 +24,6 @@ Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
 Route::prefix('auth')->group(function() {
     Route::get('/', AuthController::class);
-    Route::get('/sanctum/csrf-cookie', [Laravel\Sanctum\Http\Controllers\CsrfCookieController::class,'show']);
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/callback', [SocialAuthController::class, 'providerResponse']);
     Route::post('/fcm-token', [AuthController::class, 'setFcmToken'])->middleware(['auth:sanctum']);
