@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Services\SocialAuthService;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class SocialAuthController extends Controller
@@ -12,7 +11,7 @@ class SocialAuthController extends Controller
     /*
      * Provider finished and is returning response
     */
-    public function providerResponse(Request $request) : JsonResponse
+    public function providerResponse(Request $request) : string
     {
         $providerPayload = $request->only(['fname', 'lname', 'email', 'avatar', 'provider_id', 'device_name']);
 

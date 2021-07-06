@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use App\Notifications\CafeTableFreed;
+use App\Traits\Sortable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Notification;
 
 class Cafe extends Model
 {
-    use HasFactory;
+    use HasFactory, Sortable;
 
     protected $guarded = [];
 
@@ -25,21 +26,9 @@ class Cafe extends Model
 
     public static function takeChunks($start, $numberOfCafes, $filter = '', $sortBy = 'name', $getAllColumns = false)
     {
-        if($getAllColumns)
-        {
-            return (new static)::select('id', 'name', 'city', 'address', 'email', 'phone')
-                ->where('name', 'LIKE', '%' . $filter . '%')
-                ->skip($start)
-                ->take($numberOfCafes)
-                ->orderBy($sortBy)
-                ->get();
-        }
-
-        return (new static)::select('id', 'name')
-            ->where('name', 'LIKE', '%' . $filter . '%')
+        return (new static)::sortedCafes($getAllColumns, $filter, $sortBy)
             ->skip($start)
             ->take($numberOfCafes)
-            ->orderBy($sortBy)
             ->get();
     }
 
