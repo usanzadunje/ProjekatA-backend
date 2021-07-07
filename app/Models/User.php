@@ -46,7 +46,18 @@ class User extends Authenticatable
     //Cafes user has subscribed to
     public function subscribedToCafes($sortBy = 'name')
     {
-        return $this->cafes()->select('id', 'name')->orderBy($sortBy)->get();
+        switch($sortBy)
+        {
+            case 'food':
+                return $this->cafes()->select('id', 'name')->sortByFood()->get();
+            case 'availability':
+                return $this->cafes()->select('id', 'name')->sortByAvailability()->get();
+            case 'distance':
+                return $this->cafes()->select('id', 'name')->sortByDistance()->get();
+            default;
+                return $this->cafes()->select('id', 'name')->sortByDefault()->get();
+        }
+
     }
 
     //public function getEmailVerifiedAtAttribute($value)

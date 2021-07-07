@@ -24,17 +24,21 @@ class Cafe extends Model
         return $this->belongsToMany(Offering::class);
     }
 
-    public static function takeChunks($start, $numberOfCafes, $filter = '', $sortBy = 'name', $getAllColumns = false)
-    {
-        return (new static)::sortedCafes($getAllColumns, $filter, $sortBy)
-            ->skip($start)
-            ->take($numberOfCafes)
-            ->get();
-    }
-
     public function subscribedUsers()
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public static function takeChunks($start, $numberOfCafes, $filter = '', $sortBy = 'name', $getAllColumns = false)
+    {
+        $selectedColumns = $getAllColumns
+            ? (new static)::select('id', 'name', 'city', 'address', 'email', 'phone')
+            : (new static)::select('id', 'name');
+
+        return $selectedColumns->sortedCafes($sortBy, $filter)
+            ->skip($start)
+            ->take($numberOfCafes)
+            ->get();
     }
 
     public function getTableWithSerialNumber($serialNumber)
@@ -45,12 +49,6 @@ class Cafe extends Model
     public function isFull()
     {
         return $this->tables()->where('empty', false)->count() === $this->tables()->count();
-    }
-
-    public function sendTableFreedNotificationToSubscribers()
-    {
-        Notification::send($this->subscribedUsers, new CafeTableFreed($this));
-        $this->subscribedUsers()->detach();
     }
 
     public function freeTablesCount()
@@ -66,6 +64,12 @@ class Cafe extends Model
         $tablesTaken = $this->tables()->where('empty', 'false')->count();
 
         return $tablesTaken . '/' . $cafeCapacity;
+    }
+
+    public function sendTableFreedNotificationToSubscribers()
+    {
+        Notification::send($this->subscribedUsers, new CafeTableFreed($this));
+        $this->subscribedUsers()->detach();
     }
 
 }
