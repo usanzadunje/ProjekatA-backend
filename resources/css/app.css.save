@@ -1,0 +1,280 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+  position: relative;
+  background-image: url('/img/resuze/bg.png');
+  background-size: cover;
+  background-position: center;
+  font-family: 'Poppins', sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.logo{
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 300px;
+  height: 150px;
+  margin-bottom: 20px 0;
+}
+
+.logo img{
+  width: 200px;
+}
+
+.container{
+  padding-top: 10%;
+}
+
+a {
+  color: red;
+}
+
+.glitch-container {
+  margin-top: 20px;
+}
+
+.glitch {
+  color: white;
+  font-size: 100px;
+  position: relative;
+  width: 600px;
+  margin: 0 auto;
+}
+.glitch--small {
+  font-size: 30px;
+  margin-top: 40px;
+}
+
+@keyframes noise-anim {
+  0% {
+    clip-path: inset(22% 0 30% 0);
+  }
+
+  5% {
+    clip-path: inset(63% 0 6% 0);
+  }
+
+  10% {
+    clip-path: inset(26% 0 47% 0);
+  }
+
+  15% {
+    clip-path: inset(8% 0 59% 0);
+  }
+
+  20% {
+    clip-path: inset(13% 0 65% 0);
+  }
+
+  25% {
+    clip-path: inset(29% 0 45% 0);
+  }
+
+  30% {
+    clip-path: inset(84% 0 14% 0);
+  }
+
+  35% {
+    clip-path: inset(12% 0 50% 0);
+  }
+
+  40% {
+    clip-path: inset(61% 0 28% 0);
+  }
+
+  45% {
+    clip-path: inset(55% 0 13% 0);
+  }
+
+  50% {
+    clip-path: inset(22% 0 73% 0);
+  }
+
+  55% {
+    clip-path: inset(34% 0 14% 0);
+  }
+
+  60% {
+    clip-path: inset(13% 0 61% 0);
+  }
+
+  65% {
+    clip-path: inset(63% 0 11% 0);
+  }
+
+  70% {
+    clip-path: inset(92% 0 7% 0);
+  }
+
+  75% {
+    clip-path: inset(47% 0 46% 0);
+  }
+
+  80% {
+    clip-path: inset(84% 0 3% 0);
+  }
+
+  85% {
+    clip-path: inset(63% 0 22% 0);
+  }
+
+  90% {
+    clip-path: inset(5% 0 76% 0);
+  }
+
+  95% {
+    clip-path: inset(27% 0 56% 0);
+  }
+
+  100% {
+    clip-path: inset(65% 0 26% 0);
+  }
+}
+
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 2px;
+  text-shadow: -1px 0 red;
+  top: 0;
+  color: white;
+  overflow: hidden;
+  animation: noise-anim 2s infinite linear alternate-reverse;
+}
+
+@keyframes noise-anim-2 {
+  0% {
+    clip-path: inset(8% 0 24% 0);
+  }
+
+  5% {
+    clip-path: inset(8% 0 32% 0);
+  }
+
+  10% {
+    clip-path: inset(59% 0 17% 0);
+  }
+
+  15% {
+    clip-path: inset(2% 0 6% 0);
+  }
+
+  20% {
+    clip-path: inset(62% 0 5% 0);
+  }
+
+  25% {
+    clip-path: inset(91% 0 1% 0);
+  }
+
+  30% {
+    clip-path: inset(93% 0 7% 0);
+  }
+
+  35% {
+    clip-path: inset(38% 0 44% 0);
+  }
+
+  40% {
+    clip-path: inset(61% 0 15% 0);
+  }
+
+  45% {
+    clip-path: inset(16% 0 53% 0);
+  }
+
+  50% {
+    clip-path: inset(84% 0 6% 0);
+  }
+
+  55% {
+    clip-path: inset(59% 0 23% 0);
+  }
+
+  60% {
+    clip-path: inset(37% 0 20% 0);
+  }
+
+  65% {
+    clip-path: inset(3% 0 89% 0);
+  }
+
+  70% {
+    clip-path: inset(60% 0 34% 0);
+  }
+
+  75% {
+    clip-path: inset(90% 0 11% 0);
+  }
+
+  80% {
+    clip-path: inset(70% 0 9% 0);
+  }
+
+  85% {
+    clip-path: inset(49% 0 2% 0);
+  }
+
+  90% {
+    clip-path: inset(20% 0 7% 0);
+  }
+
+  95% {
+    clip-path: inset(49% 0 2% 0);
+  }
+
+  100% {
+    clip-path: inset(86% 0 12% 0);
+  }
+}
+
+.glitch::before {
+  content: attr(data-text);
+  position: absolute;
+  left: -2px;
+  text-shadow: 1px 0 blue;
+  top: 0;
+  color: white;
+  /* background: #111; */
+  overflow: hidden;
+  animation: noise-anim-2 15s infinite linear alternate-reverse;
+}
+
+.thin-shade {
+  font-size: 30px;
+  text-transform: uppercase;
+  letter-spacing: 0.35rem;
+  color: #fff;
+  text-shadow: -4px 4px 0 #595959, -6px 6px 0 rgba(255, 255, 255, 0.5);
+  position: relative;
+  width: 600px;
+  margin: 0 auto;
+}
+
+.shade-text {
+  margin-top: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+
+  .container{
+    padding-top: 200px;
+  }
+
+  .glitch {
+    font-size: 50px;
+    width: 400px;
+    margin-left: 10%;
+  }
+  .glitch--small {
+    font-size: 20px;
+  }
+  .thin-shade {
+    font-size: 15px;
+    width: 400px;
+    margin-left: 10%;
+  }
+}

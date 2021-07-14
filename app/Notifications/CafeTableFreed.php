@@ -40,22 +40,6 @@ class CafeTableFreed extends Notification
     public function toFcm($notifiable)
     {
         return FcmMessage::create()
-            ->setAndroid(
-                AndroidConfig::create()
-                    ->setData(['cafeId' => "" . $this->cafe->id])
-                    ->setFcmOptions(AndroidFcmOptions::create()->setAnalyticsLabel('analytics'))
-                    ->setNotification(AndroidNotification::create()
-                        ->setTitle('Table Freed')
-                        ->setBody('There is table available at ' . $this->cafe->name)
-                        ->setColor('#9E0300')
-                        ->setSound('sound.wav')
-                        ->setNotificationPriority(NotificationPriority::PRIORITY_HIGH())
-                        ->setDefaultVibrateTimings(true)
-                        ->setSticky(false))
-            )
-            ->setApns(
-                ApnsConfig::create()
-                    ->setFcmOptions(ApnsFcmOptions::create()->setAnalyticsLabel('analytics_ios'))
-            );
+            ->setData(['cafeId' => "" . $this->cafe->id]);
     }
 }
