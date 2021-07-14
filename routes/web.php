@@ -1,10 +1,5 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CafeController;
-use App\Http\Controllers\SocialAuthController;
-use App\Http\Controllers\StaffController;
-use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::view('/', 'index');
 
 Route::any('{any}', function() {
     abort(403);
