@@ -1,10 +1,10 @@
 <?php
 
 
-namespace App\Traits;
+namespace App\Queries;
 
 
-trait Sortable
+trait SortCafes
 {
     public function scopeSortedCafes($query, $sortBy, $filter = '')
     {

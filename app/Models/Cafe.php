@@ -3,14 +3,14 @@
 namespace App\Models;
 
 use App\Notifications\CafeTableFreed;
-use App\Traits\Sortable;
+use App\Queries\SortCafes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Notification;
 
 class Cafe extends Model
 {
-    use HasFactory, Sortable;
+    use HasFactory, SortCafes;
 
     protected $guarded = [];
 
