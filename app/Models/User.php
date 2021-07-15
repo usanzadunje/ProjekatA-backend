@@ -70,16 +70,6 @@ class User extends Authenticatable
     //    return !!$this->email_verified_at;
     //}
 
-    /**
-     * Specifies the user's FCM token
-     *
-     * @return string|array
-     */
-    public function routeNotificationForFcm()
-    {
-        return $this->fcm_token;
-    }
-
     public function isStaff()
     {
         return $this->cafe_id;

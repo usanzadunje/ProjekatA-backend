@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use App\Notifications\CafeTableFreed;
 use App\Queries\SortCafes;
+use App\Services\SendNotificationViaFCM;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Notification;
 
 class Cafe extends Model
 {
@@ -68,8 +67,9 @@ class Cafe extends Model
 
     public function sendTableFreedNotificationToSubscribers()
     {
-        Notification::send($this->subscribedUsers, new CafeTableFreed($this));
+        (new SendNotificationViaFCM())->sendNotifications($this->subscribedUsers()->pluck('fcm_token'));
         $this->subscribedUsers()->detach();
     }
+
 
 }
