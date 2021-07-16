@@ -25,7 +25,7 @@ class Cafe extends Model
 
     public function subscribedUsers()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->whereNotNull('fcm_token');
     }
 
     public static function takeChunks($start, $numberOfCafes, $filter = '', $sortBy = 'name', $getAllColumns = false)
@@ -55,7 +55,7 @@ class Cafe extends Model
         return $this->tables()->where('empty', true)->count();
     }
 
-    public function takenMaxCapacityTableRatio()
+    public function takenMaxCapacityTableRatio() : string
     {
         // Returning how many tables are taken out of cafe capacity
         // in a form taken/capacity *20/40*
@@ -67,11 +67,11 @@ class Cafe extends Model
 
     public function sendTableFreedNotificationToSubscribers()
     {
-        $userTokens = $this->subscribedUsers()->pluck('fcm_token')->toArray();
-        if(empty($userTokens)){
+        $tokens = $this->subscribedUsers()->pluck('fcm_token')->toArray();
+        if(empty($tokens)){
             return;
         }
-        (new SendNotificationViaFCM())->sendNotifications($userTokens);
+        (new SendNotificationViaFCM())->sendNotifications($tokens);
         $this->subscribedUsers()->detach();
     }
 

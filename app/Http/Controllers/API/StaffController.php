@@ -27,8 +27,8 @@ class StaffController extends Controller
         if($cafe->isFull())
         {
             // Notify all subscribed users that table has been freed in cafe
-        }
             $cafe->sendTableFreedNotificationToSubscribers();
+        }
         //At the and regardless of income still toggle table.
         $table->toggleAvailability();
 
