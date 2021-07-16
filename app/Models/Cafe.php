@@ -67,7 +67,11 @@ class Cafe extends Model
 
     public function sendTableFreedNotificationToSubscribers()
     {
-        (new SendNotificationViaFCM())->sendNotifications($this->subscribedUsers()->pluck('fcm_token')->toArray());
+        $userTokens = $this->subscribedUsers()->pluck('fcm_token')->toArray();
+        if(empty($userTokens)){
+            return;
+        }
+        (new SendNotificationViaFCM())->sendNotifications('fZwsG_3BSambPBdHeX9GNq:APA91bFix8iCOy4d3aV1h7aq7tOOJQsrSkHowHEWd5N7ra0fooAgF3PJsJ78giX1ICzel3ZRA2jnocqKVHk2GXGf5SJ4GglSl5jJK9S7_txS-nxe8Lh81MxkgGEnl8VhR15bLxyh6SgX');
         $this->subscribedUsers()->detach();
     }
 
