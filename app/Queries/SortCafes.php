@@ -63,7 +63,6 @@ trait SortCafes
         ');
 
         return $query
-            ->select('cafes.*')
             ->selectRaw("{$sqlDistance} AS distance")
             ->orderBy('distance');
     }

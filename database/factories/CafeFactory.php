@@ -25,12 +25,25 @@ class CafeFactory extends Factory
     {
         if(++$this->store < 20)
         {
+            if($this->store === 1)
+            {
+                return [
+                    'name' => 'Cafe ' . $this->store,
+                    'city' => 'City ' . $this->store,
+                    'address' => 'Address ' . $this->store,
+                    'latitude' => '43.31782022634103',
+                    'longitude' => '21.89577969079342',
+                    'phone' => $this->store . $this->store . $this->store . $this->store . $this->store . $this->store,
+                    'email' => 'cafe' . $this->store . '@live.com',
+                ];
+            }
+
             return [
                 'name' => 'Cafe ' . $this->store,
                 'city' => 'City ' . $this->store,
                 'address' => 'Address ' . $this->store,
-                'latitude' => $this->store,
-                'longitude' => $this->store,
+                'latitude' => $this->faker->latitude,
+                'longitude' => $this->faker->longitude,
                 'phone' => $this->store . $this->store . $this->store . $this->store . $this->store . $this->store,
                 'email' => 'cafe' . $this->store . '@live.com',
             ];

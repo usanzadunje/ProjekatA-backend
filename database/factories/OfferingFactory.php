@@ -26,13 +26,13 @@ class OfferingFactory extends Factory
     {
         if(++$this->store < 5){
             return [
-                'name' => 'Hrana ' . $this->store,
-                'tag' => 'hrana',
+                'name' => 'Food ' . $this->store,
+                'tag' => 'food',
             ];
         }
         return [
-            'name' => 'Pice ' . ++$this->storeOne,
-            'tag' => 'pice',
+            'name' => 'Drink ' . ++$this->storeOne,
+            'tag' => 'drink',
         ];
     }
 }
