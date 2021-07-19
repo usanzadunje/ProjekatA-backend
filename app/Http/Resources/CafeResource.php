@@ -36,6 +36,7 @@ class CafeResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'taken_capacity' => $this->takenMaxCapacityTableRatio(),
+            'distance' => $this->when($this->distance !== null, round($this->distance)),
             //'has_food' => $this->,
             //'has_garden' => $this->,
             //'open_hours' => $this->,
