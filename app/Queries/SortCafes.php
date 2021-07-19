@@ -4,6 +4,8 @@
 namespace App\Queries;
 
 
+use Illuminate\Support\Facades\DB;
+
 trait SortCafes
 {
     public function scopeSortedCafes($query, $sortBy, $filter = '')
@@ -16,16 +18,16 @@ trait SortCafes
                     ->where('name', 'LIKE', '%' . $filter . '%');
             case 'availability':
                 return $query
-                    ->where('name', 'LIKE', '%' . $filter . '%')
-                    ->sortByAvailability();
+                    ->sortByAvailability()
+                    ->where('name', 'LIKE', '%' . $filter . '%');
             case 'distance':
                 return $query
-                    ->where('name', 'LIKE', '%' . $filter . '%')
-                    ->sortByDistance();
+                    ->sortByDistance()
+                    ->where('name', 'LIKE', '%' . $filter . '%');
             default;
                 return $query
-                    ->where('name', 'LIKE', '%' . $filter . '%')
-                    ->sortByDefault();
+                    ->sortByDefault()
+                    ->where('name', 'LIKE', '%' . $filter . '%');
         }
     }
 
@@ -50,7 +52,20 @@ trait SortCafes
 
     public function scopeSortByDistance($query)
     {
-        return $query->orderBy('address');
+        $lng = request('lng') ?? 0;
+        $lat = request('lat') ?? 0;
+
+        $sqlDistance = DB::raw('
+            ST_Distance_Sphere(
+                point(' . $lng . ', ' . $lat . '),
+                point(cafes.longitude, cafes.latitude)
+            )
+        ');
+
+        return $query
+            ->select('cafes.*')
+            ->selectRaw("{$sqlDistance} AS distance")
+            ->orderBy('distance');
     }
 
     public function scopeSortByDefault($query)

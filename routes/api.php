@@ -6,6 +6,7 @@ use App\Http\Controllers\API\SocialAuthController;
 use App\Http\Controllers\API\StaffController;
 use App\Http\Controllers\API\TableController;
 use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Broadcast::routes(['middleware' => ['auth:sanctum']]);
+
+
+Route::get('/test/{lat}/{lng}', function($lat, $lng) {
+
+});
 
 
 Route::get('/auth/user', AuthController::class)->middleware(['auth:sanctum']);
@@ -45,6 +51,7 @@ Route::prefix('cafes')->group(function() {
     Route::get('/chunked/start/number-of-cafes/{start?}/{numberOfCafes?}', [CafeController::class, 'chunkedIndex'])
         ->name('cafes/chunked');
     Route::get('/{cafe}', [CafeController::class, 'show'])->name('cafes/show');
+    Route::get('/{cafe}/distance/{lat}/{lng}', [CafeController::class, 'distance']);
 });
 
 //Route for tables in certain cafe

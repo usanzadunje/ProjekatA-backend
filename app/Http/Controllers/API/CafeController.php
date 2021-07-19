@@ -8,6 +8,7 @@ use App\Jobs\RemoveUserSubscriptionOnCafe;
 use App\Models\Cafe;
 use App\Models\CafeUser;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -106,7 +107,7 @@ class CafeController extends Controller
                 ->delay(now()->addMinutes($notificationTime));
         }
 
-        return new JsonResponse('User successfully subecribed!', '200');
+        return new JsonResponse('User successfully subscribed!', '200');
     }
 
     /*
@@ -161,6 +162,33 @@ class CafeController extends Controller
         $sortBy = request('sortBy') ?? 'name';
 
         return CafeResource::collection(auth()->user()->subscribedToCafes($sortBy)->makeHidden(['pivot']));
+    }
+
+    /*
+     * Calculate distance between place and the user in meters
+     *
+     * @param Cafe $cafe
+     * @param decimal $lat
+     * @param decimal $lng
+     */
+    public function distance(Cafe $cafe, $lat, $lng) : int
+    {
+        Validator::make(
+            [
+                'lat' => $lat,
+                'lng' => $lng,
+            ],
+            [
+                'lat' => [
+                    'required',
+                ],
+                'lng' => [
+                    'required',
+                ],
+            ],
+        )->validate();
+
+        return round($cafe->calculateDistance($lat, $lng)[0]->distance);
     }
 
 }

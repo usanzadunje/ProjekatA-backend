@@ -6,6 +6,8 @@ use App\Queries\SortCafes;
 use App\Services\SendNotificationViaFCM;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\DB;
 
 class Cafe extends Model
 {
@@ -55,7 +57,7 @@ class Cafe extends Model
         return $this->tables()->where('empty', true)->count();
     }
 
-    public function takenMaxCapacityTableRatio() : string
+    public function takenMaxCapacityTableRatio(): string
     {
         // Returning how many tables are taken out of cafe capacity
         // in a form taken/capacity *20/40*
@@ -68,12 +70,21 @@ class Cafe extends Model
     public function sendTableFreedNotificationToSubscribers()
     {
         $tokens = $this->subscribedUsers()->pluck('fcm_token')->toArray();
-        if(empty($tokens)){
+        if(empty($tokens))
+        {
             return;
         }
         (new SendNotificationViaFCM())->sendNotifications($tokens);
         $this->subscribedUsers()->detach();
     }
 
-
+    public function calculateDistance($lat, $lng)
+    {
+        return DB::select(DB::raw('
+            SELECT ST_Distance_Sphere(
+                point(?, ?),
+                point(?, ?)
+            ) distance
+        '), [$lng ?? 0, $lat ?? 0, $this->longitude, $this->latitude]);
+    }
 }
