@@ -52,8 +52,8 @@ trait SortCafes
 
     public function scopeSortByDistance($query)
     {
-        $lng = request('lng') ?? 0;
-        $lat = request('lat') ?? 0;
+        $lat = request('latitude') ?? 0;
+        $lng = request('longitude') ?? 0;
 
         $sqlDistance = DB::raw('
             ST_Distance_Sphere(
