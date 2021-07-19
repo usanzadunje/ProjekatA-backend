@@ -21,7 +21,7 @@ class CafeController extends Controller
     public function index(): ResourceCollection
     {
         // Return everything except created and updated columns
-        return CafeResource::collection(Cafe::all('id', 'name', 'city', 'address', 'email', 'phone'));
+        return CafeResource::collection(Cafe::all('id', 'name', 'city', 'address', 'email', 'phone', 'latitude', 'longitude'));
     }
 
     /*
@@ -34,7 +34,7 @@ class CafeController extends Controller
     public function chunkedIndex(int $start = 0, int $numberOfCafes = 20)
     {
         $filter = request('filter') ?? '';
-        $sortBy = request('sortBy') ?? 'name';
+        $sortBy = request('sortBy') ?? 'default';
         $getAllColumns = request('getAllColumns') === 'true';
 
         // Returning false if there are no records to be returned
@@ -162,33 +162,6 @@ class CafeController extends Controller
         $sortBy = request('sortBy') ?? 'name';
 
         return CafeResource::collection(auth()->user()->subscribedToCafes($sortBy)->makeHidden(['pivot']));
-    }
-
-    /*
-     * Calculate distance between place and the user in meters
-     *
-     * @param Cafe $cafe
-     * @param decimal $lat
-     * @param decimal $lng
-     */
-    public function distance(Cafe $cafe, $lat, $lng) : int
-    {
-        Validator::make(
-            [
-                'lat' => $lat,
-                'lng' => $lng,
-            ],
-            [
-                'lat' => [
-                    'required',
-                ],
-                'lng' => [
-                    'required',
-                ],
-            ],
-        )->validate();
-
-        return round($cafe->calculateDistance($lat, $lng)[0]->distance);
     }
 
 }

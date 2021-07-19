@@ -30,11 +30,11 @@ class Cafe extends Model
         return $this->belongsToMany(User::class)->whereNotNull('fcm_token');
     }
 
-    public static function takeChunks($start, $numberOfCafes, $filter = '', $sortBy = 'name', $getAllColumns = false)
+    public static function takeChunks($start, $numberOfCafes, $filter = '', $sortBy = 'default', $getAllColumns = false)
     {
         $selectedColumns = $getAllColumns
-            ? (new static)::select('id', 'name', 'city', 'address', 'email', 'phone')
-            : (new static)::select('id', 'name');
+            ? (new static)::select('id', 'name', 'city', 'address', 'email', 'phone', 'latitude', 'longitude')
+            : (new static)::select('id', 'name', 'latitude', 'longitude');
 
         return $selectedColumns->sortedCafes($sortBy, $filter)
             ->skip($start)

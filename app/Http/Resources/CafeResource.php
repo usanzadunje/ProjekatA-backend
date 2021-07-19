@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\Http\Resources\OfferingResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\DB;
 
 class CafeResource extends JsonResource
 {
@@ -16,6 +17,15 @@ class CafeResource extends JsonResource
      */
     public function toArray($request)
     {
+        $lat = request('latitude') ?? 0;
+        $lng = request('longitude') ?? 0;
+        $distance = $this->distance ?? DB::select(DB::raw('
+            SELECT ST_Distance_Sphere(
+                point(?, ?),
+                point(?, ?)
+            ) distance
+        '), [$lng, $lat, $this->longitude, $this->latitude])[0]->distance;
+
         if($request->query('getAllColumns') === 'true')
         {
             // Returns all columns
@@ -28,7 +38,7 @@ class CafeResource extends JsonResource
                 'phone' => $this->phone,
                 'taken_capacity' => $this->takenMaxCapacityTableRatio(),
                 'offerings' => OfferingResource::collection($this->whenLoaded('offerings')),
-                'distance' => $this->when($this->distance !== null, round($this->distance)),
+                'distance' => round($distance),
             ];
         }
 
@@ -36,7 +46,7 @@ class CafeResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'taken_capacity' => $this->takenMaxCapacityTableRatio(),
-            'distance' => $this->when($this->distance !== null, round($this->distance)),
+            'distance' => round($distance),
             //'has_food' => $this->,
             //'has_garden' => $this->,
             //'open_hours' => $this->,

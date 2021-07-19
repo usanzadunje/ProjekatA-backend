@@ -51,7 +51,6 @@ Route::prefix('cafes')->group(function() {
     Route::get('/chunked/start/number-of-cafes/{start?}/{numberOfCafes?}', [CafeController::class, 'chunkedIndex'])
         ->name('cafes/chunked');
     Route::get('/{cafe}', [CafeController::class, 'show'])->name('cafes/show');
-    Route::get('/{cafe}/distance/{lat}/{lng}', [CafeController::class, 'distance']);
 });
 
 //Route for tables in certain cafe
