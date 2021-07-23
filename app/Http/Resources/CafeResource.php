@@ -31,6 +31,8 @@ class CafeResource extends JsonResource
             'address' => $this->when($this->address !== null, $this->address),
             'email' => $this->when($this->email !== null, $this->email),
             'phone' => $this->when($this->phone !== null, $this->phone),
+            'latitude' => $this->when($this->latitude !== null, $this->latitude),
+            'longitude' => $this->when($this->longitude !== null, $this->longitude),
             'taken_capacity' => $this->takenMaxCapacityTableRatio(),
             'offerings' => OfferingResource::collection($this->whenLoaded('offerings')),
             'distance' => round($distance),
