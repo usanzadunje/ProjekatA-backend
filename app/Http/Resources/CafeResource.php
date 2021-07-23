@@ -15,15 +15,6 @@ class CafeResource extends JsonResource
      */
     public function toArray($request)
     {
-        $lat = request('latitude') ?? 0;
-        $lng = request('longitude') ?? 0;
-        $distance = $this->distance ?? DB::select(DB::raw('
-            SELECT ST_Distance_Sphere(
-                point(?, ?),
-                point(?, ?)
-            ) distance
-        '), [$lng, $lat, $this->longitude, $this->latitude])[0]->distance;
-
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -35,7 +26,6 @@ class CafeResource extends JsonResource
             'longitude' => $this->when($this->longitude !== null, $this->longitude),
             'taken_capacity' => $this->takenMaxCapacityTableRatio(),
             'offerings' => OfferingResource::collection($this->whenLoaded('offerings')),
-            'distance' => round($distance),
         ];
     }
 }
