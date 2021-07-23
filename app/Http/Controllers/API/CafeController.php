@@ -159,7 +159,7 @@ class CafeController extends Controller
      */
     public function getAllCafesUserSubscribedTo(): ResourceCollection
     {
-        $sortBy = request('sortBy') ?? 'name';
+        $sortBy = request('sortBy') ?? 'default';
 
         return CafeResource::collection(auth()->user()->subscribedToCafes($sortBy)->makeHidden(['pivot']));
     }

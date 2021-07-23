@@ -6,7 +6,6 @@ use App\Queries\SortCafes;
 use App\Services\SendNotificationViaFCM;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 
 class Cafe extends Model
@@ -33,7 +32,7 @@ class Cafe extends Model
     public static function takeChunks($start, $numberOfCafes, $filter = '', $sortBy = 'default', $getAllColumns = false)
     {
         $selectedColumns = $getAllColumns
-            ? (new static)::select('id', 'name', 'city', 'address', 'email', 'phone', 'latitude', 'longitude')
+            ? (new static)::select('id', 'name', 'city', 'address', 'latitude', 'longitude')
             : (new static)::select('id', 'name', 'latitude', 'longitude');
 
         return $selectedColumns->sortedCafes($sortBy, $filter)

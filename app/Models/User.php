@@ -44,18 +44,30 @@ class User extends Authenticatable
     }
 
     //Cafes user has subscribed to
-    public function subscribedToCafes($sortBy = 'name')
+    public function subscribedToCafes($sortBy = 'default')
     {
         switch($sortBy)
         {
             case 'food':
-                return $this->cafes()->select('id', 'name')->sortByFood()->get();
+                return $this->cafes()
+                    ->select('id', 'name', 'city', 'address', 'latitude', 'longitude')
+                    ->sortByFood()
+                    ->get();
             case 'availability':
-                return $this->cafes()->select('id', 'name')->sortByAvailability()->get();
+                return $this->cafes()
+                    ->select('id', 'name', 'city', 'address', 'latitude', 'longitude')
+                    ->sortByAvailability()
+                    ->get();
             case 'distance':
-                return $this->cafes()->select('id', 'name')->sortByDistance()->get();
+                return $this->cafes()
+                    ->select('id', 'name', 'city', 'address', 'latitude', 'longitude')
+                    ->sortByDistance()
+                    ->get();
             default;
-                return $this->cafes()->select('id', 'name')->sortByDefault()->get();
+                return $this->cafes()
+                    ->select('id', 'name', 'city', 'address', 'latitude', 'longitude')
+                    ->sortByDefault()
+                    ->get();
         }
 
     }

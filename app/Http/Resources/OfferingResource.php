@@ -16,7 +16,7 @@ class OfferingResource extends JsonResource
     {
         return [
             'name' => $this->name,
-            'tag' => $this->tag,
+            'tag' => $this->when($this->tag !== null, $this->tag),
         ];
     }
 }
