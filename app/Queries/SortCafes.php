@@ -47,7 +47,12 @@ trait SortCafes
 
     public function scopeSortByAvailability($query)
     {
-        return $query->orderBy('id');
+        return $query->whereIn('id', function($query) {
+            $query->select('cafe_id')
+                ->from('tables')
+                ->where('empty', true)
+                ->distinct();
+        });
     }
 
     public function scopeSortByDistance($query)

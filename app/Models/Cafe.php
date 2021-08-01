@@ -48,7 +48,7 @@ class Cafe extends Model
 
     public function isFull()
     {
-        return $this->tables()->where('empty', false)->count() === $this->tables()->count();
+        return $this->freeTablesCount() === 0;
     }
 
     public function freeTablesCount()
