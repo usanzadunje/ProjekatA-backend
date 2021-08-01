@@ -52,7 +52,7 @@ trait SortCafes
                 ->from('tables')
                 ->where('empty', true)
                 ->distinct();
-        });
+        })->inRandomOrder();
     }
 
     public function scopeSortByDistance($query)
