@@ -8,7 +8,7 @@ use Illuminate\Validation\Rule;
 
 class CreateOrGetSocialUser
 {
-    public function handle($providerPayload)
+    public function handle($providerPayload) : string
     {
         $user = User::select('id')
             ->where('email', $providerPayload['email'])

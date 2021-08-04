@@ -13,7 +13,7 @@ class LoginUser
         $this->checkPasswordMatch = $checkPasswordMatch;
     }
 
-    public function handle(array $validatedData): User
+    public function handle(array $validatedData): string
     {
         $user = User::where('email', $validatedData['email'])->first();
 

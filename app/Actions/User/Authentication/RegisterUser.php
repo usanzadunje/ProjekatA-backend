@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 class RegisterUser
 {
 
-    public function handle(array $validatedData): User
+    public function handle(array $validatedData): string
     {
         $user = User::create([
             'email' => $validatedData['email'],
