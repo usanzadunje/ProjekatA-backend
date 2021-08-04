@@ -4,9 +4,10 @@ namespace App\Actions\User\Authentication;
 
 use App\Models\User;
 
-class LoginUser {
+class LoginUser
+{
 
-    /** @var CheckPasswordMatch */
+    /** @var CheckIfPasswordMatch */
     protected $checkPasswordMatch;
 
     public function __construct(CheckIfPasswordMatch $checkPasswordMatch)
@@ -14,11 +15,11 @@ class LoginUser {
         $this->checkPasswordMatch = $checkPasswordMatch;
     }
 
-    public function handle(array $validatedData) : User
+    public function handle(array $validatedData): User
     {
         $user = User::where('email', $validatedData['email'])->first();
 
-        $this->checkPasswordMatch->handle($user, $validatedData['password']);
+        $this->checkPasswordMatch->handle($validatedData['password'], $user);
 
         return $user;
     }

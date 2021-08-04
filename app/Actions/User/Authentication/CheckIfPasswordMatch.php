@@ -8,7 +8,7 @@ use Illuminate\Validation\ValidationException;
 
 class CheckIfPasswordMatch {
 
-    public function handle(User $user, string $providedPassword)
+    public function handle(string $providedPassword, User $user = null)
     {
         if(!$user || !Hash::check($providedPassword, $user->password))
         {
