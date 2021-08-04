@@ -37,7 +37,7 @@ Route::post('/fcm-token/remove', [FirebaseController::class, 'removeFcmToken'])-
 // User routes routes
 Route::prefix('user')->middleware(['auth:sanctum'])->group(function() {
     // User specific routes
-    Route::post('/profile-information', [UserController::class, 'update']);
+    Route::put('/profile-information', [UserController::class, 'update']);
 
 
     // Place subscription routes
