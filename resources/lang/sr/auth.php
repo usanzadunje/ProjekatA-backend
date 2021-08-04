@@ -14,6 +14,7 @@ return [
     */
 
     'failed' => 'Uneti podaci nisu ispravni.',
+    'again' => 'Molimo vas pokusajte ponovo.',
     'password' => 'Uneta lozinka nije ispravna.',
     'throttle' => 'Previse zahteva za prijavljivanjem. Pokusajte za :seconds sekundi.',
 

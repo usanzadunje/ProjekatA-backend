@@ -2,97 +2,70 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Actions\User\Authentication\LoginUser;
+use App\Actions\User\Authentication\RegisterUser;
+use App\Actions\User\Firebase\RemoveFcmToken;
+use App\Actions\User\Firebase\SetFcmToken;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginUserRequest;
+use App\Http\Requests\RegisterUserRequest;
+use App\Http\Requests\StoreFcmTokenRequest;
 use App\Http\Resources\UserResource;
-use App\Models\User;
-use App\Rules\Password;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function __invoke()
+    public function __invoke(): UserResource
     {
         return new UserResource(auth()->user());
     }
 
-    public function login(Request $request)
+    public function login(LoginUserRequest $request, LoginUser $loginUser): JsonResponse
     {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-            'device_name' => 'required',
+        $user = $loginUser->handle($request->validated());
+
+        $token = $user->createToken($request->device_name)->plainTextToken;
+
+        return response()->json([
+            'token' => $token,
         ]);
-
-        $user = User::where('email', $request->email)->first();
-
-        if(!$user || !Hash::check($request->password, $user->password))
-        {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
-        }
-
-        return $user->createToken($request->device_name)->plainTextToken;
     }
 
-    public function register(Request $request)
+    public function register(RegisterUserRequest $request, RegisterUser $registerUser): JsonResponse
     {
-        $request->validate([
-            'email' => [
-                'required',
-                'string',
-                'email',
-                'max:255',
-                Rule::unique(User::class),
-            ],
-            'password' => ['required', 'string', new Password, 'confirmed'],
+        $user = $registerUser->handle($request->validated());
+
+        $token = $user->createToken($request->device_name)->plainTextToken;
+
+        return response()->json([
+            'token' => $token,
         ]);
-
-        $user = User::create([
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        if(!$user)
-        {
-            throw ValidationException::withMessages([
-                'registration' => ['Something went wrong. Try again later.'],
-            ]);
-        }
-
-        return $user->createToken($request->device_name)->plainTextToken;
     }
 
-    public function logout()
+    public function logout(): JsonResponse
     {
         auth()->user()->currentAccessToken()->delete();
 
-        return json_encode([
+        return response()->json([
             'success' => 'Successfully logged out!',
         ]);
     }
 
-    public function setFcmToken(Request $request)
+    public function setFcmToken(StoreFcmTokenRequest $request, SetFcmToken $setFcmToken): JsonResponse
     {
-        $request->validate(['fcm_token' => 'required|string']);
+        $setFcmToken->handle($request->validated());
 
-        auth()->user()->forceFill([
-            'fcm_token' => $request['fcm_token'],
-        ])->save();
-
-        return json_encode([
+        return response()->json([
             'success' => 'Successfully set FCM token.',
         ]);
     }
 
-    public function removeFcmToken()
+    public function removeFcmToken(RemoveFcmToken $removeFcmToken): JsonResponse
     {
-        auth()->user()->update(['fcm_token' => null]);
+        $removeFcmToken->handle();
 
-        return new JsonResponse('Successfully removed FCM token.', 200);
+        return response()->json([
+            'success' => 'Successfully removed FCM token.',
+        ]);
     }
 }

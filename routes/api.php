@@ -8,6 +8,7 @@ use App\Http\Controllers\API\TableController;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\ValidationException;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,12 @@ Route::get('/test/{lat}/{lng}', function($lat, $lng) {
 
 
 Route::get('/auth/user', AuthController::class)->middleware(['auth:sanctum']);
+Route::get('/test', function() {
+    throw ValidationException::withMessages([
+        'email' => [trans('auth.failed')],
+        'password' => trans('auth.again'),
+    ]);
+});
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum']);
