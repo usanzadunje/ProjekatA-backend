@@ -2,13 +2,12 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CafeController;
-use App\Http\Controllers\API\SocialAuthController;
+use App\Http\Controllers\API\FirebaseController;
+use App\Http\Controllers\API\PlaceSubscriptionController;
 use App\Http\Controllers\API\StaffController;
 use App\Http\Controllers\API\TableController;
-use Illuminate\Support\Facades\Broadcast;
-use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\API\UserController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Validation\ValidationException;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,44 +20,47 @@ use Illuminate\Validation\ValidationException;
 |
 */
 
-Broadcast::routes(['middleware' => ['auth:sanctum']]);
-
-
-Route::get('/test/{lat}/{lng}', function($lat, $lng) {
-
-});
-
-
-Route::get('/auth/user', AuthController::class)->middleware(['auth:sanctum']);
-Route::get('/test', function() {
-    throw ValidationException::withMessages([
-        'email' => [trans('auth.failed')],
-        'password' => trans('auth.again'),
-    ]);
-});
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum']);
-Route::post('/callback', [SocialAuthController::class, 'providerResponse']);
-Route::post('/fcm-token', [AuthController::class, 'setFcmToken'])->middleware(['auth:sanctum']);
-Route::post('/fcm-token/remove', [AuthController::class, 'removeFcmToken'])->middleware(['auth:sanctum']);
-
+//Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
 // Authentication routes
+Route::get('/auth/user', AuthController::class)->middleware(['auth:sanctum']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/callback', [AuthController::class, 'social']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum']);
+
+// Routes for Firebase stuff
+Route::post('/fcm-token', [FirebaseController::class, 'setFcmToken'])->middleware(['auth:sanctum']);
+Route::post('/fcm-token/remove', [FirebaseController::class, 'removeFcmToken'])->middleware(['auth:sanctum']);
+
+
+// User routes routes
 Route::prefix('users')->middleware(['auth:sanctum'])->group(function() {
-    Route::post('/subscribe/cafe/{cafeId}/notify-in-next/{notificationTime?}', [CafeController::class, 'subscribe']);
-    Route::post('/unsubscribe/cafe/{cafeId}', [CafeController::class, 'unsubscribe']);
-    Route::post('/subscribed/cafe/{cafeId}', [CafeController::class, 'isUserSubscribed']);
-    Route::get('/cafes/subscriptions', [CafeController::class, 'getAllCafesUserSubscribedTo']);
+    // User specific routes
+    Route::post('/edit', [UserController::class, 'update']);
+
+
+    // Place subscription routes
+    Route::post('/subscribe/cafe/{cafeId}/notify-in-next/{notificationTime?}', [PlaceSubscriptionController::class, 'subscribe']);
+    Route::post('/unsubscribe/cafe/{cafeId}', [PlaceSubscriptionController::class, 'unsubscribe']);
+    Route::post('/subscribed/cafe/{cafeId}', [PlaceSubscriptionController::class, 'isUserSubscribed']);
+    Route::get('/cafes/subscriptions', [PlaceSubscriptionController::class, 'subscriptions']);
 });
 
 //Routes for cafes
 Route::prefix('cafes')->group(function() {
     Route::get('/', [CafeController::class, 'index'])->name('cafes/index');
-    Route::get('/chunked/start/number-of-cafes/{start?}/{numberOfCafes?}', [CafeController::class, 'chunkedIndex'])
+    Route::get('/chunked/start/number-of-cafes/{start?}/{numberOfCafes?}', [CafeController::class, 'index'])
         ->name('cafes/chunked');
     Route::get('/{cafe}', [CafeController::class, 'show'])->name('cafes/show');
 });
+
+/*
+ *
+ * ODAVCE NA DOLE TREBA DA SE DORADE STVARI
+ *
+ * */
+
 
 //Route for tables in certain cafe
 Route::prefix('cafe')->group(function() {

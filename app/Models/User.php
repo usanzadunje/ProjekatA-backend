@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -38,37 +40,32 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function cafes()
+    public function cafes(): BelongsToMany
     {
         return $this->belongsToMany(Cafe::class);
     }
 
     //Cafes user has subscribed to
-    public function subscribedToCafes($sortBy = 'default')
+    public function subscribedToCafes($sortBy = 'default'): Collection
     {
-        switch($sortBy)
+        $selectedColumns = $this->cafes()
+            ->select('id', 'name', 'city', 'address', 'latitude', 'longitude');
+        
+        return match ($sortBy)
         {
-            case 'food':
-                return $this->cafes()
-                    ->select('id', 'name', 'city', 'address', 'latitude', 'longitude')
-                    ->sortByFood()
-                    ->get();
-            case 'availability':
-                return $this->cafes()
-                    ->select('id', 'name', 'city', 'address', 'latitude', 'longitude')
-                    ->sortByAvailability()
-                    ->get();
-            case 'distance':
-                return $this->cafes()
-                    ->select('id', 'name', 'city', 'address', 'latitude', 'longitude')
-                    ->sortByDistance()
-                    ->get();
-            default;
-                return $this->cafes()
-                    ->select('id', 'name', 'city', 'address', 'latitude', 'longitude')
-                    ->sortByDefault()
-                    ->get();
-        }
+            'food' => $selectedColumns
+                ->sortByFood()
+                ->get(),
+            'availability' => $selectedColumns
+                ->sortByAvailability()
+                ->get(),
+            'distance' => $selectedColumns
+                ->sortByDistance()
+                ->get(),
+            default => $selectedColumns
+                ->sortByDefault()
+                ->get(),
+        };
 
     }
 
@@ -82,8 +79,8 @@ class User extends Authenticatable
     //    return !!$this->email_verified_at;
     //}
 
-    public function isStaff()
+    public function isStaff(): bool
     {
-        return $this->cafe_id;
+        return !!$this->cafe_id;
     }
 }

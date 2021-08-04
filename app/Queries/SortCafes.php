@@ -8,27 +8,19 @@ use Illuminate\Support\Facades\DB;
 
 trait SortCafes
 {
-    public function scopeSortedCafes($query, $sortBy, $filter = '')
+    public function scopeSortedCafes($query, $sortBy)
     {
-        switch($sortBy)
+        return match ($sortBy)
         {
-            case 'food':
-                return $query
-                    ->sortByFood()
-                    ->where('name', 'LIKE', '%' . $filter . '%');
-            case 'availability':
-                return $query
-                    ->sortByAvailability()
-                    ->where('name', 'LIKE', '%' . $filter . '%');
-            case 'distance':
-                return $query
-                    ->sortByDistance()
-                    ->where('name', 'LIKE', '%' . $filter . '%');
-            default;
-                return $query
-                    ->sortByDefault()
-                    ->where('name', 'LIKE', '%' . $filter . '%');
-        }
+            'food' => $query
+                ->sortByFood(),
+            'availability' => $query
+                ->sortByAvailability(),
+            'distance' => $query
+                ->sortByDistance(),
+            default => $query
+                ->sortByDefault(),
+        };
     }
 
 

@@ -6,9 +6,7 @@ use App\Models\User;
 
 class LoginUser
 {
-
-    /** @var CheckIfPasswordMatch */
-    protected $checkPasswordMatch;
+    protected CheckIfPasswordMatch $checkPasswordMatch;
 
     public function __construct(CheckIfPasswordMatch $checkPasswordMatch)
     {
@@ -21,6 +19,6 @@ class LoginUser
 
         $this->checkPasswordMatch->handle($validatedData['password'], $user);
 
-        return $user;
+        return $user->createToken($validatedData['device_name'])->plainTextToken;
     }
 }

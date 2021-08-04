@@ -11,18 +11,14 @@ class RedirectIfNotStaff
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!auth()->user()->isStaff()){
-            if ($request->expectsJson()) {
-                return response()->json(['error' => 'You do not have permission to do that.'], 403);
-            }
-            return redirect(RouteServiceProvider::HOME);
-        }
-            return $next($request);
+        abort_if(!auth()->user()->isStaff(), '403');
+
+        return $next($request);
     }
 }

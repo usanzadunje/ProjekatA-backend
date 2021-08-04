@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Services;
+namespace App\Actions\User\Authentication;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class SocialAuthService
+class CreateOrGetSocialUser
 {
-    public function createOrGetUser($providerPayload)
+    public function handle($providerPayload)
     {
         $user = User::select('id')
             ->where('email', $providerPayload['email'])
@@ -27,7 +27,7 @@ class SocialAuthService
                     'device_name' => [
                         'required'
                     ],
-            ]
+                ]
             )->validate();
 
             $user = User::create([
@@ -40,6 +40,6 @@ class SocialAuthService
             ]);
         }
 
-        return $user;
+        return $user->createToken($providerPayload['device_name'])->plainTextToken;
     }
 }

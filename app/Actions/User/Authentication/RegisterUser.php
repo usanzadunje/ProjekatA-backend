@@ -6,9 +6,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
-class RegisterUser {
+class RegisterUser
+{
 
-    public function handle(array $validatedData) : User
+    public function handle(array $validatedData): User
     {
         $user = User::create([
             'email' => $validatedData['email'],
@@ -22,6 +23,6 @@ class RegisterUser {
             ]);
         }
 
-        return $user;
+        return $user->createToken($validatedData['device_name'])->plainTextToken;
     }
 }

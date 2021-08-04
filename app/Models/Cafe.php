@@ -6,6 +6,8 @@ use App\Queries\SortCafes;
 use App\Services\SendNotificationViaFCM;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 
 class Cafe extends Model
@@ -14,44 +16,32 @@ class Cafe extends Model
 
     protected $guarded = [];
 
-    public function tables()
+    public function tables(): HasMany
     {
         return $this->hasMany(Table::class);
     }
 
-    public function offerings()
+    public function offerings() : BelongsToMany
     {
         return $this->belongsToMany(Offering::class);
     }
 
-    public function subscribedUsers()
+    public function subscribedUsers() : BelongsToMany
     {
         return $this->belongsToMany(User::class)->whereNotNull('fcm_token');
     }
 
-    public static function takeChunks($start, $numberOfCafes, $filter = '', $sortBy = 'default', $getAllColumns = false)
-    {
-        $selectedColumns = $getAllColumns
-            ? (new static)::select('id', 'name', 'city', 'address', 'latitude', 'longitude')
-            : (new static)::select('id', 'name', 'latitude', 'longitude');
-
-        return $selectedColumns->sortedCafes($sortBy, $filter)
-            ->skip($start)
-            ->take($numberOfCafes)
-            ->get();
-    }
-
-    public function getTableWithSerialNumber($serialNumber)
+    public function getTableWithSerialNumber($serialNumber) : HasMany
     {
         return $this->tables()->where('serial_number', $serialNumber)->firstOrFail();
     }
 
-    public function isFull()
+    public function isFull() : bool
     {
         return $this->freeTablesCount() === 0;
     }
 
-    public function freeTablesCount()
+    public function freeTablesCount() : int
     {
         return $this->tables()->where('empty', true)->count();
     }
@@ -77,7 +67,7 @@ class Cafe extends Model
         $this->subscribedUsers()->detach();
     }
 
-    public function calculateDistance($lat, $lng)
+    public function calculateDistance($lat, $lng) : array
     {
         return DB::select(DB::raw('
             SELECT ST_Distance_Sphere(

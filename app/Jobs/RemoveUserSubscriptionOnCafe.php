@@ -4,9 +4,7 @@ namespace App\Jobs;
 
 use App\Models\CafeUser;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -18,10 +16,9 @@ class RemoveUserSubscriptionOnCafe implements ShouldQueue
     /**
      * The user cafe subscription instance.
      *
-     * @var \App\Models\CafeUser
      */
-    protected $userId;
-    protected $cafeId;
+    protected int $userId;
+    protected int $cafeId;
 
     /**
      * Create a new job instance.

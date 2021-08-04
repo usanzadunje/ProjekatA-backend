@@ -31,6 +31,8 @@ return [
     'required' => 'Polje :attribute je obavezno.',
     'unique' => 'Polje :attribute je vec zauzeto.',
     'confirmed' => 'Lozinke nisu iste.',
+    'subscription' => 'Vec ste pretplaceni.',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -61,7 +63,7 @@ return [
     */
 
     'attributes' => [
-        'email'
+        'email',
     ],
 
 ];

@@ -30,9 +30,11 @@ class LoginUserRequest extends FormRequest
             ],
             'password' => [
                 'required',
+                'string',
             ],
             'device_name' => [
                 'required',
+                'string',
             ],
         ];
     }
