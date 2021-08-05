@@ -15,7 +15,10 @@ class LoginUser
 
     public function handle(array $validatedData): string
     {
-        $user = User::where('email', $validatedData['email'])->first();
+        $login = $validatedData['login'];
+        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        $user = User::where($fieldType, $login)->first();
 
         $this->checkPasswordMatch->handle($validatedData['password'], $user);
 
