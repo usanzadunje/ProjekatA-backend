@@ -45,7 +45,20 @@ class UpdateUserRequest extends FormRequest
             'bday' => ['nullable', 'date'],
             'phone' => ['nullable', 'numeric'],
             'old_password' => ['nullable', 'string', Rule::requiredIf(!!$this->password)],
-            'password' => ['nullable', 'string', new Password, 'confirmed'],
+            'password' => ['nullable', 'string', new Password, 'confirmed', Rule::requiredIf(!!$this->old_password)],
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'email' => 'email address',
         ];
     }
 }
+

@@ -63,7 +63,13 @@ return [
     */
 
     'attributes' => [
-        'email',
+        'old_password' => 'trenutna lozinka',
+        'username' => 'korisnicko ime',
+        'fname' => 'ime',
+        'lname' => 'prezime',
+        'bday' => 'rodjendan',
+        'phone' => 'telefon',
+        'password' => 'lozinka',
     ],
 
 ];

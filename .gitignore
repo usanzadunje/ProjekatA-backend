@@ -5,6 +5,7 @@
 /vendor
 .env
 .env.backup
+projecta-292418-firebase-adminsdk-roz42-c9c907145a.json
 .phpunit.result.cache
 docker-compose.override.yml
 Homestead.json
