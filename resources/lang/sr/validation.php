@@ -13,25 +13,28 @@ return [
     |
     */
 
-    'alpha' => ':attribute sme da sadrzi samo slova.',
-    'alpha_num' => ':attribute sme da sadrzi samo slova i brojeve.',
+    'alpha' => ':Attribute sme da sadrzi samo slova.',
+    'alpha_num' => ':Attribute sme da sadrzi samo slova i brojeve.',
 
     'email' => 'E-mail mora biti validna email adresa.',
 
-    'image' => ':attribute mora biti slika.',
+    'image' => ':Attribute mora biti slika.',
 
     'max' => [
-        'numeric' => ':attribute ne sme biti veci od :max.',
-        'file' => ':attribute ne sme biti veci od :max kB.',
-        'string' => ':attribute ne sme biti duzi od :max karaktera.',
-        'array' => ':attribute ne sme imati vise od :max elemenata.',
+        'numeric' => ':Attribute ne sme biti veci od :max.',
+        'file' => ':Attribute ne sme biti veci od :max kB.',
+        'string' => ':Attribute ne sme biti duzi od :max karaktera.',
+        'array' => ':Attribute ne sme imati vise od :max elemenata.',
     ],
+    'date' => ':Attribute nije validan datum.',
+    'string' => ':Attribute mora biti string.',
     'numeric' => 'Polje :attribute mora biti broj.',
     'password' => 'Lozinka nije ispravna.',
-    'required' => 'Polje :attribute je obavezno.',
-    'unique' => 'Polje :attribute je vec zauzeto.',
+    'required' => ':Attribute je obavezno.',
+    'unique' => ':Attribute je vec zauzeto.',
     'confirmed' => 'Lozinke nisu iste.',
     'subscription' => 'Vec ste pretplaceni.',
+    'The :attribute must be at least :length characters.' => ':Attribute mora biti najmanje :length karaktera.',
 
 
     /*
@@ -65,8 +68,8 @@ return [
     'attributes' => [
         'old_password' => 'trenutna lozinka',
         'username' => 'korisnicko ime',
-        'fname' => 'Ime',
-        'lname' => 'Prezime',
+        'fname' => 'ime',
+        'lname' => 'prezime',
         'bday' => 'rodjendan',
         'phone' => 'telefon',
         'password' => 'lozinka',
