@@ -65,8 +65,8 @@ return [
     'attributes' => [
         'old_password' => 'trenutna lozinka',
         'username' => 'korisnicko ime',
-        'fname' => 'ime',
-        'lname' => 'prezime',
+        'fname' => 'Ime',
+        'lname' => 'Prezime',
         'bday' => 'rodjendan',
         'phone' => 'telefon',
         'password' => 'lozinka',
