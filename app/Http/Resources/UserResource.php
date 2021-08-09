@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Auth;
 
 class UserResource extends JsonResource
 {
@@ -35,7 +34,7 @@ class UserResource extends JsonResource
             }),
             'email' => $this->email,
             'email_verified' => $this->email_verified_at,
-            'cafe_id' => $this->when(Auth::user()->isStaff(), $this->cafe_id),
+            'cafe_id' => $this->when($this->isStaff(), $this->cafe_id),
         ];
     }
 }
