@@ -12,11 +12,8 @@ class UploadImage
     {
         try
         {
-            $image = $avatar->base64String;  // base64 encoded image as string
-            $image = str_replace('data:image/' . $avatar->format . ';base64,', '', $image);
-            $image = str_replace(' ', '+', $image);
-            $avatarName = auth()->id() . '.' . $avatar->format;
-            File::put(storage_path('img/user') . '/' . $avatarName, base64_decode($image));
+            $avatarName = auth()->id() . '_avatar.' . $avatar->format;
+            File::put(storage_path('img/user') . '/' . $avatarName, base64_decode($avatar->base64String));
         }catch(Exception $ex)
         {
             $avatarName = 'default_avatar.png';
