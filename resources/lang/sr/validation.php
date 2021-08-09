@@ -30,7 +30,7 @@ return [
     'string' => ':Attribute mora biti string.',
     'numeric' => 'Polje :attribute mora biti broj.',
     'password' => 'Lozinka nije ispravna.',
-    'required' => ':Attribute je obavezno.',
+    'required' => 'Polje :attribute je obavezno.',
     'unique' => ':Attribute je vec zauzeto.',
     'confirmed' => 'Lozinke nisu iste.',
     'subscription' => 'Vec ste pretplaceni.',
