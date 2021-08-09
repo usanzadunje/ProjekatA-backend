@@ -9,7 +9,7 @@ use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
-    public function update(UpdateUserRequest $request, UpdateUser $updateUser): JsonResponse
+    public function update(UpdateUserRequest $request, UpdateUser $updateUser)
     {
         $updateUser->handle($request->validated());
 
