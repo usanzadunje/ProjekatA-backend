@@ -59,8 +59,37 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function configureRateLimiting()
     {
-        RateLimiter::for('api', function(Request $request) {
-            return Limit::perMinute(5)->by(optional($request->user())->id ?: $request->ip());
+        RateLimiter::for('default', function(Request $request) {
+            return Limit::perMinute(100)->by($request->ip());
+        });
+
+        RateLimiter::for('auth', function(Request $request) {
+            return Limit::perMinute(5)->by($request->ip());
+        });
+
+        RateLimiter::for('fcm', function(Request $request) {
+            return Limit::perMinute(10)->by($request->ip());
+        });
+
+        RateLimiter::for('update', function(Request $request) {
+            return Limit::perMinute(5)->by($request->ip());
+        });
+
+        RateLimiter::for('subscribe', function(Request $request) {
+            return Limit::perMinute(50)->by($request->ip());
+        });
+
+
+        RateLimiter::for('places', function(Request $request) {
+            return Limit::perMinute(420)->by($request->ip());
+        });
+
+        RateLimiter::for('tables', function(Request $request) {
+            return Limit::perMinute(300)->by($request->ip());
+        });
+
+        RateLimiter::for('staff', function(Request $request) {
+            return Limit::perMinute(420)->by($request->ip());
         });
     }
 

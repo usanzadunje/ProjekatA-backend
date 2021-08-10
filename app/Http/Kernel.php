@@ -36,7 +36,6 @@ class Kernel extends HttpKernel
 
         'api' => [
             EnsureFrontendRequestsAreStateful::class,
-            'throttle:api',
             'localization',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
