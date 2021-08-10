@@ -30,6 +30,7 @@ class UploadImage
             }
 
             $base64String = str_replace("data:image/jpeg;base64,", '', $dataUrl);
+	    $base64String = str_replace("data:image/png;base64,", '', $dataUrl);
 
             $avatar = base64_decode($base64String);
 
