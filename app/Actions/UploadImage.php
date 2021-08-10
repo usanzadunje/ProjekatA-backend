@@ -2,16 +2,27 @@
 
 namespace App\Actions;
 
+use Exception;
 use Illuminate\Support\Facades\Storage;
 
 class UploadImage
 {
 
-    public function handle(array $avatar): string
+    public function handle(string $dataUrl): string
     {
-        $avatarName = auth()->id() . '_avatar.' . $avatar['format'];
+        try
+        {
+            $base64String = str_replace("data:image/jpeg;base64,", '', $dataUrl);
 
-        Storage::disk('public')->put('img/user/' . $avatarName, base64_decode($avatar['base64String']));
+            $avatar = base64_decode($base64String);
+
+            $avatarName = auth()->id() . '_avatar.jpeg';
+
+            Storage::disk('public')->put('img/user/' . $avatarName, $avatar);
+        }catch(Exception $ex)
+        {
+            $avatarName = 'default_avatar.png';
+        }
 
         return $avatarName;
     }

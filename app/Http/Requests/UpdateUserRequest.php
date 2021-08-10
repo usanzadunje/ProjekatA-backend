@@ -44,7 +44,7 @@ class UpdateUserRequest extends FormRequest
             ],
             'bday' => ['nullable', 'date'],
             'phone' => ['nullable', 'numeric'],
-            'avatar' => ['nullable', 'array:format,base64String'],
+            'avatar' => ['nullable', 'string'],
             'old_password' => ['string', Rule::requiredIf(!empty($this->password))],
             'password' => ['string', new Password, 'confirmed', Rule::requiredIf(!empty($this->old_password))],
         ];

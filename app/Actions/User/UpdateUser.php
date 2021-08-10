@@ -19,12 +19,12 @@ class UpdateUser
 
     public function handle(array $validatedData)
     {
-        if(array_key_exists('password', $validatedData))
+        if(array_key_exists('password', $validatedData) && !is_null($validatedData['password']))
         {
             $this->checkPasswordMatch->handle($validatedData['old_password']);
             $validatedData['password'] = Hash::make($validatedData['password']);
         }
-        if(array_key_exists('avatar', $validatedData))
+        if(array_key_exists('avatar', $validatedData) && !is_null($validatedData['avatar']))
         {
             $avatar = $this->uploadImage->handle($validatedData['avatar']);
             $validatedData['avatar'] = $avatar;
