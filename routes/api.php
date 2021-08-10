@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 //Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
 // Authentication routes
-Route::get('/auth/user', AuthController::class)->middleware(['auth:sanctum']);
+Route::get('/auth/user', AuthController::class)->middleware(['auth:sanctum', 'throttle:200']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/callback', [AuthController::class, 'social']);
