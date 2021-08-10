@@ -28,14 +28,17 @@ class UploadImage
                     })
                     ->encode('data-url', 100);
             }
+	    $format = str_contains('png', $dataUrl) ? 'png' : 
+'jpeg';
 
-            $base64String = str_replace("data:image/jpeg;base64,", '', $dataUrl);
-	    $base64String = str_replace("data:image/png;base64,", '', $dataUrl);
+
+            $base64String = 
+str_replace("data:image/" . $format .";base64,", '', $dataUrl);
 
             $avatar = base64_decode($base64String);
 
 
-            $avatarName = auth()->id() . '_avatar.jpeg';
+            $avatarName = auth()->id() . '_avatar.' . $format;
 
             Storage::disk('public')->put('img/user/' . $avatarName, $avatar);
 
