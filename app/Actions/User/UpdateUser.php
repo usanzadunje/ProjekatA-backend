@@ -2,7 +2,7 @@
 
 namespace App\Actions\User;
 
-use App\Actions\UploadImage;
+use App\Actions\Image\UploadImage;
 use App\Actions\User\Authentication\CheckIfPasswordMatch;
 use Illuminate\Support\Facades\Hash;
 
@@ -26,7 +26,7 @@ class UpdateUser
         }
         if(array_key_exists('avatar', $validatedData) && !is_null($validatedData['avatar']))
         {
-            $avatar = $this->uploadImage->handle($validatedData['avatar']);
+            $avatar = $this->uploadImage->handle($validatedData['avatar'], 75, 75);
             $validatedData['avatar'] = $avatar;
         }
         unset($validatedData['old_password']);

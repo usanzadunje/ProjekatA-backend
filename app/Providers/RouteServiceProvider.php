@@ -60,14 +60,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function configureRateLimiting()
     {
         RateLimiter::for('api', function(Request $request) {
-            if(Route::currentRouteName() == 'cafes/chunked')
-            {
-                return Limit::perMinute(420)->by(optional($request->user())->id ?: $request->ip());
-            }
-            else
-            {
-                return Limit::perMinute(100)->by(optional($request->user())->id ?: $request->ip());
-            }
+            return Limit::perMinute(5)->by(optional($request->user())->id ?: $request->ip());
         });
     }
 
