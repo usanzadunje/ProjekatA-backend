@@ -13,7 +13,7 @@ class LoginUser
         $this->checkPasswordMatch = $checkPasswordMatch;
     }
 
-    public function handle(array $validatedData): string
+    public function handle(array $validatedData): array
     {
         $login = $validatedData['login'];
         $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
@@ -22,6 +22,15 @@ class LoginUser
 
         $this->checkPasswordMatch->handle($validatedData['password'], $user);
 
-        return $user->createToken($validatedData['device_name'])->plainTextToken;
+        $response = [
+            'token' => $user->createToken($validatedData['device_name'])->plainTextToken,
+        ];
+
+        if($user->cafe_id)
+        {
+            $response['staff'] = true;
+        }
+
+        return $response;
     }
 }

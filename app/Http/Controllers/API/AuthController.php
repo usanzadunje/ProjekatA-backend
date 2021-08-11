@@ -21,11 +21,9 @@ class AuthController extends Controller
 
     public function login(LoginUserRequest $request, LoginUser $loginUser): JsonResponse
     {
-        $token = $loginUser->handle($request->validated());
+        $response = $loginUser->handle($request->validated());
 
-        return response()->json([
-            'token' => $token,
-        ]);
+        return response()->json($response);
     }
 
     /*
