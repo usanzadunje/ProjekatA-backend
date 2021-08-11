@@ -57,7 +57,7 @@ return [
         'array' => 'The :attribute must have :value items or more.',
     ],
     'image' => 'The :attribute must be an image.',
-    'custom-image' => 'The :attribute must be an image of .jpeg type.',
+    'encoded-image' => 'The :attribute must be an :values image',
     'in' => 'The selected :attribute is invalid.',
     'in_array' => 'The :attribute field does not exist in :other.',
     'integer' => 'The :attribute must be an integer.',
@@ -120,6 +120,7 @@ return [
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
     'subscription' => 'You are already subscribed.',
+    'The :attribute must be at least :length characters.' => 'The :attribute must be at least :length characters.',
 
     /*
     |--------------------------------------------------------------------------

@@ -6,16 +6,18 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
-class CheckIfPasswordMatch {
-
+class CheckIfPasswordMatch
+{
     public function handle(string $providedPassword, User $providedUser = null)
     {
         $user = $providedUser ?? auth()->user();
         if(!$user || !Hash::check($providedPassword, $user->password))
         {
             throw ValidationException::withMessages([
-                'login' => [trans('auth.failed')],
-                'password' => [trans('auth.again')],
+                'password' => [
+                    trans('auth.again'),
+                    trans('auth.failed'),
+                ],
             ]);
         }
     }

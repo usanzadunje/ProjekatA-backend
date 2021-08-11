@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ExistingPassword;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LoginUserRequest extends FormRequest

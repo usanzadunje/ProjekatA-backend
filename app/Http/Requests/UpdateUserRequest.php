@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\User;
+use App\Rules\Avatar;
 use App\Rules\Password;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -44,7 +45,7 @@ class UpdateUserRequest extends FormRequest
             ],
             'bday' => ['nullable', 'date'],
             'phone' => ['nullable', 'numeric'],
-            'avatar' => ['nullable', 'string'],
+            'avatar' => ['nullable', 'string', new Avatar('jpeg|png')],
             'old_password' => ['string', Rule::requiredIf(!empty($this->password))],
             'password' => ['string', new Password, 'confirmed', Rule::requiredIf(!empty($this->old_password))],
         ];

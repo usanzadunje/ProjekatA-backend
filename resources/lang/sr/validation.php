@@ -36,7 +36,7 @@ return [
     'subscription' => 'Vec ste pretplaceni.',
     'The :attribute must be at least :length characters.' => ':Attribute mora biti najmanje :length karaktera.',
     'mimetypes' => ':Attribute mora biti fajl tipa: :values.',
-    'custom-image' => ':Attribute mora biti slika .jpeg tipa.',
+    'encoded-image' => ':Attribute mora biti slika formata:  :values.',
 
 
     /*

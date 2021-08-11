@@ -12,31 +12,22 @@ class UploadImage
 
     public function handle(string $dataUrl, $width = null, $height = null): string
     {
-        if(!str_contains($dataUrl, 'image/jpeg'))
-        {
-            throw ValidationException::withMessages([
-                'avatar' => [trans('validation.custom-image')],
-            ]);
-        }
         try
         {
+            $format = explode('/', explode(';base64', $dataUrl)[0])[1];
+
             if($height && $width)
             {
                 $dataUrl = (string)Image::make($dataUrl)
                     ->fit($width, $height, function($constraint) {
                         $constraint->upsize();
                     })
-                    ->encode('data-url', 100);
+                    ->encode('data-url');
             }
-	    $format = str_contains('png', $dataUrl) ? 'png' : 
-'jpeg';
 
-
-            $base64String = 
-str_replace("data:image/" . $format .";base64,", '', $dataUrl);
+            $base64String = str_replace("data:image/$format;base64,", '', $dataUrl);
 
             $avatar = base64_decode($base64String);
-
 
             $avatarName = auth()->id() . '_avatar.' . $format;
 
@@ -44,7 +35,7 @@ str_replace("data:image/" . $format .";base64,", '', $dataUrl);
 
         }catch(Exception $ex)
         {
-            $avatarName = auth()->user()->avatar ?? 'default_avatar.png';
+            $avatarName = auth()->user()->avatar;
         }
 
         return $avatarName;
