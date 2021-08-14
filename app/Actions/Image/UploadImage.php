@@ -10,7 +10,7 @@ use Intervention\Image\Facades\Image;
 class UploadImage
 {
 
-    public function handle(string $dataUrl, $width = null, $height = null): string
+    public function handle(string $dataUrl, string $imageName, string $publicPath, $width = null, $height = null): string
     {
         try
         {
@@ -29,13 +29,13 @@ class UploadImage
 
             $avatar = base64_decode($base64String);
 
-            $avatarName = auth()->id() . '_avatar.' . $format;
+            $avatarName = $imageName . '.' . $format;
 
-            Storage::disk('public')->put('img/user/' . $avatarName, $avatar);
+            Storage::disk('public')->put($publicPath . $avatarName, $avatar);
 
         }catch(Exception $ex)
         {
-            $avatarName = auth()->user()->avatar;
+            $avatarName = 'default.png';
         }
 
         return $avatarName;
