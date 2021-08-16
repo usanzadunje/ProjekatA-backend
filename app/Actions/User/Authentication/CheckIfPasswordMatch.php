@@ -10,7 +10,7 @@ class CheckIfPasswordMatch
 {
     public function handle(string $providedPassword, User $providedUser = null)
     {
-        $user = $providedUser ?? auth()->user();
+        $user = $providedUser ?: auth()->user();
         if(!$user || !Hash::check($providedPassword, $user->password))
         {
             throw ValidationException::withMessages([

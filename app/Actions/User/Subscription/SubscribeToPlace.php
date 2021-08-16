@@ -6,6 +6,7 @@ namespace App\Actions\User\Subscription;
 
 use App\Jobs\RemoveUserSubscriptionOnCafe;
 use App\Models\CafeUser;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -17,14 +18,12 @@ class SubscribeToPlace
     public function __construct()
     {
         $this->cafeId = (int)request()->route('cafeId');
-        $this->notificationTime = (int)request()->route('notificationTime') ?? null;
+        $this->notificationTime = (int)request()->route('notificationTime') ?: null;
 
         Validator::make(
             ['cafe_id' => $this->cafeId],
             [
                 'cafe_id' => [
-                    'required',
-                    'numeric',
                     Rule::unique(CafeUser::class)
                         ->where(function($query) {
                             return $query->where('cafe_id', $this->cafeId)
@@ -38,15 +37,16 @@ class SubscribeToPlace
         )->validate();
     }
 
-    public function handle()
+    public function handle(User $providedUser = null)
     {
-        auth()->user()
+        $user = $providedUser ?: auth()->user();
+        $user
             ->cafes()
             ->attach($this->cafeId);
 
         if($this->notificationTime)
         {
-            RemoveUserSubscriptionOnCafe::dispatch(auth()->id(), $this->cafeId)
+            RemoveUserSubscriptionOnCafe::dispatch($user->id, $this->cafeId)
                 ->delay(now()->addMinutes($this->notificationTime));
         }
     }

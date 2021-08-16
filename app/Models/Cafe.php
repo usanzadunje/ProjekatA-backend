@@ -21,29 +21,29 @@ class Cafe extends Model
         return $this->hasMany(Table::class);
     }
 
-    public function offerings() : BelongsToMany
+    public function offerings(): BelongsToMany
     {
         return $this->belongsToMany(Offering::class);
     }
 
-    public function subscribedUsers() : BelongsToMany
+    public function subscribedUsers(): BelongsToMany
     {
         return $this->belongsToMany(User::class)->whereNotNull('fcm_token');
     }
 
-    public function getTableWithSerialNumber($serialNumber) : HasMany
+    public function getTableWithSerialNumber($serialNumber): HasMany
     {
         return $this->tables()->where('serial_number', $serialNumber)->firstOrFail();
     }
 
-    public function isFull() : bool
-    {
-        return $this->freeTablesCount() === 0;
-    }
-
-    public function freeTablesCount() : int
+    public function freeTablesCount(): int
     {
         return $this->tables()->where('empty', true)->count();
+    }
+
+    public function isFull(): bool
+    {
+        return $this->freeTablesCount() === 0;
     }
 
     public function takenMaxCapacityTableRatio(): string
@@ -59,15 +59,14 @@ class Cafe extends Model
     public function sendTableFreedNotificationToSubscribers()
     {
         $tokens = $this->subscribedUsers()->pluck('fcm_token')->toArray();
-        if(empty($tokens))
+        if(!empty($tokens))
         {
-            return;
+            (new SendNotificationViaFCM())->sendNotifications($tokens);
+            $this->subscribedUsers()->detach();
         }
-        (new SendNotificationViaFCM())->sendNotifications($tokens);
-        $this->subscribedUsers()->detach();
     }
 
-    public function calculateDistance($lat, $lng) : array
+    public function calculateDistance($lat, $lng): array
     {
         return DB::select(DB::raw('
             SELECT ST_Distance_Sphere(

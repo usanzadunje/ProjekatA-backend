@@ -46,27 +46,12 @@ class User extends Authenticatable
     }
 
     //Cafes user has subscribed to
-    public function subscribedToCafes($sortBy = 'default'): Collection
+    public function subscribedToCafes(string $sortBy = 'default'): Collection
     {
-        $selectedColumns = $this->cafes()
-            ->select('id', 'name', 'city', 'address', 'latitude', 'longitude');
-        
-        return match ($sortBy)
-        {
-            'food' => $selectedColumns
-                ->sortByFood()
-                ->get(),
-            'availability' => $selectedColumns
-                ->sortByAvailability()
-                ->get(),
-            'distance' => $selectedColumns
-                ->sortByDistance()
-                ->get(),
-            default => $selectedColumns
-                ->sortByDefault()
-                ->get(),
-        };
-
+        return $this->cafes()
+            ->select('id', 'name', 'city', 'address', 'latitude', 'longitude')
+            ->sortedCafes($sortBy)
+            ->get();
     }
 
     //public function getEmailVerifiedAtAttribute($value)

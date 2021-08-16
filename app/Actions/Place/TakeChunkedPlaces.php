@@ -18,10 +18,10 @@ class TakeChunkedPlaces
     public function __construct()
     {
         $this->filter = request('filter') ?? '';
-        $this->sortBy = request('sortBy') ?? 'default';
+        $this->sortBy = request('sortBy') ?: 'default';
         $this->getAllColumns = request('getAllColumns') === 'true';
-        $this->start = request()->route('start') ?? 0;
-        $this->numberOfCafes = request()->route('numberOfCafes') ?? 20;
+        $this->start = request()->route('start') ?: 0;
+        $this->numberOfCafes = request()->route('numberOfCafes') ?: 20;
     }
 
     public function handle(): Collection

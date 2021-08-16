@@ -29,24 +29,20 @@ class AuthController extends Controller
     /*
      * Provider finished and is returning response
     */
-    public function social(Request $request, CreateOrGetSocialUser $createOrGetSocialUser): string
+    public function social(Request $request, CreateOrGetSocialUser $createOrGetSocialUser): JsonResponse
     {
         $providerPayload = $request->only(['fname', 'lname', 'email', 'avatar', 'provider_id', 'device_name']);
 
-        $token = $createOrGetSocialUser->handle($providerPayload);
+        $response = $createOrGetSocialUser->handle($providerPayload);
 
-        return response()->json([
-            'token' => $token,
-        ]);
+        return response()->json($response);
     }
 
     public function register(RegisterUserRequest $request, RegisterUser $registerUser): JsonResponse
     {
-        $token = $registerUser->handle($request->validated());
+        $response = $registerUser->handle($request->validated());
 
-        return response()->json([
-            'token' => $token,
-        ]);
+        return response()->json($response);
     }
 
     public function logout(): JsonResponse

@@ -8,12 +8,12 @@ use Illuminate\Validation\Rule;
 
 class CreateOrGetSocialUser
 {
-    public function handle($providerPayload) : string
+    public function handle($providerPayload) : array
     {
         $user = User::select('id')
             ->where('email', $providerPayload['email'])
             ->where('provider_id', $providerPayload['provider_id'])
-            ->first();
+            ->firstOrFail();
 
         if(!$user)
         {
@@ -40,6 +40,10 @@ class CreateOrGetSocialUser
             ]);
         }
 
-        return $user->createToken($providerPayload['device_name'])->plainTextToken;
+        $userInfo = [
+            'token' => $user->createToken($providerPayload['device_name'])->plainTextToken
+        ];
+
+        return $userInfo;
     }
 }

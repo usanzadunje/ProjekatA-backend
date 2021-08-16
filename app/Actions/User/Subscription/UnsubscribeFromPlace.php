@@ -3,6 +3,7 @@
 
 namespace App\Actions\User\Subscription;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 
 class UnsubscribeFromPlace
@@ -17,17 +18,16 @@ class UnsubscribeFromPlace
             ['cafe_id' => $this->cafeId],
             [
                 'cafe_id' => [
-                    'required',
-                    'numeric',
                     'exists:cafe_user',
                 ],
             ],
         )->validate();
     }
 
-    public function handle()
+    public function handle(User $providedUser = null)
     {
-        auth()->user()
+        $user = $providedUser ?: auth()->user();
+        $user
             ->cafes()
             ->detach($this->cafeId);
     }

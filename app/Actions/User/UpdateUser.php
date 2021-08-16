@@ -4,6 +4,7 @@ namespace App\Actions\User;
 
 use App\Actions\Image\UploadImage;
 use App\Actions\User\Authentication\CheckIfPasswordMatch;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class UpdateUser
@@ -17,8 +18,9 @@ class UpdateUser
         $this->uploadImage = $uploadImage;
     }
 
-    public function handle(array $validatedData)
+    public function handle(array $validatedData, User $providedUser = null)
     {
+        $user = $providedUser ?: auth()->user();
         if(array_key_exists('password', $validatedData) && !is_null($validatedData['password']))
         {
             $this->checkPasswordMatch->handle($validatedData['old_password']);
@@ -32,7 +34,7 @@ class UpdateUser
         }
         unset($validatedData['old_password']);
 
-        auth()->user()
+        $user
             ->update($validatedData);
     }
 }

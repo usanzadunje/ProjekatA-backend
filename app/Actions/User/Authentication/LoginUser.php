@@ -18,19 +18,19 @@ class LoginUser
         $login = $validatedData['login'];
         $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        $user = User::where($fieldType, $login)->first();
+        $user = User::where($fieldType, $login)->firstOrFail();
 
         $this->checkPasswordMatch->handle($validatedData['password'], $user);
 
-        $response = [
+        $userInfo = [
             'token' => $user->createToken($validatedData['device_name'])->plainTextToken,
         ];
 
-        if($user->cafe_id)
+        if($user->isStaff())
         {
-            $response['staff'] = true;
+            $userInfo['staff'] = true;
         }
 
-        return $response;
+        return $userInfo;
     }
 }

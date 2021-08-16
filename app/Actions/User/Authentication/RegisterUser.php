@@ -9,7 +9,7 @@ use Illuminate\Validation\ValidationException;
 class RegisterUser
 {
 
-    public function handle(array $validatedData): string
+    public function handle(array $validatedData): array
     {
         $user = User::create([
             'email' => $validatedData['email'],
@@ -23,6 +23,10 @@ class RegisterUser
             ]);
         }
 
-        return $user->createToken($validatedData['device_name'])->plainTextToken;
+        $userInfo = [
+            'token' => $user->createToken($validatedData['device_name'])->plainTextToken,
+        ];
+
+        return $userInfo;
     }
 }
