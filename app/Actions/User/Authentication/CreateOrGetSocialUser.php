@@ -32,7 +32,7 @@ class CreateOrGetSocialUser
                     'lname' => $providerPayload['lname'],
                     'email' => $providerPayload['email'],
                     'email_verified_at' => now(),
-                    'avatar' => $providerPayload['avatar'],
+                    'avatar' => $providerPayload['avatar'] ?: 'default.png',
                     'provider_id' => $providerPayload['provider_id'],
                 ]);
             });
