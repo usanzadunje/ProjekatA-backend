@@ -23,7 +23,7 @@ class AuthController extends Controller
     {
         $response = $loginUser->handle($request->validated());
 
-        return response()->json($response);
+        return response()->success('Successfully logged in!', $response);
     }
 
     /*
@@ -35,22 +35,20 @@ class AuthController extends Controller
 
         $response = $createOrGetSocialUser->handle($providerPayload);
 
-        return response()->json($response);
+        return response()->success('Successfully logged in!', $response);
     }
 
     public function register(RegisterUserRequest $request, RegisterUser $registerUser): JsonResponse
     {
         $response = $registerUser->handle($request->validated());
 
-        return response()->json($response);
+        return response()->success('Successfully registered!', $response);
     }
 
     public function logout(): JsonResponse
     {
         auth()->user()->currentAccessToken()->delete();
 
-        return response()->json([
-            'success' => 'Successfully logged out!',
-        ]);
+        return response()->success('Successfully logged out!');
     }
 }

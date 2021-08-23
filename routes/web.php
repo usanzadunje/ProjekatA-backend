@@ -17,4 +17,4 @@ Route::view('/', 'index');
 
 Route::any('{any}', function() {
     abort(403);
-})->where('any', '.*')->name('home');
+})->where('any', '.*');

@@ -22,9 +22,7 @@ class PlaceSubscriptionController extends Controller
     {
         $subscribeToPlace->handle();
 
-        return response()->json([
-            'success' => 'User successfully subscribed!',
-        ]);
+        return response()->success('User successfully subscribed!');
     }
 
     /*
@@ -36,9 +34,7 @@ class PlaceSubscriptionController extends Controller
     {
         $unsubscribeFromPlace->handle();
 
-        return response()->json([
-            'success' => 'User successfully unsubscribed!',
-        ]);
+        return response()->success('User successfully unsubscribed!');
     }
 
     /*
@@ -46,14 +42,16 @@ class PlaceSubscriptionController extends Controller
      *
      * @param int $cafeId
      */
-    public function isUserSubscribed(int $cafeId): bool
+    public function isUserSubscribed(int $cafeId): JsonResponse
     {
-        $exists = auth()->user()
+        $subscribed = auth()->user()
             ->cafes()
             ->where('cafe_id', $cafeId)
             ->first();
 
-        return !!$exists;
+        return response()->success('User successfully unsubscribed!', [
+            'subscribed' => !!$subscribed,
+        ]);
     }
 
     /*

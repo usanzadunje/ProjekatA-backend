@@ -27,9 +27,9 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        ResetPassword::createUrlUsing(function($user, string $token) {
-            return env('SPA_URL') . '/reset-password?token=' . $token;
-        });
+        //ResetPassword::createUrlUsing(function($user, string $token) {
+        //    return env('SPA_URL') . '/reset-password?token=' . $token;
+        //});
         Gate::define('toggle-table', function(User $user, Cafe $cafe) {
             return $user->cafe_id === $cafe->id;
         });

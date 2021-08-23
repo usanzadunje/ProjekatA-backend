@@ -14,17 +14,13 @@ class FirebaseController extends Controller
     {
         $setFcmToken->handle($request->validated());
 
-        return response()->json([
-            'success' => 'Successfully set FCM token.',
-        ]);
+        return response()->success('Successfully set FCM token.');
     }
 
     public function removeFcmToken(RemoveFcmToken $removeFcmToken): JsonResponse
     {
         $removeFcmToken->handle();
 
-        return response()->json([
-            'success' => 'Successfully removed FCM token.',
-        ]);
+        return response()->success('Successfully removed FCM token.');
     }
 }

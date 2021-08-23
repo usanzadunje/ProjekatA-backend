@@ -13,8 +13,6 @@ class UserController extends Controller
     {
         $updateUser->handle($request->validated());
 
-        return response()->json([
-            'success' => 'Successfully updated user profile.',
-        ]);
+        return response()->success('Successfully updated user profile.');
     }
 }
