@@ -3,6 +3,7 @@
 namespace App\Actions\User\Authentication;
 
 use App\Models\User;
+use Illuminate\Validation\ValidationException;
 
 class LoginUser
 {
@@ -18,7 +19,13 @@ class LoginUser
         $login = $validatedData['login'];
         $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        $user = User::where($fieldType, $login)->firstOrFail();
+        $user = User::where($fieldType, $login)->firstOr(function() {
+            return throw ValidationException::withMessages([
+                'login' => [
+                    trans('auth.again'),
+                ],
+            ]);
+        });
 
         $this->checkPasswordMatch->handle($validatedData['password'], $user);
 

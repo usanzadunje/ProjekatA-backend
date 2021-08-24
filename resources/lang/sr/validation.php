@@ -37,7 +37,8 @@ return [
     'The :attribute must be at least :length characters.' => ':Attribute mora biti najmanje :length karaktera.',
     'mimetypes' => ':Attribute mora biti fajl tipa: :values.',
     'encoded-image' => ':Attribute mora biti slika formata:  :values.',
-    'saff' => 'Mozete kreirati osoblje samo za svoj objekat.',
+    'staff' => 'Mozete kreirati osoblje samo za svoj objekat.',
+    'unknown' => 'Nismo uspeli da pronadjemo korisnika sa unetim podacima.',
 
 
     /*
