@@ -26,10 +26,8 @@ class LoginUser
             'token' => $user->createToken($validatedData['device_name'])->plainTextToken,
         ];
 
-        if($user->isStaff())
-        {
-            $userInfo['staff'] = true;
-        }
+        $userInfo['role'] = $user->isOwner() ?
+            1 : ($user->isStaff() ? 2 : null);
 
         return $userInfo;
     }

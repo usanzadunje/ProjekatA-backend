@@ -35,8 +35,7 @@ class UserResource extends JsonResource
                 }
             ),
             'email' => $this->email,
-            //'email_verified' => $this->email_verified_at,
-            'cafe_id' => $this->when($this->isStaff(), $this->cafe_id),
+            'cafe' => $this->when($this->isStaff() || $this->isOwner(), $this->isStaff() ?: $this->isOwner()),
         ];
     }
 }

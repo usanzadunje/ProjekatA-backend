@@ -121,6 +121,7 @@ return [
     'uuid' => 'The :attribute must be a valid UUID.',
     'subscription' => 'You are already subscribed.',
     'The :attribute must be at least :length characters.' => 'The :attribute must be at least :length characters.',
+    'staff' => 'You can only create staff members for your own place.',
 
     /*
     |--------------------------------------------------------------------------

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Actions\User\Authentication\CreateOrGetSocialUser;
+use App\Actions\User\Authentication\CreateStaffMember;
 use App\Actions\User\Authentication\LoginUser;
 use App\Actions\User\Authentication\RegisterUser;
 use App\Http\Controllers\Controller;
@@ -29,7 +29,7 @@ class AuthController extends Controller
     /*
      * Provider finished and is returning response
     */
-    public function social(Request $request, CreateOrGetSocialUser $createOrGetSocialUser): JsonResponse
+    public function social(Request $request, CreateStaffMember $createOrGetSocialUser): JsonResponse
     {
         $providerPayload = $request->only(['fname', 'lname', 'email', 'avatar', 'provider_id', 'device_name']);
 

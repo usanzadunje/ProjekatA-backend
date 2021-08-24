@@ -17,21 +17,21 @@ class Table extends Model
         return $this->belongsTo(Cafe::class);
     }
 
-    public function getEmptyAttribute($value): string
+    public function scopeAvailable($query, bool $availability)
     {
-        return $value ? 'Slobodan' : 'Zauzet';
+        return $query->where('empty', $availability);
     }
 
-    public function getSmokingAllowedAttribute($value): string
+    public function toggleAvailability()
     {
-        return $value !== null ? ($value ? 'Dozvoljeno' : 'Zabranjeno') : 'N/A';
-    }
+        if($this->cafe->isFull())
+        {
+            // Notify all subscribed users that table has been freed in cafe
+            $this->cafe->sendTableFreedNotificationToSubscribers();
+        }
 
-    public function toggleAvailability(): Table
-    {
-        $this->empty = $this->empty == 'Slobodan' ? false : true;
-        $this->save();
-
-        return $this;
+        $this->update([
+            'empty' => !$this->empty,
+        ]);
     }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CafeController;
 use App\Http\Controllers\API\FirebaseController;
+use App\Http\Controllers\API\OwnerController;
 use App\Http\Controllers\API\PlaceSubscriptionController;
 use App\Http\Controllers\API\StaffController;
 use App\Http\Controllers\API\TableController;
@@ -38,7 +39,7 @@ Route::group(['middleware' => 'throttle:fcm'], function() {
 });
 
 
-// User routes routes
+// User routes
 Route::group(['prefix' => 'user', 'middleware' => 'auth:sanctum'], function() {
     // User specific routes
     Route::put('/profile-information', [UserController::class, 'update'])->middleware('throttle:update');
@@ -66,6 +67,16 @@ Route::group(['prefix' => 'cafes', 'middleware' => 'throttle:places'], function(
  * ODAVCE NA DOLE TREBA DA SE DORADE STVARI
  *
  * */
+// Routes for owner of the place
+Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'throttle:owner']], function() {
+    Route::post('/create/staff', [OwnerController::class, 'createStaff'])->middleware('can:create,App\Models\Staff');;
+    Route::put('/place-information', [OwnerController::class, 'updatePlace']);
+});
+
+// Routes for staff that works in place
+Route::group(['prefix' => 'staff', 'middleware' => ['auth:sanctum', 'table', 'throttle:staff']], function() {
+    Route::post('/table/{table}/toggle', [StaffController::class, 'toggle'])->middleware('can:toggle,table');;
+});
 
 
 //Route for tables in certain cafe
@@ -75,6 +86,3 @@ Route::group(['prefix' => 'cafe', 'middleware' => 'throttle:tables'], function()
 });
 
 //Route for changing availability of tables in a certain cafe
-Route::group(['prefix' => 'staff', 'middleware' => 'throttle:staff'], function() {
-});
-Route::post('/staff/tables/{table}/toggle', [StaffController::class, 'toggleAvailability']);

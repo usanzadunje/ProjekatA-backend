@@ -16,17 +16,8 @@ class RegisterUser
             'password' => Hash::make($validatedData['password']),
         ]);
 
-        if(!$user)
-        {
-            throw ValidationException::withMessages([
-                'registration' => ['Something went wrong. Try again later.'],
-            ]);
-        }
-
-        $userInfo = [
-            'token' => $user->createToken($validatedData['device_name'])->plainTextToken,
+        return [
+            'token' => $user?->createToken($validatedData['device_name'])->plainTextToken,
         ];
-
-        return $userInfo;
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -40,9 +41,29 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    private const IS_ADMIN = 1;
+
     public function cafes(): BelongsToMany
     {
         return $this->belongsToMany(Cafe::class);
+    }
+
+    public function ownerCafes(): HasMany
+    {
+        return $this->hasMany(Cafe::class);
+    }
+
+
+    public function isStaff(): ?int
+    {
+        return $this->cafe;
+    }
+
+    public function isOwner(): ?int
+    {
+        return $this->ownerCafes()->firstOr(function() {
+            return null;
+        })?->id;
     }
 
     //Cafes user has subscribed to
@@ -52,20 +73,5 @@ class User extends Authenticatable
             ->select('id', 'name', 'city', 'address', 'latitude', 'longitude')
             ->sortedCafes($sortBy)
             ->get();
-    }
-
-    //public function getEmailVerifiedAtAttribute($value)
-    //{
-    //    return !!$value;
-    //}
-    //
-    //public function emailIsVerified()
-    //{
-    //    return !!$this->email_verified_at;
-    //}
-
-    public function isStaff(): bool
-    {
-        return !!$this->cafe_id;
     }
 }

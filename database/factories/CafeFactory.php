@@ -28,13 +28,28 @@ class CafeFactory extends Factory
             if($this->store === 1)
             {
                 return [
-                    'name' => 'Cafe ' . $this->store,
-                    'city' => 'City ' . $this->store,
-                    'address' => 'Address ' . $this->store,
+                    'name' => 'Cafe ' . 1,
+                    'city' => 'City ' . 1,
+                    'address' => 'Address ' . 1,
                     'latitude' => '43.31782022634103',
                     'longitude' => '21.89577969079342',
-                    'phone' => $this->store . $this->store . $this->store . $this->store . $this->store . $this->store,
-                    'email' => 'cafe' . $this->store . '@live.com',
+                    'phone' => '111111',
+                    'email' => 'cafe1@live.com',
+                    'user_id' => 2,
+                ];
+            }
+
+            if($this->store === 2)
+            {
+                return [
+                    'name' => 'Cafe ' . 2,
+                    'city' => 'City ' . 2,
+                    'address' => 'Address ' . 2,
+                    'latitude' => '43.31782022634103',
+                    'longitude' => '21.89577969079340',
+                    'phone' => '222222',
+                    'email' => 'cafe2@live.com',
+                    'user_id' => 3,
                 ];
             }
 
@@ -46,6 +61,7 @@ class CafeFactory extends Factory
                 'longitude' => $this->faker->longitude,
                 'phone' => $this->store . $this->store . $this->store . $this->store . $this->store . $this->store,
                 'email' => 'cafe' . $this->store . '@live.com',
+                'user_id' => 1,
             ];
         }
 
@@ -57,6 +73,8 @@ class CafeFactory extends Factory
             'longitude' => $this->faker->longitude,
             'phone' => $this->faker->numberBetween(100000, 900000),
             'email' => $this->faker->unique()->safeEmail,
+            'user_id' => 1,
+
         ];
     }
 }
