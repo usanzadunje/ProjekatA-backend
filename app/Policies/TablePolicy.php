@@ -24,9 +24,10 @@ class TablePolicy
         }
     }
 
-    public function toggle(User $user, Table $table): bool
-    {
-        return $user->isStaff() === $table->cafe_id ||
-            $user->isOwner() === $table->cafe_id;
-    }
+    //public function toggle(User $user, Table $table): bool
+    //{
+    //    return $user->isStaff() === $table->cafe_id ||
+    //        $user->isOwner() === $table->cafe_id;
+    //}
+
 }
