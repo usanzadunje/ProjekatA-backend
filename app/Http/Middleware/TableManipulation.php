@@ -10,7 +10,7 @@ class TableManipulation
 
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->id() === 1 || auth()->user()->isStaff() || auth()->user()->isOwner())
+        if(auth()->id() === 1 || auth()->user()->cafe)
         {
             return $next($request);
         }
