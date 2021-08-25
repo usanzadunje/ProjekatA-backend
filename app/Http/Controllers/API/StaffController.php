@@ -9,16 +9,16 @@ use Illuminate\Http\JsonResponse;
 
 class StaffController extends Controller
 {
-    //public function availability(): JsonResponse
-    //{
-    //    $place = Cafe::select('id')->where('id', auth()->user()->cafe)->firstOr(function() {
-    //        abort(403);
-    //    });
-    //
-    //    $data = ['availability_ratio' => $place->takenMaxCapacityTableRatio()];
-    //
-    //    return response()->success('Successfully fetched place availability!', $data);
-    //}
+    public function availability()
+    {
+        $place = Cafe::select('id')->where('id', auth()->user()->cafe)->firstOr(function() {
+            abort(403);
+        });
+
+        $data = ['availability_ratio' => $place->takenMaxCapacityTableRatio()];
+
+        return response()->success('Successfully fetched place availability!', $data);
+    }
 
     //Eventually logic will be switched to this when there will be shown all off tables and specific table
     // would be managable from frontend
@@ -29,7 +29,7 @@ class StaffController extends Controller
     //    return response()->success('Successfully changed place availability!');
     //}
 
-    public function toggle($available)
+    public function toggle($available): JsonResponse
     {
         $place = Cafe::select('id')->where('id', auth()->user()->cafe)->firstOr(function() {
             abort(403);
