@@ -22,7 +22,7 @@ class LoginUser
         $user = User::where($fieldType, $login)->firstOr(function() {
             return throw ValidationException::withMessages([
                 'login' => [
-                    trans('auth.again'),
+                    trans('auth.unknown'),
                 ],
             ]);
         });

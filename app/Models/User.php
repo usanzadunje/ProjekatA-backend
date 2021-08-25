@@ -53,6 +53,10 @@ class User extends Authenticatable
         return $this->hasMany(Cafe::class);
     }
 
+    public function getCafeAttribute($value)
+    {
+        return $value ?: $this->isOwner();
+    }
 
     public function isStaff(): ?int
     {
