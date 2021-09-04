@@ -22,7 +22,7 @@ class LoginUser
         $user = User::where($fieldType, $login)->firstOr(function() {
             return throw ValidationException::withMessages([
                 'login' => [
-                    trans('auth.unknown'),
+                    trans('validation.unknown'),
                 ],
             ]);
         });
@@ -30,7 +30,7 @@ class LoginUser
         $this->checkPasswordMatch->handle($validatedData['password'], $user);
 
         $userInfo = [
-            'token' => $user->createToken($validatedData['device_name'])->plainTextToken,
+            'token' => $user->createToken($validatedData['device_name'] . $user->id)->plainTextToken,
         ];
 
         $userInfo['role'] = $user->isOwner() ?

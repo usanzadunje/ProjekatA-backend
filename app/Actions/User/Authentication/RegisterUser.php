@@ -17,7 +17,7 @@ class RegisterUser
         ]);
 
         return [
-            'token' => $user?->createToken($validatedData['device_name'])->plainTextToken,
+            'token' => $user?->createToken($validatedData['device_name'] . $user->id)->plainTextToken,
         ];
     }
 }

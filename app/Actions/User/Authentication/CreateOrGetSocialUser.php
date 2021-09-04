@@ -38,7 +38,7 @@ class CreateOrGetSocialUser
             });
 
         $userInfo = [
-            'token' => $user->createToken($providerPayload['device_name'])->plainTextToken,
+            'token' => $user->createToken($providerPayload['device_name'] . $user->id)->plainTextToken,
         ];
 
         return $userInfo;
