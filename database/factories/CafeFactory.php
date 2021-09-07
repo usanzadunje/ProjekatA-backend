@@ -35,7 +35,7 @@ class CafeFactory extends Factory
                     'longitude' => '21.89577969079342',
                     'phone' => '111111',
                     'email' => 'cafe1@live.com',
-                    'user_id' => 2,
+                    'user_id' => 3,
                 ];
             }
 
@@ -49,7 +49,7 @@ class CafeFactory extends Factory
                     'longitude' => '21.89577969079340',
                     'phone' => '222222',
                     'email' => 'cafe2@live.com',
-                    'user_id' => 3,
+                    'user_id' => 4,
                 ];
             }
 
@@ -61,7 +61,7 @@ class CafeFactory extends Factory
                 'longitude' => $this->faker->longitude,
                 'phone' => $this->store . $this->store . $this->store . $this->store . $this->store . $this->store,
                 'email' => 'cafe' . $this->store . '@live.com',
-                'user_id' => 1,
+                'user_id' => 2,
             ];
         }
 
@@ -73,7 +73,7 @@ class CafeFactory extends Factory
             'longitude' => $this->faker->longitude,
             'phone' => $this->faker->numberBetween(100000, 900000),
             'email' => $this->faker->unique()->safeEmail,
-            'user_id' => 1,
+            'user_id' => 2,
 
         ];
     }

@@ -25,6 +25,17 @@ class UserSeeder extends Seeder
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
 
+        User::create([
+            'fname' => 'Test',
+            'lname' => 'Test',
+            'bday' => '1998-07-21',
+            'phone' => 'test',
+            'username' => 'test',
+            'email' => 'test',
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0dsadrOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        ]);
+
         /* Users factory */
         User::create([
             'fname' => 'Cafe 1',
