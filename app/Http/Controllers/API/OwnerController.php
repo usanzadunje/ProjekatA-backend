@@ -11,7 +11,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class OwnerController extends Controller
 {
-    public function listStaff()
+    public function listStaff(): ResourceCollection
     {
         return UserResource::collection(auth()->user()->staff());
     }
