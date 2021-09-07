@@ -73,7 +73,7 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
 Route::group(['prefix' => 'staff', 'middleware' => ['auth:sanctum', 'table', 'throttle:staff']], function() {
     Route::get('/table/availability', [StaffController::class, 'availability']);
     //Route::post('/table/{table}/toggle', [StaffController::class, 'toggle'])->middleware('can:toggle,table');
-    Route::post('/table/toggle/{available}', [StaffController::class, 'toggle'])->middleware('can:toggle,App\Models\Table');
+    Route::post('/table/toggle/{available}', [StaffController::class, 'toggle']);
 });
 
 /*
