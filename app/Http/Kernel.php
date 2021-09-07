@@ -62,5 +62,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\Admin::class,
         'table' => \App\Http\Middleware\TableManipulation::class,
         'localization' => \App\Http\Middleware\SetLocale::class,
+        'owner' => \App\Http\Middleware\Owner::class,
     ];
 }
