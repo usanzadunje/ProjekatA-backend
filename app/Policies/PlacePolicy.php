@@ -6,11 +6,15 @@ use App\Models\Table;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class TablePolicy
+class PlacePolicy
 {
     use HandlesAuthorization;
 
-
+    /**
+     * Create a new policy instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
         //
@@ -25,10 +29,8 @@ class TablePolicy
         }
     }
 
-    public function toggle(User $user, Table $table): bool
+    public function update(User $user, Table $table): bool
     {
-        return $user->isStaff() === $table->cafe_id ||
-            $user->isOwner() === $table->cafe_id;
-    }
 
+    }
 }

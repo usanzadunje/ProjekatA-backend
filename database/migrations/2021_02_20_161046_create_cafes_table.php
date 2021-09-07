@@ -15,7 +15,7 @@ class CreateCafesTable extends Migration
     {
         Schema::create('cafes', function(Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('city');
             $table->string('address');
             $table->string('email')->unique()->nullable()->default(null);

@@ -77,6 +77,9 @@ return [
         'bday' => 'rodjendan',
         'phone' => 'telefon',
         'password' => 'lozinka',
+        'name' => 'naziv',
+        'address' => 'adresa',
+        'city' => 'grad',
     ],
 
 ];

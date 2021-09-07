@@ -62,26 +62,25 @@ Route::group(['prefix' => 'cafes', 'middleware' => 'throttle:places'], function(
     Route::get('/{cafe}', [CafeController::class, 'show'])->name('cafes/show');
 });
 
-/*
- *
- * ODAVCE NA DOLE TREBA DA SE DORADE STVARI
- *
- * */
 // Routes for owner of the place
 Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'throttle:owner']], function() {
     Route::get('/staff', [OwnerController::class, 'listStaff']);
-    Route::post('/create/staff', [OwnerController::class, 'createStaff'])->middleware('can:create,App\Models\Staff');
     Route::put('/place-information', [OwnerController::class, 'updatePlace']);
+    Route::post('/create/staff', [OwnerController::class, 'createStaff'])->middleware('can:create,App\Models\Staff');
 });
 
 // Routes for staff that works in place
 Route::group(['prefix' => 'staff', 'middleware' => ['auth:sanctum', 'table', 'throttle:staff']], function() {
     Route::get('/table/availability', [StaffController::class, 'availability']);
     //Route::post('/table/{table}/toggle', [StaffController::class, 'toggle'])->middleware('can:toggle,table');
-    Route::post('/table/toggle/{available}', [StaffController::class, 'toggle']);
+    Route::post('/table/toggle/{available}', [StaffController::class, 'toggle'])->middleware('can:toggle,App\Models\Table');
 });
 
-
+/*
+ *
+ * ODAVCE NA DOLE TREBA DA SE DORADE STVARI
+ *
+ * */
 //Route for tables in certain cafe
 Route::group(['prefix' => 'cafe', 'middleware' => 'throttle:tables'], function() {
     Route::get('/{cafe}/tables', [TableController::class, 'index']);
