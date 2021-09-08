@@ -18,13 +18,19 @@ class StaffPolicy
     public function before(User $user)
     {
         //Giving myself full access by lettings user with ID 1 to be always authorized
-        if($user->id === 1){
+        if($user->id === 1)
+        {
             return true;
         }
     }
 
-    public function create(User $user): bool
+    public function edit(User $user, User $staff): bool
     {
-        return $user->isOwner();
+        return $user->isOwner() === $staff->cafe;
+    }
+
+    public function delete(User $user, User $staff): bool
+    {
+        return $user->isOwner() === $staff->cafe;
     }
 }

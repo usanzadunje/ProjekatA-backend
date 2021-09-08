@@ -65,8 +65,10 @@ Route::group(['prefix' => 'cafes', 'middleware' => 'throttle:places'], function(
 // Routes for owner of the place
 Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'throttle:owner']], function() {
     Route::get('/staff', [OwnerController::class, 'listStaff']);
+    Route::post('/staff', [OwnerController::class, 'createStaff']);
+    Route::put('/staff/{staff}', [OwnerController::class, 'updateStaff'])->middleware('can:edit,staff');
+    Route::delete('/staff/{staff}', [OwnerController::class, 'deleteStaff'])->middleware('can:delete,staff');
     Route::put('/place-information', [OwnerController::class, 'updatePlace']);
-    Route::post('/create/staff', [OwnerController::class, 'createStaff'])->middleware('can:create,App\Models\Staff');
 });
 
 // Routes for staff that works in place

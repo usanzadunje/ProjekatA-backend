@@ -3,13 +3,11 @@
 namespace App\Http\Requests;
 
 use App\Models\User;
-use App\Rules\Avatar;
 use App\Rules\Password;
-use App\Rules\Staff;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class CreateStaffMemberRequest extends FormRequest
+class UpdateStaffMemberRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -35,14 +33,14 @@ class CreateStaffMemberRequest extends FormRequest
                 'required',
                 'string',
                 'alpha_num',
-                Rule::unique(User::class),
+                Rule::unique(User::class)->ignore($this->route('staff')),
             ],
             'email' => [
                 'required',
                 'string',
                 'email',
                 'max:255',
-                Rule::unique(User::class),
+                Rule::unique(User::class)->ignore($this->route('staff')),
             ],
             'password' => [
                 'string',

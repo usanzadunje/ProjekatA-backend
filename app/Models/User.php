@@ -58,7 +58,7 @@ class User extends Authenticatable
 
         return
             $cafe ?
-                User::select('fname', 'lname', 'bday', 'phone', 'username', 'avatar', 'email')
+                User::select('id', 'fname', 'lname', 'bday', 'phone', 'username', 'avatar', 'email')
                     ->whereNotNull('cafe')
                     ->whereCafe($cafe)
                     ->get()
@@ -78,9 +78,7 @@ class User extends Authenticatable
 
     public function isOwner(): ?int
     {
-        return $this->ownerCafes()->firstOr(function() {
-            return null;
-        })?->id;
+        return $this->ownerCafes?->id;
     }
 
     //Cafes user has subscribed to
