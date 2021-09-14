@@ -45,9 +45,9 @@ class CreateStaffMemberRequest extends FormRequest
                 Rule::unique(User::class),
             ],
             'password' => [
+                'required',
                 'string',
                 new Password,
-                'confirmed',
             ],
         ];
     }

@@ -45,7 +45,6 @@ class UpdateStaffMemberRequest extends FormRequest
             'password' => [
                 'string',
                 new Password,
-                'confirmed',
             ],
         ];
     }
