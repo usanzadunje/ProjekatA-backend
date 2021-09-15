@@ -12,10 +12,13 @@ class CreateStaffMember
         $owner = $providedOwner ?: auth()->user();
 
         //Making staff belong cafe that is owned by person who is creating him
-        $placeId = ['cafe' => $owner->isOwner()];
+        $additionalInfo = [
+            'cafe' => $owner->isOwner(),
+            'active' => false,
+        ];
 
         $validatedData['password'] = Hash::make($validatedData['password']);
 
-        User::create($validatedData + $placeId);
+        User::create($validatedData + $additionalInfo);
     }
 }
