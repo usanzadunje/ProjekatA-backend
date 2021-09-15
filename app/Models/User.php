@@ -58,7 +58,7 @@ class User extends Authenticatable
 
         return
             $cafe ?
-                User::select('id', 'fname', 'lname', 'bday', 'phone', 'username', 'avatar', 'email')
+                User::select('id', 'fname', 'lname', 'bday', 'phone', 'username', 'avatar', 'email', 'active')
                     ->whereNotNull('cafe')
                     ->whereCafe($cafe)
                     ->get()
