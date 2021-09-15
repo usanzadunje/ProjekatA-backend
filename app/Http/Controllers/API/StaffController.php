@@ -3,13 +3,34 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ToggleActivityStaffRequest;
 use App\Models\Cafe;
 use App\Models\Table;
 use Illuminate\Http\JsonResponse;
 
 class StaffController extends Controller
 {
-    public function availability()
+    public function toggleActivity(ToggleActivityStaffRequest $request)
+    {
+        $validatedData = $request->validated();
+
+        auth()->user()->update([
+            'active' => $validatedData['active'],
+        ]);
+
+        return response()->success('Successfully reported yourself as active!');
+    }
+
+    public function inactive(): JsonResponse
+    {
+        auth()->user()->update([
+            'active' => false,
+        ]);
+
+        return response()->success('Successfully reported yourself as inactive!');
+    }
+
+    public function availability(): JsonResponse
     {
         $place = Cafe::select('id')->where('id', auth()->user()->cafe)->firstOr(function() {
             abort(403);

@@ -47,6 +47,13 @@ class AuthController extends Controller
 
     public function logout(): JsonResponse
     {
+        if(auth()->user()->isStaff())
+        {
+            auth()->user()->update([
+                'active' => true,
+            ]);
+        }
+
         auth()->user()->currentAccessToken()->delete();
 
         return response()->success('Successfully logged out!');
