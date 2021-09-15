@@ -36,7 +36,7 @@ class UserResource extends JsonResource
             ),
             'email' => $this->email,
             'cafe' => $this->when($this->cafe, $this->cafe),
-            'active' => $this->when(!is_null($this->active), $this->active),
+            'active' => $this->when(is_bool($this->active), $this->active),
         ];
     }
 }
