@@ -61,6 +61,7 @@ class User extends Authenticatable
                 User::select('id', 'fname', 'lname', 'bday', 'phone', 'username', 'avatar', 'email', 'active')
                     ->whereNotNull('cafe')
                     ->whereCafe($cafe)
+                    ->orderByDesc('active')
                     ->get()
                 :
                 null;
