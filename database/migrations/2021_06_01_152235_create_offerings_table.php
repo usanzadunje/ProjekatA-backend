@@ -13,11 +13,12 @@ class CreateOfferingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('offerings', function (Blueprint $table) {
+        Schema::create('offerings', function(Blueprint $table) {
             $table->id();
             $table->string('name', 255)->unique();
+            $table->string('description', 255)->nullable();
+            $table->bigInteger('price')->nullable();
             $table->string('tag', 255);
-            $table->timestamps();
         });
     }
 

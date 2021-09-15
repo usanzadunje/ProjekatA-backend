@@ -35,7 +35,7 @@ class StaffController extends Controller
             abort(403);
         });
 
-        $table = Table::where('cafe_id', $place->id)->available(!($available === 'true'))->first();
+        $table = Table::where('cafe_id', $place->id)->available(!($available === 'true'))->sharedLock()->first();
 
         if($table)
         {

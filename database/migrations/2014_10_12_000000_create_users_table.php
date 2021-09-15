@@ -23,11 +23,12 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique()->nullable()->default(null);
             $table->string('avatar', 255)->nullable()->default('default_avatar.png');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable()->default(null);
+            //$table->timestamp('email_verified_at')->nullable()->default(null);
             $table->string('password')->nullable()->default(null);
             $table->string('fcm_token', '255')->nullable()->default(null);
             $table->unsignedBigInteger('cafe')->nullable()->default(null);
-            $table->rememberToken();
+            $table->boolean('active')->nullable()->default(null);
+            //$table->rememberToken();
             $table->timestamps();
         });
     }

@@ -13,11 +13,10 @@ class CreateCafeOfferingTable extends Migration
      */
     public function up()
     {
-        Schema::create('cafe_offering', function (Blueprint $table) {
+        Schema::create('cafe_offering', function(Blueprint $table) {
             $table->integer('cafe_id');
             $table->integer('offering_id');
             $table->primary(['cafe_id', 'offering_id']);
-            $table->timestamps();
         });
     }
 
