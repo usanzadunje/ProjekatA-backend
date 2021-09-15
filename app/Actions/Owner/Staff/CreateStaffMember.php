@@ -3,6 +3,7 @@
 namespace App\Actions\Owner\Staff;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class CreateStaffMember
 {
@@ -10,7 +11,10 @@ class CreateStaffMember
     {
         $owner = $providedOwner ?: auth()->user();
 
+        //Making staff belong cafe that is owned by person who is creating him
         $placeId = ['cafe' => $owner->isOwner()];
+
+        $validatedData['password'] = Hash::make($validatedData['password']);
 
         User::create($validatedData + $placeId);
     }

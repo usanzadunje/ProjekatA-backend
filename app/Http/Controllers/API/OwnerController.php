@@ -29,9 +29,9 @@ class OwnerController extends Controller
         return response()->success('Successfully created staff member.');
     }
 
-    public function updateStaff(User $staff, UpdateStaffMemberRequest $request): JsonResponse
+    public function updateStaff(User $staff, UpdateStaffMemberRequest $request, UpdateStaffMember $updateStaffMember): JsonResponse
     {
-        $staff->update($request->validated());
+        $updateStaffMember->handle($staff, $request->validated());
 
         return response()->success('Successfully updated staff member.');
     }

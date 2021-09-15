@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Actions\User\Authentication\CreateOrGetSocialUser;
 use App\Actions\User\Authentication\LoginUser;
-use App\Actions\User\Authentication\RegisterUser;
+use App\Actions\User\Authentication\CreateUser;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
@@ -38,9 +38,9 @@ class AuthController extends Controller
         return response()->success('Successfully logged in!', $response);
     }
 
-    public function register(RegisterUserRequest $request, RegisterUser $registerUser): JsonResponse
+    public function register(RegisterUserRequest $request, CreateUser $createUser): JsonResponse
     {
-        $response = $registerUser->handle($request->validated());
+        $response = $createUser->handle($request->validated());
 
         return response()->success('Successfully registered!', $response);
     }

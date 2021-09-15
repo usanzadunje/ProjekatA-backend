@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
-class RegisterUser
+class CreateUser
 {
 
     public function handle(array $validatedData): array
