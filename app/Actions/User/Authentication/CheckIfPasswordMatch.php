@@ -14,7 +14,7 @@ class CheckIfPasswordMatch
         if(!$user || !Hash::check($providedPassword, $user->password))
         {
             throw ValidationException::withMessages([
-                'password' => [
+                'login' => [
                     trans('auth.again'),
                     trans('auth.failed'),
                 ],
