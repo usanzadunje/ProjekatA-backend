@@ -19,10 +19,7 @@ class CafeSeeder extends Seeder
 
         Cafe::factory(120)
             ->hasTables(4)
-            ->hasAttached($offerings->skip(2)->take(4), [
-                'created_at' => now(),
-                'updated_at' => now(),
-            ])
+            ->hasAttached($offerings->skip(2)->take(4))
             ->create();
     }
 }

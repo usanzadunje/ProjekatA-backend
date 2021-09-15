@@ -21,7 +21,6 @@ class UserSeeder extends Seeder
             'phone' => '0640763084',
             'username' => 'usanzadunje',
             'email' => 'admin@admin.com',
-            'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
 
@@ -32,7 +31,6 @@ class UserSeeder extends Seeder
             'phone' => 'test',
             'username' => 'test',
             'email' => 'test',
-            'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0dsadrOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
 
@@ -44,7 +42,6 @@ class UserSeeder extends Seeder
             'phone' => '111111',
             'username' => 'cafe1',
             'email' => 'cafe1@live.com',
-            'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
         User::create([
@@ -54,7 +51,6 @@ class UserSeeder extends Seeder
             'phone' => '222222',
             'username' => 'cafe2',
             'email' => 'cafe2@live.com',
-            'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
         User::create([
@@ -64,7 +60,6 @@ class UserSeeder extends Seeder
             'phone' => 'petar',
             'username' => 'petar',
             'email' => 'petar@cafe1.com',
-            'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'cafe' => 1,
         ]);
@@ -75,7 +70,6 @@ class UserSeeder extends Seeder
             'phone' => 'pavle',
             'username' => 'pavle',
             'email' => 'pavle@cafe1.com',
-            'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'cafe' => 1,
         ]);
@@ -86,7 +80,6 @@ class UserSeeder extends Seeder
             'phone' => 'nikola',
             'username' => 'nikola',
             'email' => 'nikola@cafe1.com',
-            'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'cafe' => 1,
         ]);
@@ -97,7 +90,6 @@ class UserSeeder extends Seeder
             'phone' => 'nenad',
             'username' => 'nenad',
             'email' => 'nenad@cafe1.com',
-            'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'cafe' => 1,
         ]);
@@ -108,7 +100,6 @@ class UserSeeder extends Seeder
             'phone' => 'marko',
             'username' => 'marko',
             'email' => 'marko@cafe1.com',
-            'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'cafe' => 1,
         ]);
@@ -119,7 +110,6 @@ class UserSeeder extends Seeder
             'phone' => 'jeka',
             'username' => 'jeka',
             'email' => 'jeka@cafe1.com',
-            'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'cafe' => 1,
         ]);
@@ -130,7 +120,6 @@ class UserSeeder extends Seeder
             'phone' => 'marija',
             'username' => 'marija',
             'email' => 'marija@cafe2.com',
-            'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'cafe' => 2,
         ]);
@@ -141,7 +130,6 @@ class UserSeeder extends Seeder
             'phone' => 'marina',
             'username' => 'marina',
             'email' => 'marina@cafe2.com',
-            'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'cafe' => 2,
         ]);
@@ -152,7 +140,6 @@ class UserSeeder extends Seeder
             'phone' => 'masa',
             'username' => 'masa',
             'email' => 'masa@cafe2.com',
-            'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'cafe' => 2,
         ]);
