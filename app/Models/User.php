@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     public function cafes(): BelongsToMany
     {
-        return $this->belongsToMany(Cafe::class);
+        return $this->belongsToMany(Cafe::class)->withTimestamps();
     }
 
     public function ownerCafes(): HasOne
@@ -85,8 +85,10 @@ class User extends Authenticatable
     //Cafes user has subscribed to
     public function subscribedToCafes(string $sortBy = 'default'): Collection
     {
-        return $this->cafes()
+        return $this
+            ->cafes()
             ->select('id', 'name', 'city', 'address', 'latitude', 'longitude')
+            ->withPivot('expires_in')
             ->sortedCafes($sortBy)
             ->get();
     }

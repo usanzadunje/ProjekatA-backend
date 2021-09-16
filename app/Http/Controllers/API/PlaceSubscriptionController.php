@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CafeResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Ramsey\Collection\Collection;
 
 class PlaceSubscriptionController extends Controller
 {
@@ -57,12 +58,13 @@ class PlaceSubscriptionController extends Controller
     /*
      * Returning all cafes logged in user has subscribed to
      */
-    public function subscriptions(): ResourceCollection
+    public function subscriptions() : ResourceCollection
     {
+        $sortBy = request('sortBy') ?? 'default';
+
         return CafeResource::collection(
             auth()->user()
-                ->subscribedToCafes(request('sortBy'))
-                ->makeHidden(['pivot'])
+                ->subscribedToCafes($sortBy)
         );
     }
 }

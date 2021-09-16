@@ -13,10 +13,11 @@ class CreateCafeUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('cafe_user', function (Blueprint $table) {
+        Schema::create('cafe_user', function(Blueprint $table) {
             $table->integer('user_id');
             $table->integer('cafe_id');
             $table->primary(['user_id', 'cafe_id']);
+            $table->integer('expires_in')->nullable();
             $table->timestamps();
         });
     }

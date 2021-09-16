@@ -42,7 +42,9 @@ class SubscribeToPlace
         $user = $providedUser ?: auth()->user();
         $user
             ->cafes()
-            ->attach($this->cafeId);
+            ->attach($this->cafeId, [
+                'expires_in' => $this->notificationTime,
+            ]);
 
         if($this->notificationTime)
         {
