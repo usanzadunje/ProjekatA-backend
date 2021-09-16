@@ -39,6 +39,11 @@ class RemoveUserSubscriptionOnCafe implements ShouldQueue
      */
     public function handle()
     {
-        CafeUser::where(['user_id' => $this->userId, 'cafe_id' => $this->cafeId])->delete();
+        $place = CafeUser::where(['user_id' => $this->userId, 'cafe_id' => $this->cafeId]);
+
+        if($place)
+        {
+            $place->delete();
+        }
     }
 }
