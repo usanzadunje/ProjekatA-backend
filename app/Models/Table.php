@@ -21,17 +21,4 @@ class Table extends Model
     {
         return $query->where('empty', $availability);
     }
-
-    public function toggleAvailability()
-    {
-        if($this->cafe->isFull())
-        {
-            // Notify all subscribed users that table has been freed in cafe
-            $this->cafe->sendTableFreedNotificationToSubscribers();
-        }
-
-        $this->update([
-            'empty' => !$this->empty,
-        ]);
-    }
 }

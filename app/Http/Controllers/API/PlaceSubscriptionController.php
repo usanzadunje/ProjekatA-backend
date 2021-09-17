@@ -50,7 +50,7 @@ class PlaceSubscriptionController extends Controller
             ->where('cafe_id', $cafeId)
             ->first();
 
-        return response()->success('User successfully unsubscribed!', [
+        return response()->success('User subscription status', [
             'subscribed' => !!$subscribed,
         ]);
     }

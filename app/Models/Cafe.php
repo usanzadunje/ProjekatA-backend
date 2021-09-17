@@ -62,16 +62,6 @@ class Cafe extends Model
         return $tablesTaken . '/' . $cafeCapacity;
     }
 
-    public function sendTableFreedNotificationToSubscribers()
-    {
-        $tokens = $this->subscribedUsers()->pluck('fcm_token')->toArray();
-        if(!empty($tokens))
-        {
-            (new SendNotificationViaFCM())->sendNotifications($tokens);
-            $this->subscribedUsers()->detach();
-        }
-    }
-
     public function calculateDistance($lat, $lng): array
     {
         return DB::select(DB::raw('
