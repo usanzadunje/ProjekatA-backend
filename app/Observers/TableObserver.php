@@ -29,7 +29,15 @@ class TableObserver
     {
         $place = $table->cafe;
 
-        if($place->isFull())
+        /*
+         * Since table availability is firstly changed and then this event triggers
+         * we cannot check if table is full because it will only send notification when place is full
+         * we want to send notification when place was full then one table was freed
+         * this means free table count will be one
+         * Using isFull() on place will result in sending notification when actual
+         * place availability is full (WHICH IS NOT THE GOAL OF THIS NOTIFICATION!)
+         */
+        if($place->freeTablesCount() === 1)
         {
             // Notify all subscribed users that table has been freed in cafe
             $this->sendTableFreedNotification->handle($place);
