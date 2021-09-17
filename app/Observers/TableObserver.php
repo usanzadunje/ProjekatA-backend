@@ -8,28 +8,36 @@ use App\Models\Table;
 
 class TableObserver
 {
+    protected SendTableFreedNotification $sendTableFreedNotification;
+    protected SendTableAvailabilityChangedNotification $availabilityChangedNotification;
+
+    public function __construct(
+        SendTableFreedNotification $sendTableFreedNotification,
+        SendTableAvailabilityChangedNotification $availabilityChangedNotification
+    )
+    {
+        $this->sendTableFreedNotification = $sendTableFreedNotification;
+        $this->availabilityChangedNotification = $availabilityChangedNotification;
+    }
+
     public function created(Table $table)
     {
         //
     }
 
-    public function updated(
-        Table $table,
-        SendTableFreedNotification $sendTableFreedNotification,
-        SendTableAvailabilityChangedNotification $availabilityChangedNotification
-    )
+    public function updated(Table $table)
     {
         $place = $table->cafe;
 
         if($place->isFull())
         {
             // Notify all subscribed users that table has been freed in cafe
-            $sendTableFreedNotification->handle($place);
+            $this->sendTableFreedNotification->handle($place);
         }
 
         // Notify all staff for place that availability has changed
         // so app can update it's state
-        $availabilityChangedNotification->handle($place->id);
+        $this->availabilityChangedNotification->handle($place->id);
     }
 
 
