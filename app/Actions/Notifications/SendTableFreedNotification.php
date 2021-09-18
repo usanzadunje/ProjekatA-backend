@@ -25,8 +25,6 @@ class SendTableFreedNotification
         if(!empty($tokens))
         {
             $this->sendNotificationViaFCM->handle($tokens, 'Table freed', $body);
-
-            $place->subscribedUsers()->detach();
         }
     }
 }
