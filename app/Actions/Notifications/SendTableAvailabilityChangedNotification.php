@@ -7,11 +7,11 @@ use App\Models\User;
 
 class SendTableAvailabilityChangedNotification
 {
-    protected SendNotificationViaFCM $sendNotificationViaFCM;
+    protected SendDataNotificationViaFCM $sendDataNotificationViaFCM;
 
-    public function __construct(SendNotificationViaFCM $sendNotificationViaFCM)
+    public function __construct(SendDataNotificationViaFCM $sendDataNotificationViaFCM)
     {
-        $this->sendNotificationViaFCM = $sendNotificationViaFCM;
+        $this->sendDataNotificationViaFCM = $sendDataNotificationViaFCM;
     }
 
     public function handle(int $placeId): void
@@ -19,12 +19,16 @@ class SendTableAvailabilityChangedNotification
         $tokens = User::select('fcm_token')
             ->whereNotNull('fcm_token')
             ->where('cafe', $placeId)
+            ->where('id', '!=', auth()->id())
             ->pluck('fcm_token')
             ->toArray();
 
         if(!empty($tokens))
         {
-            $this->sendNotificationViaFCM->handle($tokens, 'Changed');
+            $this->sendDataNotificationViaFCM->handle(
+                $tokens,
+                ['type' => 'availabilityChanged']
+            );
         }
     }
 }

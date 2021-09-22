@@ -76,7 +76,7 @@ Route::group(['prefix' => 'staff', 'middleware' => ['auth:sanctum', 'staff', 'th
     Route::post('/activity', [StaffController::class, 'toggleActivity']);
     Route::get('/table/availability', [StaffController::class, 'availability']);
     //Route::post('/table/{table}/toggle', [StaffController::class, 'toggle'])->middleware('can:toggle,table');
-    Route::post('/table/toggle/{available}', [StaffController::class, 'toggle']);
+    Route::post('/table/toggle/{available}', [StaffController::class, 'toggleTableAvailability']);
 });
 
 /*

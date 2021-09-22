@@ -28,12 +28,10 @@ class ToggleTableAvailability
 
         if($table)
         {
-
             $table->update([
                 'empty' => !$table->empty,
             ]);
         }
-
 
         return [
             'availability_ratio' => $place->takenMaxCapacityTableRatio(),

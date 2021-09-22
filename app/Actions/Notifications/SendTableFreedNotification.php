@@ -20,11 +20,25 @@ class SendTableFreedNotification
             ->pluck('fcm_token')
             ->toArray();
 
-        $body = "There is a free spot in $place->name now";
+        $title = trans('notifications.free_spot') . '!';
+
+        $body = trans(
+            'notifications.free_spot_body',
+            ['place' => $place->name]
+        );
 
         if(!empty($tokens))
         {
-            $this->sendNotificationViaFCM->handle($tokens, 'Table freed', $body);
+            $this->sendNotificationViaFCM->handle(
+                $tokens,
+                $title,
+                $body,
+                'default',
+                [
+                    'type' => 'notification',
+                    'place_name' => $place->name,
+                ]
+            );
         }
     }
 }
