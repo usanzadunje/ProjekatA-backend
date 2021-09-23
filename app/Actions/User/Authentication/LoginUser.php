@@ -36,6 +36,14 @@ class LoginUser
         $userInfo['role'] = $user->isOwner() ?
             1 : ($user->isStaff() ? 2 : null);
 
+        // When staff member logs in, set his status to active
+        if($user->isStaff())
+        {
+            $user->update([
+                'active' => true,
+            ]);
+        }
+
         return $userInfo;
     }
 }
