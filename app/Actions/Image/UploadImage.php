@@ -4,7 +4,6 @@ namespace App\Actions\Image;
 
 use Exception;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\ValidationException;
 use Intervention\Image\Facades\Image;
 
 class UploadImage

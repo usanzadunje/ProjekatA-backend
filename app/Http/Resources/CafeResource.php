@@ -25,6 +25,7 @@ class CafeResource extends JsonResource
             'longitude' => $this->when(!is_null($this->longitude), $this->longitude),
             'availability_ratio' => $this->takenMaxCapacityTableRatio(),
             'offerings' => OfferingResource::collection($this->whenLoaded('offerings')),
+            'images' => ImageResource::collection($this->whenLoaded('images')),
         ];
     }
 }

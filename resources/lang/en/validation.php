@@ -122,7 +122,7 @@ return [
     'subscription' => 'You are already subscribed.',
     'The :attribute must be at least :length characters.' => 'The :attribute must be at least :length characters.',
     'staff' => 'You can only create staff members for your own place.',
-    'unknown' => 'We couldn\'t find user with provided credentials.',
+    'unknown' => "We couldn't find user with provided credentials.",
 
 
     /*

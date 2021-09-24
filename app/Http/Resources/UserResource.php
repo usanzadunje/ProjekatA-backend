@@ -30,7 +30,7 @@ class UserResource extends JsonResource
                     }
                     else
                     {
-                        return url('storage/img/user/' . $this->avatar);
+                        return url('storage/img/users/' . $this->avatar);
                     }
                 }
             ),

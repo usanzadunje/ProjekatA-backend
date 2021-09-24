@@ -33,8 +33,8 @@ class LoginUser
             'token' => $user->createToken($validatedData['device_name'] . $user->id)->plainTextToken,
         ];
 
-        $userInfo['role'] = $user->isOwner() ?
-            1 : ($user->isStaff() ? 2 : null);
+        $userInfo['role'] = $user->isOwner() ? User::IS_ADMIN :
+            ($user->isStaff() ? User::IS_STAFF : null);
 
         // When staff member logs in, set his status to active
         if($user->isStaff())

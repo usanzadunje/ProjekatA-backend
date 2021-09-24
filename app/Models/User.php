@@ -40,7 +40,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    private const IS_ADMIN = 1;
+    const IS_ADMIN = 1;
+
+    const IS_STAFF = 2;
 
     public function cafes(): BelongsToMany
     {

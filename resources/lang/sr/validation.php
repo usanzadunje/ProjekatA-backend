@@ -18,11 +18,11 @@ return [
 
     'email' => 'E-mail mora biti validna email adresa.',
 
-    'image' => ':Attribute mora biti slika.',
+    'image' => 'Fajl mora biti slika.',
 
     'max' => [
         'numeric' => ':Attribute ne sme biti veci od :max.',
-        'file' => ':Attribute ne sme biti veci od :max kB.',
+        'file' => ':Attribute ne sme biti veca od :max kB.',
         'string' => ':Attribute ne sme biti duzi od :max karaktera.',
         'array' => ':Attribute ne sme imati vise od :max elemenata.',
     ],
@@ -35,7 +35,7 @@ return [
     'confirmed' => 'Lozinke nisu iste.',
     'subscription' => 'Vec ste pretplaceni.',
     'The :attribute must be at least :length characters.' => ':Attribute mora biti najmanje :length karaktera.',
-    'mimetypes' => ':Attribute mora biti fajl tipa: :values.',
+    'mimes' => ':Attribute mora biti fajl tipa: :values.',
     'encoded-image' => ':Attribute mora biti slika formata:  :values.',
     'staff' => 'Mozete kreirati osoblje samo za svoj objekat.',
     'unknown' => 'Nismo uspeli da pronadjemo korisnika sa unetim podacima.',

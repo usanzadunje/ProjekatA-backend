@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\API;
 
 use App\Actions\Owner\Place\UpdatePlaceInfo;
+use App\Actions\Owner\Place\UploadPlaceImages;
 use App\Actions\Owner\Staff\CreateStaffMember;
 use App\Actions\Owner\Staff\UpdateStaffMember;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateStaffMemberRequest;
 use App\Http\Requests\UpdatePlaceRequest;
 use App\Http\Requests\UpdateStaffMemberRequest;
+use App\Http\Requests\UploadPlaceImagesRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -56,8 +58,12 @@ class OwnerController extends Controller
         return \response()->success('Successfully updates place information.');
     }
 
-    //remove staff
-    //update staff
+    public function uploadPlaceImages(UploadPlaceImagesRequest $request, UploadPlaceImages $uploadPlaceImages): JsonResponse
+    {
+        $place = auth()->user()->ownerCafes;
 
+        $uploadPlaceImages->handle($request->validated(), $place);
 
+        return \response()->success('Successfully uploaded place images.');
+    }
 }

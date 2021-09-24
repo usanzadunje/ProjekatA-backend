@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CafeResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use Ramsey\Collection\Collection;
 
 class PlaceSubscriptionController extends Controller
 {
@@ -39,7 +38,7 @@ class PlaceSubscriptionController extends Controller
     }
 
     /*
-     * Checking if user is subscribed to specific cafe
+     * Checking if users is subscribed to specific cafe
      *
      * @param int $cafeId
      */
@@ -56,7 +55,7 @@ class PlaceSubscriptionController extends Controller
     }
 
     /*
-     * Returning all cafes logged in user has subscribed to
+     * Returning all cafes logged in users has subscribed to
      */
     public function subscriptions() : ResourceCollection
     {
