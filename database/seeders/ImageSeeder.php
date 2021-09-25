@@ -23,10 +23,12 @@ class ImageSeeder extends Seeder
                     Image::create([
                         'path' => "/places/Cafe $i/1_1cafe.png",
                         'is_main' => true,
+                        'cafe_id' => $i,
                     ]);
                 }
                 Image::create([
                     'path' => "/places/Cafe $i/2_{$j}cafe.png",
+                    'cafe_id' => $i,
                 ]);
             }
         }
