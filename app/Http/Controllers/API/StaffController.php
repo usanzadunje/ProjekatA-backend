@@ -2,16 +2,49 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Actions\Owner\Staff\CreateStaffMember;
+use App\Actions\Owner\Staff\UpdateStaffMember;
 use App\Actions\Place\Table\ToggleTableAvailability;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateStaffMemberRequest;
 use App\Http\Requests\ToggleActivityStaffRequest;
+use App\Http\Requests\UpdateStaffMemberRequest;
+use App\Http\Resources\UserResource;
 use App\Models\Cafe;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Validation\UnauthorizedException;
 
 class StaffController extends Controller
 {
-    public function toggleActivity(ToggleActivityStaffRequest $request)
+    public function index(): ResourceCollection
+    {
+        return UserResource::collection(auth()->user()->staff());
+    }
+
+    public function store(CreateStaffMemberRequest $request, CreateStaffMember $createStaffMember): JsonResponse
+    {
+        $createStaffMember->handle($request->validated());
+
+        return response()->success('Successfully created staff member.');
+    }
+
+    public function update(User $staff, UpdateStaffMemberRequest $request, UpdateStaffMember $updateStaffMember): JsonResponse
+    {
+        $updateStaffMember->handle($staff, $request->validated());
+
+        return response()->success('Successfully updated staff member.');
+    }
+
+    public function destroy(User $staff): JsonResponse
+    {
+        $staff->delete();
+
+        return response()->success('Successfully deleted staff member.');
+    }
+
+    public function toggle(ToggleActivityStaffRequest $request)
     {
         $validatedData = $request->validated();
 
@@ -22,46 +55,12 @@ class StaffController extends Controller
         return response()->success('Successfully reported your activity status!');
     }
 
-    public function inactive(): JsonResponse
-    {
-        auth()->user()->update([
-            'active' => false,
-        ]);
-
-        return response()->success('Successfully reported yourself as inactive!');
-    }
-
-    public function availability(): JsonResponse
-    {
-        $place = Cafe::select('id')->where('id', auth()->user()->cafe)->firstOr(function() {
-            abort(403);
-        });
-
-        $data = ['availability_ratio' => $place->takenMaxCapacityTableRatio()];
-
-        return response()->success('Successfully fetched place availability!', $data);
-    }
-
-    //Eventually logic will be switched to this when there will be shown all off tables and specific table
-    // would be managable from frontend
-    //public function toggle(Table $table): JsonResponse
+    //public function inactive(): JsonResponse
     //{
-    //    $table->toggleAvailability();
+    //    auth()->user()->update([
+    //        'active' => false,
+    //    ]);
     //
-    //    return response()->success('Successfully changed place availability!');
+    //    return response()->success('Successfully reported yourself as inactive!');
     //}
-
-    public function toggleTableAvailability($available, ToggleTableAvailability $toggleTableAvailability): JsonResponse
-    {
-        $data = [];
-        try
-        {
-            $data = $toggleTableAvailability->handle($available, auth()->user());
-        }catch(UnauthorizedException $e)
-        {
-            abort(403);
-        }
-
-        return response()->success('Successfully changed place availability!', $data);
-    }
 }

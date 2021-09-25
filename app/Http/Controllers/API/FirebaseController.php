@@ -10,14 +10,14 @@ use Illuminate\Http\JsonResponse;
 
 class FirebaseController extends Controller
 {
-    public function setFcmToken(StoreFcmTokenRequest $request, SetFcmToken $setFcmToken): JsonResponse
+    public function store(StoreFcmTokenRequest $request, SetFcmToken $setFcmToken): JsonResponse
     {
         $setFcmToken->handle($request->validated());
 
         return response()->success('Successfully set FCM token.');
     }
 
-    public function removeFcmToken(RemoveFcmToken $removeFcmToken): JsonResponse
+    public function destroy(RemoveFcmToken $removeFcmToken): JsonResponse
     {
         $removeFcmToken->handle();
 

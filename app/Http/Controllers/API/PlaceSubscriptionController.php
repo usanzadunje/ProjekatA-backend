@@ -11,30 +11,17 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class PlaceSubscriptionController extends Controller
 {
-
     /*
-     * Subscribing to specific cafe
-     *
-     * @param int $cafeId
-     * @param int $notificationTime
-     */
-    public function subscribe(SubscribeToPlace $subscribeToPlace): JsonResponse
+    * Returning all cafes logged in users has subscribed to
+    */
+    public function index(): ResourceCollection
     {
-        $subscribeToPlace->handle();
+        $sortBy = request('sortBy') ?? 'default';
 
-        return response()->success('User successfully subscribed!');
-    }
-
-    /*
-     * Unsubscribing specific cafe
-     *
-     * @param int $cafeId
-     */
-    public function unsubscribe(UnsubscribeFromPlace $unsubscribeFromPlace): JsonResponse
-    {
-        $unsubscribeFromPlace->handle();
-
-        return response()->success('User successfully unsubscribed!');
+        return CafeResource::collection(
+            auth()->user()
+                ->subscribedToCafes($sortBy)
+        );
     }
 
     /*
@@ -42,7 +29,7 @@ class PlaceSubscriptionController extends Controller
      *
      * @param int $cafeId
      */
-    public function isUserSubscribed(int $cafeId): JsonResponse
+    public function show(int $cafeId): JsonResponse
     {
         $subscribed = auth()->user()
             ->cafes()
@@ -55,15 +42,27 @@ class PlaceSubscriptionController extends Controller
     }
 
     /*
-     * Returning all cafes logged in users has subscribed to
-     */
-    public function subscriptions() : ResourceCollection
+      * Subscribing to specific cafe
+      *
+      * @param int $cafeId
+      * @param int $notificationTime
+      */
+    public function store(SubscribeToPlace $subscribeToPlace): JsonResponse
     {
-        $sortBy = request('sortBy') ?? 'default';
+        $subscribeToPlace->handle();
 
-        return CafeResource::collection(
-            auth()->user()
-                ->subscribedToCafes($sortBy)
-        );
+        return response()->success('User successfully subscribed!');
+    }
+
+    /*
+     * Unsubscribing specific cafe
+     *
+     * @param int $cafeId
+     */
+    public function destroy(UnsubscribeFromPlace $unsubscribeFromPlace): JsonResponse
+    {
+        $unsubscribeFromPlace->handle();
+
+        return response()->success('User successfully unsubscribed!');
     }
 }

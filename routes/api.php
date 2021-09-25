@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\API\CafeController;
+use App\Http\Controllers\API\PlaceController;
 use App\Http\Controllers\API\FirebaseController;
-use App\Http\Controllers\API\OwnerController;
+use App\Http\Controllers\API\OwnerPlaceController;
+use App\Http\Controllers\API\OwnerStaffController;
 use App\Http\Controllers\API\PlaceSubscriptionController;
 use App\Http\Controllers\API\StaffController;
 use App\Http\Controllers\API\TableController;
@@ -34,8 +35,8 @@ Route::group(['middleware' => 'throttle:auth'], function() {
 
 // Routes for Firebase stuff
 Route::group(['middleware' => 'throttle:fcm'], function() {
-    Route::post('/fcm-token', [FirebaseController::class, 'setFcmToken'])->middleware(['auth:sanctum']);
-    Route::post('/fcm-token/remove', [FirebaseController::class, 'removeFcmToken'])->middleware(['auth:sanctum']);
+    Route::post('/fcm-token', [FirebaseController::class, 'store'])->middleware(['auth:sanctum']);
+    Route::post('/fcm-token/remove', [FirebaseController::class, 'destroy'])->middleware(['auth:sanctum']);
 });
 
 
@@ -47,40 +48,39 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:sanctum'], function() {
 
     // Place subscription routes
     Route::group(['middleware' => 'throttle:subscribe'], function() {
-        Route::post('/subscribe/cafe/{cafeId}/notify-in-next/{notificationTime?}', [PlaceSubscriptionController::class, 'subscribe']);
-        Route::post('/unsubscribe/cafe/{cafeId}', [PlaceSubscriptionController::class, 'unsubscribe']);
-        Route::post('/subscribed/cafe/{cafeId}', [PlaceSubscriptionController::class, 'isUserSubscribed']);
-        Route::get('/cafes/subscriptions', [PlaceSubscriptionController::class, 'subscriptions']);
+        Route::get('/cafes/subscriptions', [PlaceSubscriptionController::class, 'index']);
+        Route::post('/subscribe/cafe/{cafeId}/notify-in-next/{notificationTime?}', [PlaceSubscriptionController::class, 'store']);
+        Route::post('/subscribed/cafe/{cafeId}', [PlaceSubscriptionController::class, 'show']);
+        Route::post('/unsubscribe/cafe/{cafeId}', [PlaceSubscriptionController::class, 'destroy']);
     });
 });
 
 //Routes for cafes
 Route::group(['prefix' => 'cafes', 'middleware' => 'throttle:places'], function() {
-    Route::get('/', [CafeController::class, 'index'])->name('cafes/index');
-    Route::get('/chunked/start/number-of-cafes/{start?}/{numberOfCafes?}', [CafeController::class, 'index'])
+    Route::get('/chunked/start/number-of-cafes/{start?}/{numberOfCafes?}', [PlaceController::class, 'index'])
         ->name('cafes/chunked');
-    Route::get('/{cafe}', [CafeController::class, 'show'])->name('cafes/show');
+    Route::get('/{cafe}', [PlaceController::class, 'show'])->name('cafes/show');
 });
 
 // Routes for owner of the place
 Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'throttle:owner']], function() {
     // Staff specific router
-    Route::get('/staff', [OwnerController::class, 'listStaff']);
-    Route::post('/staff', [OwnerController::class, 'createStaff']);
-    Route::put('/staff/{staff}', [OwnerController::class, 'updateStaff'])->middleware('can:edit,staff');
-    Route::delete('/staff/{staff}', [OwnerController::class, 'deleteStaff'])->middleware('can:delete,staff');
+    Route::get('/staff', [StaffController::class, 'index']);
+    Route::post('/staff', [StaffController::class, 'store']);
+    Route::put('/staff/{staff}', [StaffController::class, 'update'])->middleware('can:edit,staff');
+    Route::delete('/staff/{staff}', [StaffController::class, 'destroy'])->middleware('can:delete,staff');
 
     // Place specific routes
-    Route::put('/place-information', [OwnerController::class, 'updatePlace']);
-    Route::post('/place/images-upload', [OwnerController::class, 'uploadPlaceImages']);
+    Route::put('/place-information', [PlaceController::class, 'update']);
+    Route::post('/place/images-upload', [PlaceController::class, 'upload']);
 });
 
 // Routes for staff that works in place
 Route::group(['prefix' => 'staff', 'middleware' => ['auth:sanctum', 'staff', 'throttle:staff']], function() {
-    Route::post('/activity', [StaffController::class, 'toggleActivity']);
-    Route::get('/table/availability', [StaffController::class, 'availability']);
-    //Route::post('/table/{table}/toggle', [StaffController::class, 'toggle'])->middleware('can:toggle,table');
-    Route::post('/table/toggle/{available}', [StaffController::class, 'toggleTableAvailability']);
+    Route::post('/activity', [StaffController::class, 'toggle']);
+    Route::get('/table/availability', [PlaceController::class, 'availability']);
+    //Route::post('/table/{table}/toggle', [TableController::class, 'toggle'])->middleware('can:toggle,table');
+    Route::post('/table/toggle/{available}', [TableController::class, 'toggle']);
 });
 
 /*
@@ -90,8 +90,8 @@ Route::group(['prefix' => 'staff', 'middleware' => ['auth:sanctum', 'staff', 'th
  * */
 //Route for tables in certain cafe
 Route::group(['prefix' => 'cafe', 'middleware' => 'throttle:tables'], function() {
-    Route::get('/{cafe}/tables', [TableController::class, 'index']);
-    Route::get('/{cafe}/tables/{serialNumber}', [TableController::class, 'show']);
+    //Route::get('/{cafe}/tables', [TableController::class, 'index']);
+    //Route::get('/{cafe}/tables/{serialNumber}', [TableController::class, 'show']);
 });
 
 //Route for changing availability of tables in a certain cafe

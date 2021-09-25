@@ -49,11 +49,6 @@ class AuthController extends Controller
     public function logout(RemoveFcmToken $removeFcmToken): JsonResponse
     {
         // When staff member is logged out, set his status to inactive
-        if(auth()->user()->isStaff() || auth()->user()->isOwner())
-        {
-            $removeFcmToken->handle(auth()->user());
-        }
-
         if(auth()->user()->isStaff())
         {
             auth()->user()->update([
