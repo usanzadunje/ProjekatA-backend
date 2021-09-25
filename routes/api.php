@@ -1,5 +1,7 @@
 <?php
 
+use App\Actions\Notifications\SendDataNotificationViaFCM;
+use App\Actions\Notifications\SendNotificationViaFCM;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\PlaceController;
 use App\Http\Controllers\API\FirebaseController;
@@ -60,6 +62,7 @@ Route::group(['prefix' => 'cafes', 'middleware' => 'throttle:places'], function(
     Route::get('/chunked/start/number-of-cafes/{start?}/{numberOfCafes?}', [PlaceController::class, 'index'])
         ->name('cafes/chunked');
     Route::get('/{cafe}', [PlaceController::class, 'show'])->name('cafes/show');
+    Route::get('/{place}/images', [PlaceController::class, 'images']);
 });
 
 // Routes for owner of the place
@@ -72,7 +75,8 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
 
     // Place specific routes
     Route::put('/place-information', [PlaceController::class, 'update']);
-    Route::post('/place/images-upload', [PlaceController::class, 'upload']);
+    Route::post('/place/images/upload', [PlaceController::class, 'upload']);
+    Route::post('/place/images/remove/{image}', [PlaceController::class, 'imageDestroy']);
 });
 
 // Routes for staff that works in place

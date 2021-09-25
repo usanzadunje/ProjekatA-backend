@@ -5,6 +5,7 @@ namespace App\Actions\Notifications;
 use LaravelFCM\Facades\FCM;
 
 use LaravelFCM\Message\OptionsBuilder;
+use LaravelFCM\Message\OptionsPriorities;
 use LaravelFCM\Message\PayloadDataBuilder;
 
 class SendDataNotificationViaFCM
@@ -12,7 +13,8 @@ class SendDataNotificationViaFCM
     public function handle(array $tokens, $notificationData = []): void
     {
         $optionsBuilder = new OptionsBuilder();
-        $optionsBuilder->setContentAvailable(true);
+        $optionsBuilder->setContentAvailable(true)
+            ->setPriority(OptionsPriorities::high);
 
         $dataBuilder = new PayloadDataBuilder();
         $dataBuilder->addData($notificationData);

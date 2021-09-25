@@ -5,6 +5,7 @@ namespace App\Actions\Notifications;
 use LaravelFCM\Facades\FCM;
 
 use LaravelFCM\Message\OptionsBuilder;
+use LaravelFCM\Message\OptionsPriorities;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
 
@@ -13,7 +14,8 @@ class SendNotificationViaFCM
     public function handle(array $tokens, string $title, string $body = null, string $sound = 'default', $notificationData = []): void
     {
         $optionsBuilder = new OptionsBuilder();
-        $optionsBuilder->setContentAvailable(true);
+        $optionsBuilder->setContentAvailable(true)
+            ->setPriority(OptionsPriorities::high);
 
         $notificationBuilder = new PayloadNotificationBuilder($title);
         $notificationBuilder

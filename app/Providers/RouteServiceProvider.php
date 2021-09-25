@@ -110,6 +110,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::pattern('numberOfCafes', '[0-9]+');
         Route::pattern('serialNumber', '[0-9]+');
         Route::pattern('driver', '[a-z]+');
+        Route::pattern('imageId', '[0-9]+');
     }
 
     /**
