@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -13,6 +14,10 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
+    const IS_ADMIN = 1;
+
+    const IS_STAFF = 2;
 
     /**
      * The attributes that are mass assignable.
@@ -40,10 +45,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    const IS_ADMIN = 1;
-
-    const IS_STAFF = 2;
-
     public function cafes(): BelongsToMany
     {
         return $this->belongsToMany(Cafe::class)->withTimestamps();
@@ -61,7 +62,6 @@ class User extends Authenticatable
         return
             $cafe ?
                 User::select('id', 'fname', 'lname', 'bday', 'phone', 'username', 'avatar', 'email', 'active')
-                    ->whereNotNull('cafe')
                     ->whereCafe($cafe)
                     ->orderByDesc('active')
                     ->get()
@@ -81,7 +81,7 @@ class User extends Authenticatable
 
     public function isOwner(): ?int
     {
-        return $this->ownerCafes?->id;
+        return $this->ownerCafes()->select('id')->get()->id;
     }
 
     //Cafes user has subscribed to
@@ -89,6 +89,14 @@ class User extends Authenticatable
     {
         return $this
             ->cafes()
+            ->withCount([
+                'tables',
+                'tables as taken_tables_count' => function(Builder $query) {
+                    $query->where('empty', false);
+                },
+            ])->with(['images' => function($query) {
+                $query->select('id', 'path', 'cafe_id')->where('is_main', true);
+            }])
             ->select('id', 'name', 'city', 'address', 'latitude', 'longitude')
             ->withPivot('expires_in')
             ->sortedCafes($sortBy)

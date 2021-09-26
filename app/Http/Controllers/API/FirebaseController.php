@@ -6,21 +6,16 @@ use App\Actions\User\Firebase\RemoveFcmToken;
 use App\Actions\User\Firebase\SetFcmToken;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFcmTokenRequest;
-use Illuminate\Http\JsonResponse;
 
 class FirebaseController extends Controller
 {
-    public function store(StoreFcmTokenRequest $request, SetFcmToken $setFcmToken): JsonResponse
+    public function store(StoreFcmTokenRequest $request, SetFcmToken $setFcmToken): void
     {
         $setFcmToken->handle($request->validated());
-
-        return response()->success('Successfully set FCM token.');
     }
 
-    public function destroy(RemoveFcmToken $removeFcmToken): JsonResponse
+    public function destroy(RemoveFcmToken $removeFcmToken): void
     {
         $removeFcmToken->handle();
-
-        return response()->success('Successfully removed FCM token.');
     }
 }

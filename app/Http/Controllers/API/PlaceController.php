@@ -13,6 +13,7 @@ use App\Http\Resources\CafeResource;
 use App\Http\Resources\ImageResource;
 use App\Models\Cafe;
 use App\Models\Image;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Validation\UnauthorizedException;
@@ -33,6 +34,12 @@ class PlaceController extends Controller
         return new CafeResource(
             Cafe::with('offerings')
                 ->with('images')
+                ->withCount([
+                    'tables',
+                    'tables as taken_tables_count' => function(Builder $query) {
+                        $query->where('empty', false);
+                    },
+                ])
                 ->findOrFail(
                     $cafeId,
                     ['id', 'name', 'city', 'address', 'email', 'phone', 'latitude', 'longitude']
@@ -40,7 +47,7 @@ class PlaceController extends Controller
         );
     }
 
-    public function update(UpdatePlaceRequest $request, UpdatePlaceInfo $updatePlaceInfo): JsonResponse
+    public function update(UpdatePlaceRequest $request, UpdatePlaceInfo $updatePlaceInfo): void
     {
         try
         {
@@ -49,8 +56,6 @@ class PlaceController extends Controller
         {
             abort(403, 'Unauthorized.');
         }
-
-        return \response()->success('Successfully updates place information.');
     }
 
     public function availability(): JsonResponse
@@ -69,13 +74,11 @@ class PlaceController extends Controller
         return ImageResource::collection($place->images()->select('path', 'is_main')->get());
     }
 
-    public function upload(UploadPlaceImagesRequest $request, UploadPlaceImages $uploadPlaceImages): JsonResponse
+    public function upload(UploadPlaceImagesRequest $request, UploadPlaceImages $uploadPlaceImages): void
     {
         $place = auth()->user()->ownerCafes;
 
         $uploadPlaceImages->handle($request->validated(), $place);
-
-        return \response()->success('Successfully uploaded place images.');
     }
 
     public function imageDestroy(Image $image, RemoveImage $removeImage): void

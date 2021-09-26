@@ -60,10 +60,8 @@ class Cafe extends Model
     {
         // Returning how many tables are taken out of cafe capacity
         // in a form taken/capacity *20/40*
-        $cafeCapacity = $this->tables()->count();
-        $tablesTaken = $this->tables()->available(false)->count();
 
-        return $tablesTaken . '/' . $cafeCapacity;
+        return $this->taken_tables_count . '/' . $this->tables_count;
     }
 
     public function calculateDistance($lat, $lng): array

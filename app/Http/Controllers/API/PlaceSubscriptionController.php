@@ -47,11 +47,9 @@ class PlaceSubscriptionController extends Controller
       * @param int $cafeId
       * @param int $notificationTime
       */
-    public function store(SubscribeToPlace $subscribeToPlace): JsonResponse
+    public function store(SubscribeToPlace $subscribeToPlace): void
     {
         $subscribeToPlace->handle();
-
-        return response()->success('User successfully subscribed!');
     }
 
     /*
@@ -59,10 +57,8 @@ class PlaceSubscriptionController extends Controller
      *
      * @param int $cafeId
      */
-    public function destroy(UnsubscribeFromPlace $unsubscribeFromPlace): JsonResponse
+    public function destroy(UnsubscribeFromPlace $unsubscribeFromPlace): void
     {
         $unsubscribeFromPlace->handle();
-
-        return response()->success('User successfully unsubscribed!');
     }
 }

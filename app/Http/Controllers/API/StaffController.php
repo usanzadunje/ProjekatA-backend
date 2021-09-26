@@ -10,7 +10,6 @@ use App\Http\Requests\ToggleActivityStaffRequest;
 use App\Http\Requests\UpdateStaffMemberRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class StaffController extends Controller
@@ -20,36 +19,28 @@ class StaffController extends Controller
         return UserResource::collection(auth()->user()->staff());
     }
 
-    public function store(CreateStaffMemberRequest $request, CreateStaffMember $createStaffMember): JsonResponse
+    public function store(CreateStaffMemberRequest $request, CreateStaffMember $createStaffMember): void
     {
         $createStaffMember->handle($request->validated());
-
-        return response()->success('Successfully created staff member.');
     }
 
-    public function update(User $staff, UpdateStaffMemberRequest $request, UpdateStaffMember $updateStaffMember): JsonResponse
+    public function update(User $staff, UpdateStaffMemberRequest $request, UpdateStaffMember $updateStaffMember): void
     {
         $updateStaffMember->handle($staff, $request->validated());
-
-        return response()->success('Successfully updated staff member.');
     }
 
-    public function destroy(User $staff): JsonResponse
+    public function destroy(User $staff): void
     {
         $staff->delete();
-
-        return response()->success('Successfully deleted staff member.');
     }
 
-    public function toggle(ToggleActivityStaffRequest $request)
+    public function toggle(ToggleActivityStaffRequest $request): void
     {
         $validatedData = $request->validated();
 
         auth()->user()->update([
             'active' => $validatedData['active'],
         ]);
-
-        return response()->success('Successfully reported your activity status!');
     }
 
     //public function inactive(): JsonResponse
