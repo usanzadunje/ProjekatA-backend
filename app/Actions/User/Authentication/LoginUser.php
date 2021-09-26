@@ -17,6 +17,7 @@ class LoginUser
     public function handle(array $validatedData): array
     {
         $login = $validatedData['login'];
+
         $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
         $user = User::where($fieldType, $login)->firstOr(function() {

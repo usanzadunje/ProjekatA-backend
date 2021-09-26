@@ -81,7 +81,10 @@ class User extends Authenticatable
 
     public function isOwner(): ?int
     {
-        return $this->ownerCafes()->select('id')->get()->id;
+        return $this->ownerCafes()
+            ->select('id')
+            ->firstOr(fn() => null)
+            ?->id;
     }
 
     //Cafes user has subscribed to
