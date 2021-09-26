@@ -2,6 +2,7 @@
 
 namespace App\Actions\Image;
 
+use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -9,10 +10,12 @@ use Intervention\Image\Facades\Image;
 class UploadImage
 {
 
-    public function handle(string $dataUrl, string $imageName, string $publicPath, $width = null, $height = null): string
+    public function handle(User $providedUser, string $dataUrl, string $imageName, string $publicPath, $width = null, $height = null): string
     {
         try
         {
+            $user = $providedUser ?? auth()->user();
+
             $format = explode('/', explode(';base64', $dataUrl)[0])[1];
 
             if($height && $width)
@@ -32,9 +35,13 @@ class UploadImage
 
             Storage::disk('public')->put($publicPath . $avatarName, $avatar);
 
+            if($user->avatar !== 'default_avatar.png')
+            {
+                Storage::disk('public')->delete($publicPath . $user->avatar);
+            }
         }catch(Exception $ex)
         {
-            $avatarName = 'default.png';
+            $avatarName = 'default_avatar.png';
         }
 
         return $avatarName;

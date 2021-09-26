@@ -28,10 +28,20 @@ class UpdateUser
         }
         if(array_key_exists('avatar', $validatedData) && !is_null($validatedData['avatar']))
         {
-            $avatarName = auth()->id() . '_avatar';
-            $avatar = $this->uploadImage->handle($validatedData['avatar'], $avatarName, 'img/users/', 75, 75);
+            $avatarName = auth()->id() . '_avatar_' . uniqid();
+
+            $avatar = $this->uploadImage->handle(
+                auth()->user(),
+                $validatedData['avatar'],
+                $avatarName,
+                'img/users/',
+                75,
+                75
+            );
+
             $validatedData['avatar'] = $avatar;
         }
+
         unset($validatedData['old_password']);
 
         $user

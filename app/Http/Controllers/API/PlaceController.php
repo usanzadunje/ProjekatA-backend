@@ -60,9 +60,17 @@ class PlaceController extends Controller
 
     public function availability(): JsonResponse
     {
-        $place = Cafe::select('id')->where('id', auth()->user()->cafe)->firstOr(function() {
-            abort(403);
-        });
+        $place = Cafe::select('id')
+            ->withCount([
+                'tables',
+                'tables as taken_tables_count' => function(Builder $query) {
+                    $query->where('empty', false);
+                },
+            ])
+            ->where('id', auth()->user()->cafe)
+            ->firstOr(function() {
+                abort(403);
+            });
 
         $data = ['availability_ratio' => $place->takenMaxCapacityTableRatio()];
 
