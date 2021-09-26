@@ -14,12 +14,13 @@ class SendTableAvailabilityChangedNotification
         $this->sendDataNotificationViaFCM = $sendDataNotificationViaFCM;
     }
 
-    public function handle(int $placeId, string $placeAvailabilityRatio): void
+    public function handle($place, string $placeAvailabilityRatio): void
     {
         $tokens = User::select('fcm_token')
             ->whereNotNull('fcm_token')
-            ->where('cafe', $placeId)
+            ->where('cafe', $place->id)
             ->where('id', '!=', auth()->id())
+            ->where('id', $place->user_id)
             ->pluck('fcm_token')
             ->toArray();
 
