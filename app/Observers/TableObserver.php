@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Actions\Notifications\SendTableAvailabilityChangedNotification;
 use App\Actions\Notifications\SendTableFreedNotification;
 use App\Models\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class TableObserver
 {
@@ -27,7 +28,14 @@ class TableObserver
 
     public function updated(Table $table)
     {
-        $place = $table->cafe;
+        $place = $table->cafe()
+            ->withCount([
+                'tables',
+                'tables as taken_tables_count' => function(Builder $query) {
+                    $query->where('empty', false);
+                },
+            ])
+            ->first();
 
         /*
          * Since table availability is firstly changed and then this event triggers

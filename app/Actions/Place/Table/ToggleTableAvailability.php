@@ -16,22 +16,12 @@ class ToggleTableAvailability
     {
         $staff = $providedUser ?? auth()->user();
 
-        $place = Cafe::select('id')
-            ->withCount([
-                'tables',
-                'tables as taken_tables_count' => function(Builder $query) {
-                    $query->where('empty', false);
-                },
-            ])
-            ->where('id', $staff->cafe)
+        $table = Table::where('cafe_id', $staff->cafe)
+            ->available(!($available === 'true'))
+            ->sharedLock()
             ->firstOr(function() {
                 throw new UnauthorizedException();
             });
-
-        $table = Table::where('cafe_id', $place->id)
-            ->available(!($available === 'true'))
-            ->sharedLock()
-            ->first();
 
         if($table)
         {
@@ -39,6 +29,16 @@ class ToggleTableAvailability
                 'empty' => !$table->empty,
             ]);
         }
+
+        $place = $table
+            ->cafe()
+            ->withCount([
+                'tables',
+                'tables as taken_tables_count' => function(Builder $query) {
+                    $query->where('empty', false);
+                },
+            ])
+            ->first();
 
         return [
             'availability_ratio' => $place->takenMaxCapacityTableRatio(),

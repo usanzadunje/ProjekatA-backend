@@ -14,7 +14,7 @@ class SendTableFreedNotification
         $this->sendNotificationViaFCM = $sendNotificationViaFCM;
     }
 
-    public function handle(Cafe $place): void
+    public function handle($place): void
     {
         $tokens = $place->subscribedUsers()
             ->pluck('fcm_token')
