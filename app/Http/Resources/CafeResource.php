@@ -29,8 +29,8 @@ class CafeResource extends JsonResource
             'subscription_expires_in' => $this->whenPivotLoaded('cafe_user', function() {
                 $expires_at = $this->pivot->created_at->addMinutes($this->pivot->expires_in);
 
-                return now()->diffInMinutes($expires_at, false) <= 0 ?
-                    0 : now()->diffInMinutes($expires_at, false);
+                return now()->diffInMinutes($expires_at, false) < 0 ?
+                    null : now()->diffInMinutes($expires_at, false) + 1;
             }),
         ];
     }
