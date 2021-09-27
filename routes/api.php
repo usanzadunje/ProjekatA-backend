@@ -75,7 +75,8 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
 
     // Place specific routes
     Route::put('/place-information', [PlaceController::class, 'update']);
-    Route::post('/place/images/upload', [PlaceController::class, 'upload']);
+    Route::post('/place/images/upload', [PlaceController::class, 'imageUpload']);
+    Route::post('/place/images/set-main/{image}', [PlaceController::class, 'imageSetMain']);
     Route::post('/place/images/remove/{image}', [PlaceController::class, 'imageDestroy']);
 });
 

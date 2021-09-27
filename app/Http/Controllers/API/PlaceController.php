@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Actions\Image\RemoveImage;
+use App\Actions\Image\SetImageAsMain;
 use App\Actions\Owner\Place\UpdatePlaceInfo;
 use App\Actions\Owner\Place\UploadPlaceImages;
 use App\Actions\Place\TakeChunkedPlaces;
@@ -82,16 +83,22 @@ class PlaceController extends Controller
         return ImageResource::collection($place->images()->select('path', 'is_main')->get());
     }
 
-    public function upload(UploadPlaceImagesRequest $request, UploadPlaceImages $uploadPlaceImages): void
+    public function imageUpload(UploadPlaceImagesRequest $request, UploadPlaceImages $uploadPlaceImages): void
     {
         $place = auth()->user()->ownerCafes;
 
         $uploadPlaceImages->handle($request->validated(), $place);
     }
 
+    public function imageSetMain(Image $image, SetImageAsMain $setImageAsMain): void
+    {
+        $placeId = auth()->user()->isOwner();
+
+        $setImageAsMain->handle($image, $placeId);
+    }
+
     public function imageDestroy(Image $image, RemoveImage $removeImage): void
     {
         $removeImage->handle($image);
     }
-
 }
