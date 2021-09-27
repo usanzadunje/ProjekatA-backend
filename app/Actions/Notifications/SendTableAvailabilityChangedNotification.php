@@ -20,7 +20,7 @@ class SendTableAvailabilityChangedNotification
             ->whereNotNull('fcm_token')
             ->where('cafe', $place->id)
             ->where('id', '!=', auth()->id())
-            ->where('id', $place->user_id)
+            ->orWhere('id', $place->user_id)
             ->pluck('fcm_token')
             ->toArray();
 
