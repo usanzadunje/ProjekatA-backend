@@ -2,5 +2,5 @@
 
 return [
     'free_spot' => 'Slobodno mesto',
-    'free_spot_body' => 'Doslo je do oslobadjanja mesta u :place.',
+    'free_spot_body' => 'Došlo je do oslobađanja mesta u :place.',
 ];

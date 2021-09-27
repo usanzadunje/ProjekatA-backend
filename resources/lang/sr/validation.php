@@ -13,17 +13,17 @@ return [
     |
     */
 
-    'alpha' => ':Attribute sme da sadrzi samo slova.',
-    'alpha_num' => ':Attribute sme da sadrzi samo slova i brojeve.',
+    'alpha' => ':Attribute sme da sadrži samo slova.',
+    'alpha_num' => ':Attribute sme da sadrži samo slova i brojeve.',
 
     'email' => 'E-mail mora biti validna email adresa.',
 
     'image' => 'Fajl mora biti slika.',
 
     'max' => [
-        'numeric' => ':Attribute ne sme biti veci od :max.',
-        'file' => ':Attribute ne sme biti veca od :max kB.',
-        'string' => ':Attribute ne sme biti duzi od :max karaktera.',
+        'numeric' => ':Attribute ne sme biti veći od :max.',
+        'file' => ':Attribute ne sme biti veća od :max kB.',
+        'string' => ':Attribute ne sme biti duži od :max karaktera.',
         'array' => ':Attribute ne sme imati vise od :max elemenata.',
     ],
     'date' => ':Attribute nije validan datum.',
@@ -31,14 +31,14 @@ return [
     'numeric' => 'Polje :attribute mora biti broj.',
     'password' => 'Lozinka nije ispravna.',
     'required' => 'Polje :attribute je obavezno.',
-    'unique' => ':Attribute je vec zauzeto.',
+    'unique' => ':Attribute je već zauzeto.',
     'confirmed' => 'Lozinke nisu iste.',
-    'subscription' => 'Vec ste pretplaceni.',
+    'subscription' => 'Već ste pretplaćeni.',
     'The :attribute must be at least :length characters.' => ':Attribute mora biti najmanje :length karaktera.',
     'mimes' => ':Attribute mora biti fajl tipa: :values.',
     'encoded-image' => ':Attribute mora biti slika formata:  :values.',
-    'staff' => 'Mozete kreirati osoblje samo za svoj objekat.',
-    'unknown' => 'Nismo uspeli da pronadjemo korisnika sa unetim podacima.',
+    'staff' => 'Možete kreirati osoblje samo za svoj objekat.',
+    'unknown' => 'Nismo uspeli da pronađemo korisnika sa unetim podacima.',
 
 
     /*
@@ -71,10 +71,10 @@ return [
 
     'attributes' => [
         'old_password' => 'trenutna lozinka',
-        'username' => 'korisnicko ime',
+        'username' => 'korisničko ime',
         'fname' => 'ime',
         'lname' => 'prezime',
-        'bday' => 'rodjendan',
+        'bday' => 'rođendan',
         'phone' => 'telefon',
         'password' => 'lozinka',
         'name' => 'naziv',

@@ -32,6 +32,13 @@ class CafeResource extends JsonResource
                 return now()->diffInMinutes($expires_at, false) < 0 ?
                     null : now()->diffInMinutes($expires_at, false) + 1;
             }),
+            'working_hours' => $this->when(
+                !is_null($this->mon_fri) && !is_null($this->saturday) && !is_null($this->sunday),
+                [
+                    'mon_fri' => $this->mon_fri,
+                    'saturday' => $this->saturday,
+                    'sunday' => $this->sunday,
+                ]),
         ];
     }
 }

@@ -50,6 +50,30 @@ class UpdatePlaceRequest extends FormRequest
                 'nullable',
                 'numeric',
             ],
+            'mon_fri_start' => [
+                'required',
+                'string',
+            ],
+            'mon_fri_end' => [
+                'required',
+                'string',
+            ],
+            'saturday_start' => [
+                'required',
+                'string',
+            ],
+            'saturday_end' => [
+                'required',
+                'string',
+            ],
+            'sunday_start' => [
+                'required',
+                'string',
+            ],
+            'sunday_end' => [
+                'required',
+                'string',
+            ],
         ];
     }
 }

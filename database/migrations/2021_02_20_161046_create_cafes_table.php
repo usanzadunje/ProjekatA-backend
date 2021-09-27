@@ -22,6 +22,9 @@ class CreateCafesTable extends Migration
             $table->string('phone')->unique()->nullable()->default(null);
             $table->string('latitude', 255);
             $table->string('longitude', 255);
+            $table->string('mon_fri', 13)->default('00:00-00:00');
+            $table->string('saturday', 13)->default('00:00-00:00');
+            $table->string('sunday', 13)->default('00:00-00:00');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

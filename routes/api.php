@@ -5,8 +5,6 @@ use App\Actions\Notifications\SendNotificationViaFCM;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\PlaceController;
 use App\Http\Controllers\API\FirebaseController;
-use App\Http\Controllers\API\OwnerPlaceController;
-use App\Http\Controllers\API\OwnerStaffController;
 use App\Http\Controllers\API\PlaceSubscriptionController;
 use App\Http\Controllers\API\StaffController;
 use App\Http\Controllers\API\TableController;
@@ -63,6 +61,7 @@ Route::group(['prefix' => 'cafes', 'middleware' => 'throttle:places'], function(
         ->name('cafes/chunked');
     Route::get('/{cafe}', [PlaceController::class, 'show'])->name('cafes/show');
     Route::get('/{place}/images', [PlaceController::class, 'images']);
+    Route::get('/{place}/working-hours', [PlaceController::class, 'workingHours']);
 });
 
 // Routes for owner of the place

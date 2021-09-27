@@ -43,7 +43,7 @@ class PlaceController extends Controller
                 ])
                 ->findOrFail(
                     $cafeId,
-                    ['id', 'name', 'city', 'address', 'email', 'phone', 'latitude', 'longitude']
+                    ['id', 'name', 'city', 'address', 'email', 'phone', 'latitude', 'longitude', 'mon_fri', 'saturday', 'sunday']
                 )
         );
     }
@@ -81,6 +81,15 @@ class PlaceController extends Controller
     public function images(Cafe $place): ResourceCollection
     {
         return ImageResource::collection($place->images()->select('path', 'is_main')->get());
+    }
+
+    public function workingHours(Cafe $place): JsonResponse
+    {
+        return response()->json([
+            'mon_fri' => $place->mon_fri,
+            'saturday' => $place->saturday,
+            'sunday' => $place->sunday,
+        ]);
     }
 
     public function imageUpload(UploadPlaceImagesRequest $request, UploadPlaceImages $uploadPlaceImages): void

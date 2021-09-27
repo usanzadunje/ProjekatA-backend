@@ -17,6 +17,6 @@ return [
     //'sent' => 'We have emailed your password reset link!',
     //'throttled' => 'Please wait before retrying.',
     //'token' => 'This password reset token is invalid.',
-    'user' => "Nismo uspeli da pronadjemo korisnika sa unetom email adresom.",
+    'user' => "Nismo uspeli da pronađemo korisnika sa unetom email adresom.",
 
 ];
