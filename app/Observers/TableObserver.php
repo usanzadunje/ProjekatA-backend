@@ -53,7 +53,7 @@ class TableObserver
 
         // Notify all staff for place that availability has changed
         // so app can update it's state
-        $this->availabilityChangedNotification->handle($place, $place->takenMaxCapacityTableRatio());
+        $this->availabilityChangedNotification->handle($place);
     }
 
 

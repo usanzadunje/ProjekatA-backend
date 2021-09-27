@@ -92,15 +92,16 @@ class User extends Authenticatable
     {
         return $this
             ->cafes()
+            ->select('id', 'name', 'city', 'address', 'latitude', 'longitude')
             ->withCount([
                 'tables',
                 'tables as taken_tables_count' => function(Builder $query) {
                     $query->where('empty', false);
                 },
-            ])->with(['images' => function($query) {
+            ])
+            ->with(['images' => function($query) {
                 $query->select('id', 'path', 'cafe_id')->where('is_main', true);
             }])
-            ->select('id', 'name', 'city', 'address', 'latitude', 'longitude')
             ->withPivot('expires_in')
             ->sortedCafes($sortBy)
             ->get();

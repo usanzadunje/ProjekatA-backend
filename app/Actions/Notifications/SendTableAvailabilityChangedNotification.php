@@ -14,7 +14,7 @@ class SendTableAvailabilityChangedNotification
         $this->sendDataNotificationViaFCM = $sendDataNotificationViaFCM;
     }
 
-    public function handle($place, string $placeAvailabilityRatio): void
+    public function handle($place): void
     {
         $tokens = User::select('fcm_token')
             ->whereNotNull('fcm_token')
@@ -30,7 +30,7 @@ class SendTableAvailabilityChangedNotification
                 $tokens,
                 [
                     'type' => 'availabilityChanged',
-                    'availability_ratio' => $placeAvailabilityRatio,
+                    'availability_ratio' => $place->takenMaxCapacityTableRatio(),
                 ]
             );
         }
