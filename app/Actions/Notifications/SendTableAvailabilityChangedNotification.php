@@ -19,8 +19,8 @@ class SendTableAvailabilityChangedNotification
         $tokens = User::select('fcm_token')
             ->whereNotNull('fcm_token')
             ->where('cafe', $place->id)
-            ->where('id', '!=', auth()->id())
             ->orWhere('id', $place->user_id)
+            ->where('id', '!=', auth()->id())
             ->pluck('fcm_token')
             ->toArray();
 
