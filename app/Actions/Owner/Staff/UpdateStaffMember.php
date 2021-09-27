@@ -9,7 +9,7 @@ class UpdateStaffMember
 {
     public function handle(User $staff, array $validatedData)
     {
-        if($validatedData['password'])
+        if(array_key_exists('password', $validatedData) && !is_null($validatedData['password']))
         {
             $validatedData['password'] = Hash::make($validatedData['password']);
         }

@@ -11,7 +11,7 @@ class CreateStaffMember
     {
         $owner = $providedOwner ?: auth()->user();
 
-        //Making staff belong cafe that is owned by person who is creating him
+        //Making staff belong to place that is owned by person who is creating him
         $additionalInfo = [
             'cafe' => $owner->isOwner(),
             'active' => false,
