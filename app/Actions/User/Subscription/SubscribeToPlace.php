@@ -40,16 +40,17 @@ class SubscribeToPlace
     public function handle(User $providedUser = null)
     {
         $user = $providedUser ?: auth()->user();
-        $user
-            ->cafes()
-            ->attach($this->cafeId, [
-                'expires_in' => $this->notificationTime,
-            ]);
+
+        $newlyCreatedSubscription = CafeUser::create([
+            'user_id' => $user->id,
+            'cafe_id' => $this->cafeId,
+            'expires_in' => $this->notificationTime,
+        ]);
 
         if($this->notificationTime)
         {
             RemoveUserSubscriptionOnCafe::dispatch($user->id, $this->cafeId)
-                ->delay(now()->addMinutes($this->notificationTime));
+                ->delay($newlyCreatedSubscription->created_at->addMinutes($this->notificationTime));
         }
     }
 }
