@@ -27,10 +27,16 @@ class CafeResource extends JsonResource
             'offerings' => OfferingResource::collection($this->whenLoaded('offerings')),
             'images' => ImageResource::collection($this->whenLoaded('images')),
             'subscription_expires_in' => $this->whenPivotLoaded('cafe_user', function() {
-                $expires_at = $this->pivot->created_at->addMinutes($this->pivot->expires_in);
+                if($this->pivot->expires_in)
+                {
+                    $expires_at = $this->pivot->created_at->addMinutes($this->pivot->expires_in);
 
-                return now()->diffInMinutes($expires_at, false) < 0 ?
-                    null : now()->diffInMinutes($expires_at, false) + 1;
+                    return now()->diffInMinutes($expires_at, false) + 1;
+                }
+                else
+                {
+                    return null;
+                }
             }),
             'working_hours' => $this->when(
                 !is_null($this->mon_fri) && !is_null($this->saturday) && !is_null($this->sunday),
