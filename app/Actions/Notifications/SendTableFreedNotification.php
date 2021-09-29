@@ -36,6 +36,7 @@ class SendTableFreedNotification
                 'default',
                 [
                     'type' => 'notification',
+                    'id' => uniqid(),
                     'place_name' => $place->name,
                 ]
             );
