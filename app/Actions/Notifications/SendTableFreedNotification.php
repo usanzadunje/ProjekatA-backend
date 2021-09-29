@@ -3,15 +3,13 @@
 
 namespace App\Actions\Notifications;
 
-use App\Models\Cafe;
-
 class SendTableFreedNotification
 {
-    protected SendNotificationViaFCM $sendNotificationViaFCM;
+    protected SendDataNotificationViaFCM $sendDataNotificationViaFCM;
 
-    public function __construct(SendNotificationViaFCM $sendNotificationViaFCM)
+    public function __construct(SendDataNotificationViaFCM $sendDataNotificationViaFCM)
     {
-        $this->sendNotificationViaFCM = $sendNotificationViaFCM;
+        $this->sendDataNotificationViaFCM = $sendDataNotificationViaFCM;
     }
 
     public function handle($place): void
@@ -29,14 +27,13 @@ class SendTableFreedNotification
 
         if(!empty($tokens))
         {
-            $this->sendNotificationViaFCM->handle(
+            $this->sendDataNotificationViaFCM->handle(
                 $tokens,
-                $title,
-                $body,
-                'default',
                 [
                     'type' => 'notification',
-                    'id' => uniqid(),
+                    'title' => $title,
+                    'body' => $body,
+                    'id' => abs(crc32(uniqid())),
                     'place_name' => $place->name,
                 ]
             );
