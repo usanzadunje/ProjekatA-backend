@@ -21,7 +21,7 @@ class SendNotificationViaFCM
         $notificationBuilder
             ->setBody($body)
             ->setSound($sound)
-            ->setIcon('ic_table_chart')
+            ->setIcon('ic_table_icon')
             ->setColor('#FF0000');
 
         $notification = $notificationBuilder->build();
