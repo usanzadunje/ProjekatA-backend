@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Actions\User\Authentication\CreateOrGetSocialUser;
 use App\Actions\User\Authentication\LoginUser;
 use App\Actions\User\Authentication\CreateUser;
+use App\Actions\User\Firebase\RemoveFcmToken;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
@@ -45,7 +46,7 @@ class AuthController extends Controller
         return response()->success('Successfully registered!', $response);
     }
 
-    public function logout(): void
+    public function logout(RemoveFcmToken $removeFcmToken): void
     {
         // When staff member is logged out, set his status to inactive
         if(auth()->user()->isStaff())
@@ -54,6 +55,8 @@ class AuthController extends Controller
                 'active' => false,
             ]);
         }
+
+        $removeFcmToken->handle();
 
         auth()->user()->currentAccessToken()->delete();
     }

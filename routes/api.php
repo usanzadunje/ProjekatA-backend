@@ -1,7 +1,5 @@
 <?php
 
-use App\Actions\Notifications\SendDataNotificationViaFCM;
-use App\Actions\Notifications\SendNotificationViaFCM;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\PlaceController;
 use App\Http\Controllers\API\FirebaseController;
