@@ -2,22 +2,28 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Actions\Owner\Tables\StoreOrUpdateTables;
 use App\Actions\Place\Table\ToggleTableAvailability;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CafeResource;
+use App\Http\Requests\StoreOrUpdateTableRequest;
 use App\Http\Resources\TableResource;
 use App\Models\Cafe;
 use App\Models\Table;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Validation\UnauthorizedException;
 
 class TableController extends Controller
 {
 
-    public function index(Cafe $cafe)
+    public function index()
     {
-        return new CafeResource($cafe->load('tables'));
+        return TableResource::collection(
+            auth()->user()
+                ->ownerCafes
+                ->tables()
+                ->select('id', 'empty', 'smoking_allowed', 'top', 'left', 'cafe_id')
+                ->get()
+        );
     }
 
     public function show(Cafe $cafe, $serialNumber)
@@ -48,21 +54,11 @@ class TableController extends Controller
         return response()->success('Successfully changed place availability!', $data);
     }
 
-    public function create()
+    public function storeOrUpdate(StoreOrUpdateTableRequest $request, StoreOrUpdateTables $storeOrUpdateTables): void
     {
-        //
+        $storeOrUpdateTables->handle($request->validated(), auth()->user());
     }
 
-    public function store(Request $request)
-    {
-        //
-    }
-
-
-    public function edit(Table $table)
-    {
-        //
-    }
 
     public function destroy(Table $table)
     {

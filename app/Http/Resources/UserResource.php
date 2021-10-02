@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -37,6 +38,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'cafe' => $this->when($this->cafe, $this->cafe),
             'active' => $this->when(!is_null($this->active), $this->active),
+            'role' => $this->isOwner() ? User::IS_ADMIN : ($this->isStaff() ? User::IS_STAFF : null),
         ];
     }
 }

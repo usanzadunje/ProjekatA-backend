@@ -31,7 +31,7 @@ class PlaceController extends Controller
 
     public function show(int $cafeId): CafeResource
     {
-        // Passing only columns needed to show only one cafe
+        // Passing only columns needed to show only one place
         return new CafeResource(
             Cafe::with('offerings')
                 ->with('images')

@@ -75,6 +75,10 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
     Route::post('/place/images/upload', [PlaceController::class, 'imageUpload']);
     Route::post('/place/images/set-main/{image}', [PlaceController::class, 'imageSetMain']);
     Route::post('/place/images/remove/{image}', [PlaceController::class, 'imageDestroy']);
+
+    // Tables specific routes
+    Route::get('/tables', [TableController::class, 'index']);
+    Route::post('/tables', [TableController::class, 'storeOrUpdate']);
 });
 
 // Routes for staff that works in place

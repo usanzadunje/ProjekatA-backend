@@ -22,9 +22,10 @@ class TableFactory extends Factory
     public function definition()
     {
         return [
-            'serial_number' => $this->faker->randomDigit,
             'empty' => rand(0, 1),
             'smoking_allowed' => rand(0, 1),
+            'top' => rand(0, 150),
+            'left' => rand(0, 300),
         ];
     }
 }

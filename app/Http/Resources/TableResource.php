@@ -16,9 +16,12 @@ class TableResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'serial_number' => $this->when(!is_null($this->serial_number), $this->serial_number),
             'smoking_allowed' => $this->when(!is_null($this->smoking_allowed), $this->smoking_allowed),
             'empty' => $this->empty,
+            'position' => [
+                'top' => $this->when(!is_null($this->top), $this->top),
+                'left' => $this->when(!is_null($this->left), $this->left),
+            ],
             'cafe_id' => $this->cafe_id,
         ];
     }

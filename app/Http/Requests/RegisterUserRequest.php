@@ -34,7 +34,12 @@ class RegisterUserRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class),
             ],
-            'password' => ['required', 'string', new Password, 'confirmed'],
+            'password' => [
+                'required',
+                'string',
+                new Password,
+                'confirmed'
+            ],
             'device_name' => [
                 'required',
                 'string',
