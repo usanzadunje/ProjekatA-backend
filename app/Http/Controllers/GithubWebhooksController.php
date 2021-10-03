@@ -13,7 +13,11 @@ class GithubWebhooksController extends Controller
         $this->validateGithubWebhook(config('app.github_secret'), $request);
 
         $process = new Process(['sh', '/var/www/projekata/deploy.sh']);
-        $process->run();
+        $error = $process->run();
+
+        info('#########################################################################');
+        info($error);
+        info('#########################################################################');
     }
 
     protected function validateGithubWebhook($knownToken, Request $request)
