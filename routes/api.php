@@ -7,6 +7,7 @@ use App\Http\Controllers\API\PlaceSubscriptionController;
 use App\Http\Controllers\API\StaffController;
 use App\Http\Controllers\API\TableController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\GithubWebhooksController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Broadcast::routes(['middleware' => ['auth:sanctum']]);
+
+// Github webhooks
+Route::post('/deploy', [GithubWebhooksController::class]);
+
 
 // Authentication routes
 Route::get('/auth/user', AuthController::class)->middleware(['auth:sanctum', 'throttle:default']);

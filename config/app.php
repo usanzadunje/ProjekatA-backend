@@ -125,6 +125,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Github webhook action secret key
+    |--------------------------------------------------------------------------
+    |
+    | This key is used for verifying that Github is the one actually sending
+    | webhook payload to our system
+    |
+    */
+
+    'github_secret' => env('GITHUB_SECRET'),
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Autoloaded Service Providers
     |--------------------------------------------------------------------------
     |
