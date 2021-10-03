@@ -1,5 +1,7 @@
 #!/bin/sh
 
+exec > /var/www/projekata/output.log 2>&1
+
 # activate maintenance mode
 php artisan down
 
@@ -11,6 +13,11 @@ composer install --no-interaction --no-dev --prefer-dist
 
 # update database
 php artisan migrate --force
+
+# cache again
+php artisan route:cache
+php artisan cache:clear
+php artisan config:cache
 
 # stop maintenance mode
 php artisan up
