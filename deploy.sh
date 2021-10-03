@@ -1,7 +1,5 @@
 #!/bin/sh
 
-exec > /var/www/projekata/output.log 2>&1
-
 # activate maintenance mode
 php artisan down
 
