@@ -10,7 +10,7 @@ class GithubWebhooksController extends Controller
 {
     public function deploy(Request $request)
     {
-        $this->validateGithubWebhook(config('app.github_secret'), $request);
+        //$this->validateGithubWebhook(config('app.github_secret'), $request);
 
         $process = new Process(['sh', '/var/www/projekata/deploy.sh']);
         $error = $process->run();
