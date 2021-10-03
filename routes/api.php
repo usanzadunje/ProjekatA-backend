@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 //Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
 // Github webhooks
-Route::post('/deploy', [GithubWebhooksController::class]);
+Route::post('/deploy', [GithubWebhooksController::class, 'deploy']);
 
 
 // Authentication routes

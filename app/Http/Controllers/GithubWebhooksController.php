@@ -8,7 +8,7 @@ use Symfony\Component\Process\Process;
 
 class GithubWebhooksController extends Controller
 {
-    public function __invoke(Request $request)
+    public function deploy(Request $request)
     {
         $this->validateGithubWebhook(config('app.github_secret'), $request);
 
