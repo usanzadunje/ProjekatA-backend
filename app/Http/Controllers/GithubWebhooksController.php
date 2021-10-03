@@ -12,9 +12,13 @@ class GithubWebhooksController extends Controller
     {
         $this->validateGithubWebhook(config('app.github_secret'), $request);
 
-        $process = new Process(['/deploy.sh']);
-        $process->setWorkingDirectory(base_path());
-        $process->run();
+        try{
+            $process = new Process(['/deploy.sh']);
+            $process->setWorkingDirectory(base_path());
+            $process->run();
+        } catch(\Exception $e){
+
+        }
     }
 
     protected function validateGithubWebhook($knownToken, Request $request)
