@@ -18,7 +18,7 @@ class CreateTablesTable extends Migration
             $table->foreignId('cafe_id')->constrained()->cascadeOnDelete();
             $table->boolean('empty');
             $table->boolean('smoking_allowed')->nullable()->default(false);
-            $table->smallInteger('top');
+            $table->float('top');
             $table->smallInteger('left');
             $table->timestamps();
         });

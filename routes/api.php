@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 //Broadcast::routes(['middleware' => ['auth:sanctum']]);
 
 // Github webhooks
-Route::post('/deploy', [GithubWebhooksController::class, 'deploy']);
+//Route::post('/deploy', [GithubWebhooksController::class, 'deploy']);
 
 
 // Authentication routes
@@ -65,6 +65,7 @@ Route::group(['prefix' => 'cafes', 'middleware' => 'throttle:places'], function(
     Route::get('/{cafe}', [PlaceController::class, 'show'])->name('cafes/show');
     Route::get('/{place}/images', [PlaceController::class, 'images']);
     Route::get('/{place}/working-hours', [PlaceController::class, 'workingHours']);
+    Route::get('/{placeId}/tables', [TableController::class, 'index']);
 });
 
 // Routes for owner of the place
@@ -82,8 +83,8 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
     Route::post('/place/images/remove/{image}', [PlaceController::class, 'imageDestroy']);
 
     // Tables specific routes
-    Route::get('/tables', [TableController::class, 'index']);
-    Route::post('/tables', [TableController::class, 'storeOrUpdate']);
+    Route::get('/place/tables', [TableController::class, 'index']);
+    Route::post('/place/tables', [TableController::class, 'storeOrUpdate']);
 });
 
 // Routes for staff that works in place

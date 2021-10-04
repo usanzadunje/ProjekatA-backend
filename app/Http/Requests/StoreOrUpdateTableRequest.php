@@ -26,7 +26,8 @@ class StoreOrUpdateTableRequest extends FormRequest
         return [
             '*.id' => ['required', 'numeric', 'integer'],
             '*.position.top' => ['required', 'numeric', 'integer'],
-            '*.position.left' => ['required', 'numeric', 'integer'],
+            // Has to be leftToSave since there are bugs in frontend while there is only one left property
+            '*.position.leftToSave' => ['required', 'numeric'],
         ];
     }
 }
