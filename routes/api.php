@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\PlaceController;
 use App\Http\Controllers\API\FirebaseController;
 use App\Http\Controllers\API\PlaceSubscriptionController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\API\StaffController;
 use App\Http\Controllers\API\TableController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\GithubWebhooksController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -85,6 +87,20 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
     // Tables specific routes
     Route::get('/place/tables', [TableController::class, 'index']);
     Route::post('/place/tables', [TableController::class, 'storeOrUpdate']);
+
+    // Categories specific routes
+    Route::get('/menu/category/{placeId?}', [CategoryController::class, 'index']);
+    Route::get('/menu/category/{category}', [CategoryController::class, 'show']);
+    Route::post('/menu/category', [CategoryController::class, 'create']);
+    Route::put('/menu/category/{category}', [CategoryController::class, 'update']);
+    Route::delete('/menu/category/{category}', [CategoryController::class, 'destroy']);
+
+    // Products specific routes
+    Route::get('/menu/product/{placeId?}', [ProductController::class, 'index']);
+    Route::get('/menu/product/{product}', [ProductController::class, 'show']);
+    Route::post('/menu/product', [ProductController::class, 'create']);
+    Route::put('/menu/product/{product}', [ProductController::class, 'update']);
+    Route::delete('/menu/product/{product}', [ProductController::class, 'destroy']);
 });
 
 // Routes for staff that works in place

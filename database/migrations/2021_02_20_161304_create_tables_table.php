@@ -15,11 +15,11 @@ class CreateTablesTable extends Migration
     {
         Schema::create('tables', function(Blueprint $table) {
             $table->id();
-            $table->foreignId('cafe_id')->constrained()->cascadeOnDelete();
             $table->boolean('empty');
             $table->boolean('smoking_allowed')->nullable()->default(false);
-            $table->float('top');
-            $table->smallInteger('left');
+            $table->smallInteger('top');
+            $table->float('left');
+            $table->foreignId('cafe_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

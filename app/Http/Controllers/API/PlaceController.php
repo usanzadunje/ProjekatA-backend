@@ -33,7 +33,7 @@ class PlaceController extends Controller
     {
         // Passing only columns needed to show only one place
         return new CafeResource(
-            Cafe::with('offerings')
+            Cafe::with('products')
                 ->with('images')
                 ->withCount([
                     'tables',

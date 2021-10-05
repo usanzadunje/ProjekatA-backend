@@ -21,9 +21,9 @@ class Cafe extends Model
         return $this->hasMany(Table::class);
     }
 
-    public function offerings(): BelongsToMany
+    public function products(): HasMany
     {
-        return $this->belongsToMany(Offering::class);
+        return $this->hasMany(Product::class);
     }
 
     public function owner(): BelongsTo

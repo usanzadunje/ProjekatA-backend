@@ -2,12 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Cafe;
 use App\Models\Category;
-use App\Models\Product;
 use Illuminate\Database\Seeder;
 
-class CafeSeeder extends Seeder
+class CategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,10 +14,8 @@ class CafeSeeder extends Seeder
      */
     public function run()
     {
-
-        Cafe::factory(120)
-            ->hasTables(4)
-            ->hasProducts(5)
-            ->create();
+        Category::create([
+            'name' => 'drink',
+        ]);
     }
 }
