@@ -31,12 +31,12 @@ class CategoryPolicy
 
     public function update(User $user, Category $category): bool
     {
-        return $category->cafe_id === $user->isOwner();
+        return $category->cafe_id === $user->isOwner() && $category->cafe_id;
     }
 
 
     public function destroy(User $user, Category $category): bool
     {
-        return $category->cafe_id === $user->isOwner();
+        return $category->cafe_id === $user->isOwner() && $category->cafe_id;
     }
 }

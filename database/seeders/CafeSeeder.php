@@ -18,6 +18,7 @@ class CafeSeeder extends Seeder
         Cafe::factory(120)
             ->hasTables(4)
             ->hasProducts(5)
+            ->hasCategories(5)
             ->create();
     }
 }

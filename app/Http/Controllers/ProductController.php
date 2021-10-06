@@ -45,7 +45,7 @@ class ProductController extends Controller
         $product->update($validatedData);
     }
 
-    public function delete(Product $product): void
+    public function destroy(Product $product): void
     {
         $product->delete();
     }

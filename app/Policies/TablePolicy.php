@@ -27,8 +27,7 @@ class TablePolicy
 
     public function toggle(User $user, Table $table): bool
     {
-        return $user->isStaff() === $table->cafe_id ||
-            $user->isOwner() === $table->cafe_id;
+        return $user->cafe === $table->cafe_id;
     }
 
 }

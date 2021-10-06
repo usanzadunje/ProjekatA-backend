@@ -20,7 +20,7 @@ class CategoryController extends Controller
     {
         //$place->allProductCategories();
         // Request for specific place and its categories that are used on products
-        // Meaning products of this pace have categories returned here
+        // Meaning products of this place have categories returned here
 
         //auth()->user()->ownerCafes->allAvailableCategories;
         // Request for all available categories which may not be used on any product
@@ -44,14 +44,18 @@ class CategoryController extends Controller
         auth()->user()
             ->ownerCafes
             ->categories()
-            ->create($validatedData);
+            ->create([
+                'name' => $validatedData['category'],
+            ]);
     }
 
-    public function update(Category $category, UpdateCategoryRequest $request): void
+    public function update(Category $category, UpdateCategoryRequest $request)
     {
         $validatedData = $request->validated();
 
-        $category->update($validatedData);
+        $category->update([
+            'name' => $validatedData['category'],
+        ]);
     }
 
     public function destroy(Category $category): void

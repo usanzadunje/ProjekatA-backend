@@ -31,7 +31,7 @@ class Cafe extends Model
     {
         $defaultCategories = Category::whereNull('cafe_id')->get();
 
-        return $this->categories->merge($defaultCategories);
+        return $defaultCategories->merge($this->categories);
     }
 
     public function allProductCategories(): Collection

@@ -21,6 +21,7 @@ class ProductResource extends JsonResource
             'price' => $this->when(!is_null($this->price), $this->price),
             'image_path' => $this->when(!is_null($this->image_path), $this->image_path),
             'category' => new CategoryResource($this->whenLoaded('category')),
+            'category_id' => $this->when(!is_null($this->category_id), $this->category_id),
             'cafe_id' => $this->cafe_id,
         ];
     }
