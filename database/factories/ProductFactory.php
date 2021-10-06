@@ -23,7 +23,7 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
-            'category_id' => 1,
+            'category_id' => rand(1,2),
         ];
     }
 }

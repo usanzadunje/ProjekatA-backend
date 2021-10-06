@@ -28,22 +28,23 @@ trait SortCafes
     {
         return $query->whereIn('id', function($query) {
             $query->select('cafe_id')
-                ->from('cafe_offering')
-                ->whereIn('offering_id', function($query) {
+                ->distinct()
+                ->from('products')
+                ->where('category_id', function($query) {
                     $query->select('id')
-                        ->from('offerings')
-                        ->where('tag', 'food');
+                        ->from('categories')
+                        ->where('name', 'food');
                 });
-        });
+        })->inRandomOrder();
     }
 
     public function scopeSortByAvailability($query)
     {
         return $query->whereIn('id', function($query) {
             $query->select('cafe_id')
+                ->distinct()
                 ->from('tables')
-                ->where('empty', true)
-                ->distinct();
+                ->where('empty', true);
         })->inRandomOrder();
     }
 

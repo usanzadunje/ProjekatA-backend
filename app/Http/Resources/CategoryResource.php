@@ -16,6 +16,7 @@ class CategoryResource extends JsonResource
     {
         return [
             'name' => $this->name,
+            'cafe_id' => $this->when(!is_null($this->cafe_id), $this->cafe_id),
         ];
     }
 }

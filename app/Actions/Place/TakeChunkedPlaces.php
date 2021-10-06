@@ -45,7 +45,8 @@ class TakeChunkedPlaces
                 $query->select('id', 'path', 'cafe_id')->where('is_main', true);
             }]);
 
-        return $selectedColumns->sortedCafes($this->sortBy)
+        return $selectedColumns
+            ->sortedCafes($this->sortBy)
             ->where('name', 'LIKE', '%' . $this->filter . '%')
             ->skip($this->start)
             ->take($this->numberOfCafes)
