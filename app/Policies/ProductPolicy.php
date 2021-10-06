@@ -2,14 +2,19 @@
 
 namespace App\Policies;
 
-use App\Models\Table;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class StaffPolicy
+class ProductPolicy
 {
     use HandlesAuthorization;
 
+    /**
+     * Create a new policy instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
         //
@@ -24,13 +29,14 @@ class StaffPolicy
         }
     }
 
-    public function update(User $user, User $staff): bool
+    public function update(User $user, Product $product): bool
     {
-        return $user->isOwner() === $staff->cafe;
+        return $product->cafe_id === $user->isOwner();
     }
 
-    public function destroy(User $user, User $staff): bool
+
+    public function destroy(User $user, Product $product): bool
     {
-        return $user->isOwner() === $staff->cafe;
+        return $product->cafe_id === $user->isOwner();
     }
 }

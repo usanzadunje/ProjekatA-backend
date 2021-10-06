@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Cafe;
 use App\Models\Category;
@@ -36,24 +37,25 @@ class CategoryController extends Controller
         return new CategoryResource($category);
     }
 
-    public function create(CreateCategoryRequest $request)
+    public function create(CreateCategoryRequest $request): void
     {
         $validatedData = $request->validated();
 
-        auth()->user()->ownerCafes->categories()->create([
-            'name' => $validatedData['category'],
-        ]);
-
-        return auth()->user()->ownerCafes->categories;
+        auth()->user()
+            ->ownerCafes
+            ->categories()
+            ->create($validatedData);
     }
 
-    public function update(): ResourceCollection
+    public function update(Category $category, UpdateCategoryRequest $request): void
     {
+        $validatedData = $request->validated();
 
+        $category->update($validatedData);
     }
 
-    public function delete(Category $category): ResourceCollection
+    public function destroy(Category $category): void
     {
-
+        $category->delete();
     }
 }

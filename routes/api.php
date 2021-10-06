@@ -75,8 +75,8 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
     // Staff specific router
     Route::get('/staff', [StaffController::class, 'index']);
     Route::post('/staff', [StaffController::class, 'store']);
-    Route::put('/staff/{staff}', [StaffController::class, 'update'])->middleware('can:edit,staff');
-    Route::delete('/staff/{staff}', [StaffController::class, 'destroy'])->middleware('can:delete,staff');
+    Route::put('/staff/{staff}', [StaffController::class, 'update'])->middleware('can:update,staff');
+    Route::delete('/staff/{staff}', [StaffController::class, 'destroy'])->middleware('can:destroy,staff');
 
     // Place specific routes
     Route::put('/place-information', [PlaceController::class, 'update']);
@@ -92,15 +92,19 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
     Route::get('/menu/category/{place?}', [CategoryController::class, 'index']);
     Route::get('/menu/category/{category}', [CategoryController::class, 'show']);
     Route::post('/menu/category', [CategoryController::class, 'create']);
-    Route::put('/menu/category/{category}', [CategoryController::class, 'update']);
-    Route::delete('/menu/category/{category}', [CategoryController::class, 'destroy']);
+    Route::put('/menu/category/{category}', [CategoryController::class, 'update'])
+        ->middleware('can:update,category');
+    Route::delete('/menu/category/{category}', [CategoryController::class, 'destroy'])
+        ->middleware('can:destroy,category');
 
     // Products specific routes
-    Route::get('/menu/product/{placeId?}', [ProductController::class, 'index']);
+    Route::get('/menu/product/{place?}', [ProductController::class, 'index']);
     Route::get('/menu/product/{product}', [ProductController::class, 'show']);
     Route::post('/menu/product', [ProductController::class, 'create']);
-    Route::put('/menu/product/{product}', [ProductController::class, 'update']);
-    Route::delete('/menu/product/{product}', [ProductController::class, 'destroy']);
+    Route::put('/menu/product/{product}', [ProductController::class, 'update'])
+        ->middleware('can:update,product');
+    Route::delete('/menu/product/{product}', [ProductController::class, 'destroy'])
+        ->middleware('can:destroy,product');
 });
 
 // Routes for staff that works in place
