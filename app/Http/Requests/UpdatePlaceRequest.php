@@ -29,15 +29,18 @@ class UpdatePlaceRequest extends FormRequest
             'name' => [
                 'nullable',
                 'string',
+                'max:255',
                 Rule::unique(Cafe::class)->ignore(auth()->user()->isOwner()),
             ],
             'city' => [
                 'nullable',
                 'string',
+                'max:255',
             ],
             'address' => [
                 'nullable',
                 'string',
+                'max:255',
             ],
             'email' => [
                 'required',
@@ -49,30 +52,37 @@ class UpdatePlaceRequest extends FormRequest
             'phone' => [
                 'nullable',
                 'numeric',
+                'max:50',
             ],
             'mon_fri_start' => [
                 'required',
                 'string',
+                'max:10',
             ],
             'mon_fri_end' => [
                 'required',
                 'string',
+                'max:10',
             ],
             'saturday_start' => [
                 'required',
                 'string',
+                'max:10',
             ],
             'saturday_end' => [
                 'required',
                 'string',
+                'max:10',
             ],
             'sunday_start' => [
                 'required',
                 'string',
+                'max:10',
             ],
             'sunday_end' => [
                 'required',
                 'string',
+                'max:10',
             ],
         ];
     }

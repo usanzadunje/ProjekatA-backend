@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateProductRequest;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
@@ -26,9 +27,13 @@ class ProductController extends Controller
         return new ProductResource($product);
     }
 
-    public function create(): ResourceCollection
+    public function create(CreateProductRequest $request)
     {
+        $validatedData = $request->validated();
 
+        //add logic for storing image
+
+        auth()->user()->ownerCafes->products()->create($validatedData);
     }
 
     public function update(): ResourceCollection

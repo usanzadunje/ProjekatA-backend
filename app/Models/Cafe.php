@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Queries\SortCafes;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -26,7 +27,14 @@ class Cafe extends Model
         return $this->hasMany(Category::class);
     }
 
-    public function allProductCategories()
+    public function allAvailableCategories(): Collection
+    {
+        $defaultCategories = Category::whereNull('cafe_id')->get();
+
+        return $this->categories->merge($defaultCategories);
+    }
+
+    public function allProductCategories(): Collection
     {
         return Category::with(
             ['products' => function($query) {

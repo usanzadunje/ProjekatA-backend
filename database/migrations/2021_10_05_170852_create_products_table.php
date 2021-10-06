@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('name', 255);
             $table->string('description', 255)->nullable();
             $table->bigInteger('price')->nullable();
-            $table->string('image_path', 255);
+            $table->string('image_path', 255)->nullable();
             $table->foreignId('cafe_id')->constrained()->cascadeOnDelete();
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
         });

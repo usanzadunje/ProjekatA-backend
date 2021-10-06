@@ -12,6 +12,8 @@ class Product extends Model
 
     public $timestamps = false;
 
+    protected $guarded = [];
+
     public function place(): BelongsTo
     {
         return $this->belongsTo(Cafe::class);

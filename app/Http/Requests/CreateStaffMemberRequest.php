@@ -29,12 +29,13 @@ class CreateStaffMemberRequest extends FormRequest
     public function rules()
     {
         return [
-            'fname' => ['nullable', 'string', 'alpha'],
-            'lname' => ['nullable', 'string', 'alpha'],
+            'fname' => ['nullable', 'string', 'alpha', 'max:255'],
+            'lname' => ['nullable', 'string', 'alpha', 'max:255'],
             'username' => [
                 'required',
                 'string',
                 'alpha_num',
+                'max:255',
                 Rule::unique(User::class),
             ],
             'email' => [

@@ -39,6 +39,7 @@ return [
     'encoded-image' => ':Attribute mora biti slika formata:  :values.',
     'staff' => 'Možete kreirati osoblje samo za svoj objekat.',
     'unknown' => 'Nismo uspeli da pronađemo korisnika sa unetim podacima.',
+    'bad_category' => 'Greška prilikom izbora kategorije.',
 
 
     /*
@@ -80,6 +81,7 @@ return [
         'name' => 'naziv',
         'address' => 'adresa',
         'city' => 'grad',
+        'category' => 'kategorija',
     ],
 
 ];

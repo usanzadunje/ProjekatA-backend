@@ -89,7 +89,7 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
     Route::post('/place/tables', [TableController::class, 'storeOrUpdate']);
 
     // Categories specific routes
-    Route::get('/menu/category/{placeId?}', [CategoryController::class, 'index']);
+    Route::get('/menu/category/{place?}', [CategoryController::class, 'index']);
     Route::get('/menu/category/{category}', [CategoryController::class, 'show']);
     Route::post('/menu/category', [CategoryController::class, 'create']);
     Route::put('/menu/category/{category}', [CategoryController::class, 'update']);

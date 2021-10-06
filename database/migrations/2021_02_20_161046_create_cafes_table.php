@@ -15,11 +15,11 @@ class CreateCafesTable extends Migration
     {
         Schema::create('cafes', function(Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('city')->nullable();
-            $table->string('address')->nullable();
-            $table->string('email')->unique()->nullable()->default(null);
-            $table->string('phone')->unique()->nullable()->default(null);
+            $table->string('name', 255)->unique();
+            $table->string('city', 255)->nullable();
+            $table->string('address', 255)->nullable();
+            $table->string('email', 255)->unique()->nullable()->default(null);
+            $table->string('phone', 50)->unique()->nullable()->default(null);
             $table->string('latitude', 255);
             $table->string('longitude', 255);
             $table->string('mon_fri', 13)->default('00:00-00:00');
