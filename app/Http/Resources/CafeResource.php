@@ -6,12 +6,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class CafeResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return array
-     */
     public function toArray($request): array
     {
         return [
@@ -24,7 +18,10 @@ class CafeResource extends JsonResource
             'latitude' => $this->when(!is_null($this->latitude), $this->latitude),
             'longitude' => $this->when(!is_null($this->longitude), $this->longitude),
             'availability_ratio' => $this->takenMaxCapacityTableRatio(),
-            'products' => ProductResource::collection($this->whenLoaded('products')),
+            'categories' => $this->when(
+                $request->routeIs('cafes/show'),
+                CategoryResource::collection($this->allProductCategories())
+            ),
             'images' => ImageResource::collection($this->whenLoaded('images')),
             'subscription_expires_in' => $this->whenPivotLoaded('cafe_user', function() {
                 if($this->pivot->expires_in)

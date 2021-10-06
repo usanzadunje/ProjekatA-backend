@@ -64,7 +64,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:sanctum'], function() {
 Route::group(['prefix' => 'cafes', 'middleware' => 'throttle:places'], function() {
     Route::get('/chunked/start/number-of-cafes/{start?}/{numberOfCafes?}', [PlaceController::class, 'index'])
         ->name('cafes/chunked');
-    Route::get('/{cafe}', [PlaceController::class, 'show'])->name('cafes/show');
+    Route::get('/{placeId}', [PlaceController::class, 'show'])->name('cafes/show');
     Route::get('/{place}/images', [PlaceController::class, 'images']);
     Route::get('/{place}/working-hours', [PlaceController::class, 'workingHours']);
     Route::get('/{placeId}/tables', [TableController::class, 'index']);

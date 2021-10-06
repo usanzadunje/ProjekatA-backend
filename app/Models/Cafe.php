@@ -26,6 +26,21 @@ class Cafe extends Model
         return $this->hasMany(Category::class);
     }
 
+    public function allProductCategories()
+    {
+        return Category::with(
+            ['products' => function($query) {
+                $query->where('cafe_id', $this->id);
+            }])
+            ->whereIn('id', function($query) {
+                $query
+                    ->select('category_id')
+                    ->distinct()
+                    ->from('products')
+                    ->where('cafe_id', $this->id);
+            })->get();
+    }
+
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);

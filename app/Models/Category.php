@@ -15,14 +15,7 @@ class Category extends Model
 
     public function place(): ?BelongsTo
     {
-        if($this->cafe_id)
-        {
-            return $this->belongsTo(Cafe::class);
-        }
-        else
-        {
-            return null;
-        }
+        return $this->belongsTo(Cafe::class);
     }
 
     public function products(): HasMany

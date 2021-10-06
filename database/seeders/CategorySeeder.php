@@ -15,11 +15,15 @@ class CategorySeeder extends Seeder
     public function run()
     {
         Category::create([
-            'name' => 'food',
+            'name' => 'Food',
         ]);
 
         Category::create([
-            'name' => 'drink',
+            'name' => 'Drinks',
+        ]);
+
+        Category::create([
+            'name' => 'Sweets',
         ]);
     }
 }

@@ -12,8 +12,6 @@ class Product extends Model
 
     public $timestamps = false;
 
-    protected $with = ['category'];
-
     public function place(): BelongsTo
     {
         return $this->belongsTo(Cafe::class);

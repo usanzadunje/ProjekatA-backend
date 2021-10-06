@@ -29,12 +29,11 @@ class PlaceController extends Controller
         return CafeResource::collection($places);
     }
 
-    public function show(int $cafeId): CafeResource
+    public function show(int $placeId): CafeResource
     {
         // Passing only columns needed to show only one place
         return new CafeResource(
-            Cafe::with('products')
-                ->with('images')
+            Cafe::with('images')
                 ->withCount([
                     'tables',
                     'tables as taken_tables_count' => function(Builder $query) {
@@ -42,7 +41,7 @@ class PlaceController extends Controller
                     },
                 ])
                 ->findOrFail(
-                    $cafeId,
+                    $placeId,
                     ['id', 'name', 'city', 'address', 'email', 'phone', 'latitude', 'longitude', 'mon_fri', 'saturday', 'sunday']
                 )
         );

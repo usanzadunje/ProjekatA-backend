@@ -23,7 +23,10 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
-            'category_id' => rand(1,2),
+            'description' => $this->faker->text(50),
+            'price' => $this->faker->numberBetween(100, 3000),
+            'image_path' => '/test.png',
+            'category_id' => rand(1, 3),
         ];
     }
 }
