@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model
 {
@@ -14,8 +14,13 @@ class Product extends Model
 
     protected $with = ['category'];
 
-    public function category(): HasOne
+    public function place(): BelongsTo
     {
-        return $this->hasOne(Category::class);
+        return $this->belongsTo(Cafe::class);
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
 }
