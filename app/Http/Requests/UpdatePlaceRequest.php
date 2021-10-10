@@ -52,7 +52,6 @@ class UpdatePlaceRequest extends FormRequest
             'phone' => [
                 'nullable',
                 'numeric',
-                'max:50',
             ],
             'mon_fri_start' => [
                 'required',

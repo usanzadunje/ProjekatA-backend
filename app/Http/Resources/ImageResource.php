@@ -18,6 +18,7 @@ class ImageResource extends JsonResource
             'id' => $this->when(!is_null($this?->id), $this->id),
             'path' => $this->path,
             'is_main' => $this->when(!is_null($this->is_main), $this->is_main),
+            'is_logo' => $this->when(!is_null($this->is_logo), $this->is_logo),
         ];
     }
 }

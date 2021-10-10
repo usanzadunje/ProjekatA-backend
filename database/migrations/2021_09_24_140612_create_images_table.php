@@ -13,12 +13,12 @@ class CreateImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('images', function(Blueprint $table) {
             $table->id();
             $table->string('path', 255);
             $table->boolean('is_main')->default(false);
             $table->boolean('is_logo')->default(false);
-            $table->foreignId('cafe_id')->constrained()->cascadeOnDelete();
+            $table->morphs('imagable');
             $table->timestamps();
         });
     }

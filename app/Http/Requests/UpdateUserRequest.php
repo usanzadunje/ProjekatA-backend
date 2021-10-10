@@ -45,10 +45,15 @@ class UpdateUserRequest extends FormRequest
                 Rule::unique(User::class)->ignore(auth()->id()),
             ],
             'bday' => ['nullable', 'date'],
-            'phone' => ['nullable', 'numeric', 'max:50'],
+            'phone' => ['nullable', 'numeric',],
             'avatar' => ['nullable', 'string', new Avatar('jpg|jpeg|png')],
             'old_password' => ['string', Rule::requiredIf(!empty($this->password))],
-            'password' => ['string', new Password, 'confirmed', Rule::requiredIf(!empty($this->old_password))],
+            'password' => [
+                'string',
+                new Password,
+                'confirmed',
+                Rule::requiredIf(!empty($this->old_password)),
+            ],
         ];
     }
 

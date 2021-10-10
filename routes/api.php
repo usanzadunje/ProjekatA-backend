@@ -9,6 +9,7 @@ use App\Http\Controllers\API\StaffController;
 use App\Http\Controllers\API\TableController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\GithubWebhooksController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -80,16 +81,17 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
 
     // Place specific routes
     Route::put('/place-information', [PlaceController::class, 'update']);
-    Route::post('/place/images/upload', [PlaceController::class, 'imageUpload']);
-    Route::post('/place/images/set-main/{image}', [PlaceController::class, 'imageSetMain']);
-    Route::post('/place/images/remove/{image}', [PlaceController::class, 'imageDestroy']);
+    Route::post('/place/images/upload', [ImageController::class, 'store']);
+    Route::post('/place/images/set-main/{image}', [ImageController::class, 'main']);
+    Route::post('/place/images/set-logo/{image}', [ImageController::class, 'logo']);
+    Route::post('/place/images/remove/{image}', [ImageController::class, 'destroy']);
 
     // Tables specific routes
     Route::get('/place/tables', [TableController::class, 'index']);
     Route::post('/place/tables', [TableController::class, 'storeOrUpdate']);
 
     // Categories specific routes
-    Route::get('/menu/category/{place?}', [CategoryController::class, 'index']);
+    Route::get('/menu/category/place/{place?}', [CategoryController::class, 'index']);
     Route::get('/menu/category/{category}', [CategoryController::class, 'show']);
     Route::post('/menu/category', [CategoryController::class, 'create']);
     Route::put('/menu/category/{category}', [CategoryController::class, 'update'])
@@ -98,7 +100,7 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
         ->middleware('can:destroy,category');
 
     // Products specific routes
-    Route::get('/menu/product/{place?}', [ProductController::class, 'index']);
+    Route::get('/menu/product/place/{place?}', [ProductController::class, 'index']);
     Route::get('/menu/product/{product}', [ProductController::class, 'show']);
     Route::post('/menu/product', [ProductController::class, 'create']);
     Route::put('/menu/product/{product}', [ProductController::class, 'update'])
