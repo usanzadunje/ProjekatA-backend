@@ -7,10 +7,11 @@ use App\Models\Image;
 class SetImageAsMain
 {
 
-    public function handle(Image $image, int $placeId)
+    public function handle(Image $image, string $imageType)
     {
         Image::where('is_main', true)
-            ->where('imagable_id', $placeId)
+            ->where('imagable_id', $image->imagable_id)
+            ->where('imagable_type', $imageType)
             ->update([
                 'is_main' => false,
             ]);

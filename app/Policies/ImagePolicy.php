@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Product;
+use App\Models\Image;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ProductPolicy
+class ImagePolicy
 {
     use HandlesAuthorization;
 
@@ -17,7 +17,6 @@ class ProductPolicy
      */
     public function __construct()
     {
-        //
     }
 
     public function before(User $user)
@@ -29,18 +28,13 @@ class ProductPolicy
         }
     }
 
-    public function update(User $user, Product $product): bool
+    public function manipulatePlaceImages(User $user, Image $image): bool
     {
-        return $product->cafe_id === $user->isOwner();
-    }
+        $imageParentId = $image->imagable_id;
 
-    public function destroy(User $user, Product $product): bool
-    {
-        return $product->cafe_id === $user->isOwner();
-    }
+        $isOwnersPlaceImage = $user->isOwner() === $imageParentId;
+        $isOwnersProductImage = $user->ownerCafes->products()->pluck('id')->contains($imageParentId);
 
-    public function upload(User $user, Product $product): bool
-    {
-        return $product->cafe_id === $user->isOwner();
+        return $isOwnersPlaceImage || $isOwnersProductImage;
     }
 }

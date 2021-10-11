@@ -82,8 +82,9 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
 
     // Place specific routes
     Route::put('/place-information', [PlaceController::class, 'update']);
-    Route::post('/place/images/upload', [ImageController::class, 'store']);
-    Route::post('/place/images/set-main/{image}', [ImageController::class, 'main']);
+    Route::post('/place/images/upload', [ImageController::class, 'storeForPlace']);
+    Route::post('/place/images/set-main/{image}', [ImageController::class, 'main'])
+        ->middleware('can:manipulatePlaceImages,image');
     Route::post('/place/images/set-logo/{image}', [ImageController::class, 'logo']);
     Route::post('/place/images/remove/{image}', [ImageController::class, 'destroy']);
 
@@ -108,6 +109,8 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
         ->middleware('can:update,product');
     Route::delete('/menu/product/{product}', [ProductController::class, 'destroy'])
         ->middleware('can:destroy,product');
+    Route::post('/product/{product}/images/upload', [ImageController::class, 'storeForProduct'])
+        ->middleware('can:upload,product');
 });
 
 // Routes for staff that works in place

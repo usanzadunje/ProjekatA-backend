@@ -15,7 +15,7 @@ class Product extends Model
 
     protected $guarded = [];
 
-    public function place(): BelongsTo
+    public function cafe(): BelongsTo
     {
         return $this->belongsTo(Cafe::class);
     }

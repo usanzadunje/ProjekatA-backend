@@ -59,6 +59,6 @@ class ProductController extends Controller
 
     public function images(Product $product): ResourceCollection
     {
-        return ImageResource::collection($product->images()->select('path', 'is_main')->get());
+        return ImageResource::collection($product->images()->select('id', 'path', 'is_main')->get());
     }
 }
