@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\Actions\Image\RemoveImage;
 use App\Actions\Image\SetImageAsLogo;
 use App\Actions\Image\SetImageAsMain;
 use App\Actions\Owner\Place\UploadPlaceImages;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\UploadPlaceImagesRequest;
 use App\Models\Image;
 

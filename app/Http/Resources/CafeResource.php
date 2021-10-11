@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class CafeResource extends JsonResource
 {
@@ -19,7 +20,7 @@ class CafeResource extends JsonResource
             'longitude' => $this->when(!is_null($this->longitude), $this->longitude),
             'availability_ratio' => $this->takenMaxCapacityTableRatio(),
             'categories' => $this->when(
-                $request->routeIs('cafes/show'),
+                $request->routeIs('cafes/show') && $request->query('products'),
                 CategoryResource::collection($this->allProductCategories())
             ),
             'images' => ImageResource::collection($this->whenLoaded('images')),

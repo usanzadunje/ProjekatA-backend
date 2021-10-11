@@ -39,7 +39,10 @@ class Cafe extends Model
     {
         return Category::with(
             ['products' => function($query) {
-                $query->where('cafe_id', $this->id);
+                $query->with(['images' => function($query) {
+                    $query->select('id', 'path', 'is_main', 'imagable_id')
+                        ->where('is_main', true);
+                }])->where('cafe_id', $this->id);
             }])
             ->whereIn('id', function($query) {
                 $query

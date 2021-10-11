@@ -25,7 +25,6 @@ class ProductFactory extends Factory
             'name' => $this->faker->word,
             'description' => $this->faker->text(50),
             'price' => $this->faker->numberBetween(100, 3000),
-            'image_path' => '/places/default_place_product_logo.png',
             'category_id' => rand(1, 3),
         ];
     }

@@ -9,8 +9,8 @@ use App\Http\Controllers\API\StaffController;
 use App\Http\Controllers\API\TableController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\GithubWebhooksController;
-use App\Http\Controllers\ImageController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\API\ImageController;
+use App\Http\Controllers\API\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,6 +67,7 @@ Route::group(['prefix' => 'cafes', 'middleware' => 'throttle:places'], function(
         ->name('cafes/chunked');
     Route::get('/{placeId}', [PlaceController::class, 'show'])->name('cafes/show');
     Route::get('/{place}/images', [PlaceController::class, 'images']);
+    Route::get('/product/{product}/images', [ProductController::class, 'images']);
     Route::get('/{place}/working-hours', [PlaceController::class, 'workingHours']);
     Route::get('/{placeId}/tables', [TableController::class, 'index']);
 });

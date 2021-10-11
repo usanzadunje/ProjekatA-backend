@@ -38,6 +38,28 @@ class ImageSeeder extends Seeder
                 }
             }
         }
-
+        for($i = 1; $i <= 10; $i++)
+        {
+            for($j = 1; $j <= 5; $j++)
+            {
+                if($j === 1)
+                {
+                    Image::create([
+                        'path' => "/places/Cafe $i/products/product_$j.jpg",
+                        'is_main' => true,
+                        'imagable_id' => $i,
+                        'imagable_type' => 'App\Models\Product',
+                    ]);
+                }
+                else
+                {
+                    Image::create([
+                        'path' => "/places/Cafe $i/products/product_$j.jpg",
+                        'imagable_id' => $i,
+                        'imagable_type' => 'App\Models\Product',
+                    ]);
+                }
+            }
+        }
     }
 }
