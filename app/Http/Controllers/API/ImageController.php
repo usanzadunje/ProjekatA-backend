@@ -23,7 +23,7 @@ class ImageController extends Controller
 
     public function storeForProduct(Product $product, UploadPlaceImagesRequest $request, UploadPlaceImages $uploadPlaceImages)
     {
-        $storePath = "places/{$product->cafe->name}/products/$product->name";
+        $storePath = "places/{$product->cafe->name}/products/product-$product->id";
 
         $uploadPlaceImages->handle($request->validated(), $product, $storePath);
     }
