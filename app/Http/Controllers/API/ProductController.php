@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Actions\Owner\Products\RemoveAllProductImages;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
@@ -52,8 +53,10 @@ class ProductController extends Controller
         $product->update($validatedData);
     }
 
-    public function destroy(Product $product): void
+    public function destroy(Product $product, RemoveAllProductImages $removeAllProductImages): void
     {
+        $removeAllProductImages->handle($product);
+
         $product->delete();
     }
 
