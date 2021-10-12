@@ -40,6 +40,7 @@ return [
     'staff' => 'Možete kreirati osoblje samo za svoj objekat.',
     'unknown' => 'Nismo uspeli da pronađemo korisnika sa unetim podacima.',
     'bad_category' => 'Greška prilikom izbora kategorije.',
+    'uploaded' => ':Attribute nije uspešno dodata. Fajl je možda preveliki. Maksimalno dozvoljeno 2048kB',
 
 
     /*

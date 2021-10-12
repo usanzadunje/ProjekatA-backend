@@ -29,15 +29,18 @@ class UploadPlaceImagesRequest extends FormRequest
         ];
     }
 
-    /**
-     * Get custom attributes for validator errors.
-     *
-     * @return array
-     */
+
     public function attributes()
     {
         return [
             'images.*' => trans('attributes.image'),
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'uploaded' => trans('attributes.image'),
         ];
     }
 }
