@@ -25,7 +25,7 @@ class UpdateProductRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'category_id' => ['required', 'numeric', 'integer', 'exists:categories'],
+            'category_id' => ['required', 'numeric', 'integer', 'exists:categories,id'],
             'description' => ['nullable', 'string', 'max:255'],
             'price' => ['nullable', 'numeric', 'integer'],
         ];

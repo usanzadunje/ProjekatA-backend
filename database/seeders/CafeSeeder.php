@@ -15,9 +15,9 @@ class CafeSeeder extends Seeder
     public function run()
     {
 
-        Cafe::factory(120)
+        Cafe::factory(500)
             ->hasTables(4)
-            ->hasProducts(5)
+            ->hasProducts(300)
             ->hasCategories(5)
             ->create();
     }

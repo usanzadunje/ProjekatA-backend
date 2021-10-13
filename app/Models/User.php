@@ -57,12 +57,12 @@ class User extends Authenticatable
 
     public function staff()
     {
-        $cafe = $this->isOwner();
+        $place = $this->isOwner();
 
         return
-            $cafe ?
+            $place ?
                 User::select('id', 'fname', 'lname', 'bday', 'phone', 'username', 'avatar', 'email', 'active')
-                    ->whereCafe($cafe)
+                    ->whereCafe($place)
                     ->orderByDesc('active')
                     ->get()
                 :

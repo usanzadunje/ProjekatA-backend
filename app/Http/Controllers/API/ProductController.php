@@ -22,10 +22,13 @@ class ProductController extends Controller
             : auth()->user()->ownerCafes->products();
 
         return ProductResource::collection(
-            $products->with(['images' => function($query) {
-                $query->select('id', 'path', 'is_main', 'imagable_id')
-                    ->where('is_main', true);
-            }])->get()
+            $products
+                ->with(['images' => function($query) {
+                    $query->select('id', 'path', 'is_main', 'imagable_id')
+                        ->where('is_main', true);
+                }])
+                ->orderByDesc('id')
+                ->get()
         );
     }
 

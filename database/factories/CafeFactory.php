@@ -66,15 +66,14 @@ class CafeFactory extends Factory
         }
 
         return [
-            'name' => $this->faker->name,
-            'city' => $this->faker->city,
-            'address' => $this->faker->address,
+            'name' => $this->faker->unique(true)->name,
+            'city' => $this->faker->unique(true)->city,
+            'address' => $this->faker->unique(true)->address,
             'latitude' => $this->faker->latitude,
             'longitude' => $this->faker->longitude,
-            'phone' => $this->faker->numberBetween(100000, 900000),
-            'email' => $this->faker->unique()->safeEmail,
+            'phone' => $this->faker->numberBetween(1, 9000000),
+            'email' => $this->faker->unique(true)->safeEmail,
             'user_id' => 2,
-
         ];
     }
 }
