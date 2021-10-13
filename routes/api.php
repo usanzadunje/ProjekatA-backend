@@ -42,7 +42,7 @@ Route::group(['middleware' => 'throttle:auth'], function() {
 // Routes for Firebase stuff
 Route::group(['middleware' => 'throttle:fcm'], function() {
     Route::post('/fcm-token', [FirebaseController::class, 'store'])->middleware(['auth:sanctum']);
-    Route::post('/fcm-token/remove', [FirebaseController::class, 'destroy'])->middleware(['auth:sanctum']);
+    Route::delete('/fcm-token', [FirebaseController::class, 'destroy'])->middleware(['auth:sanctum']);
 });
 
 
@@ -54,16 +54,16 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:sanctum'], function() {
 
     // Place subscription routes
     Route::group(['middleware' => 'throttle:subscribe'], function() {
-        Route::get('/cafes/subscriptions', [PlaceSubscriptionController::class, 'index']);
-        Route::post('/subscribe/cafe/{cafeId}/notify-in-next/{notificationTime?}', [PlaceSubscriptionController::class, 'store']);
-        Route::post('/subscribed/cafe/{cafeId}', [PlaceSubscriptionController::class, 'show']);
-        Route::post('/unsubscribe/cafe/{cafeId}', [PlaceSubscriptionController::class, 'destroy']);
+        Route::get('/subscriptions/place', [PlaceSubscriptionController::class, 'index']);
+        Route::post('/subscriptions/place/{cafeId}', [PlaceSubscriptionController::class, 'show']);
+        Route::post('/subscriptions/place/{cafeId}/notify-in-next/{notificationTime?}', [PlaceSubscriptionController::class, 'store']);
+        Route::delete('/subscriptions/place/{cafeId}', [PlaceSubscriptionController::class, 'destroy']);
     });
 });
 
 //Routes for cafes
-Route::group(['prefix' => 'cafes', 'middleware' => 'throttle:places'], function() {
-    Route::get('/chunked/start/number-of-cafes/{start?}/{numberOfCafes?}', [PlaceController::class, 'index'])
+Route::group(['prefix' => 'places', 'middleware' => 'throttle:places'], function() {
+    Route::get('/chunked/start/number-of-places/{start?}/{numberOfCafes?}', [PlaceController::class, 'index'])
         ->name('cafes/chunked');
     Route::get('/{placeId}', [PlaceController::class, 'show'])->name('cafes/show');
     Route::get('/{place}/images', [PlaceController::class, 'images']);
@@ -81,12 +81,12 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
     Route::delete('/staff/{staff}', [StaffController::class, 'destroy'])->middleware('can:destroy,staff');
 
     // Place specific routes
-    Route::put('/place-information', [PlaceController::class, 'update']);
-    Route::post('/place/images/upload', [ImageController::class, 'storeForPlace']);
-    Route::post('/place/images/set-main/{image}', [ImageController::class, 'main'])
+    Route::put('/place', [PlaceController::class, 'update']);
+    Route::post('/place/images', [ImageController::class, 'storeForPlace']);
+    Route::post('/place/images/main/{image}', [ImageController::class, 'main'])
         ->middleware('can:manipulatePlaceImages,image');
-    Route::post('/place/images/set-logo/{image}', [ImageController::class, 'logo']);
-    Route::post('/place/images/remove/{image}', [ImageController::class, 'destroy']);
+    Route::post('/place/images/logo/{image}', [ImageController::class, 'logo']);
+    Route::delete('/place/images/{image}', [ImageController::class, 'destroy']);
 
     // Tables specific routes
     Route::get('/place/tables', [TableController::class, 'index']);
@@ -109,7 +109,7 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
         ->middleware('can:update,product');
     Route::delete('/menu/product/{product}', [ProductController::class, 'destroy'])
         ->middleware('can:destroy,product');
-    Route::post('/product/{product}/images/upload', [ImageController::class, 'storeForProduct'])
+    Route::post('/product/{product}/images', [ImageController::class, 'storeForProduct'])
         ->middleware('can:upload,product');
 });
 
