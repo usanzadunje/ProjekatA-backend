@@ -124,6 +124,7 @@ return [
     'staff' => 'You can only create staff members for your own place.',
     'unknown' => "We couldn't find user with provided credentials.",
     'bad_category' => 'Error while picking product category.',
+    'non_existing_category' => 'You are providing category that does not exist!',
 
 
     /*

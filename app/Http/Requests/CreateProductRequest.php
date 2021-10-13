@@ -25,7 +25,7 @@ class CreateProductRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'category_id' => ['required', 'numeric', 'integer'],
+            'category_id' => ['required', 'numeric', 'integer', 'exists:categories'],
             'description' => ['nullable', 'string', 'max:255'],
             'price' => ['nullable', 'numeric', 'integer'],
         ];
@@ -36,6 +36,7 @@ class CreateProductRequest extends FormRequest
         return [
             'category_id.numeric' => trans('validation.bad_category'),
             'category_id.integer' => trans('validation.bad_category'),
+            'category_id.exists' => trans('validation.non_existing_category'),
         ];
     }
 
