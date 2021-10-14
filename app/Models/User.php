@@ -100,7 +100,7 @@ class User extends Authenticatable
                 },
             ])
             ->with(['images' => function($query) {
-                $query->select('id', 'path', 'cafe_id')->where('is_main', true);
+                $query->select('id', 'path', 'imagable_id')->where('is_main', true);
             }])
             ->withPivot('expires_in')
             ->sortedCafes($sortBy)

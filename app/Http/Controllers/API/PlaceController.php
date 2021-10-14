@@ -18,7 +18,16 @@ class PlaceController extends Controller
 {
     public function index(TakeChunkedPlaces $takeChunkedPlaces): ResourceCollection
     {
-        $places = $takeChunkedPlaces->handle();
+        $getAllColumns = request('getAllColumns') === 'true';
+        $sortBy = request('sortBy') ?: 'default';
+
+        $places = $takeChunkedPlaces->handle(
+            $getAllColumns,
+            $sortBy,
+            request('filter'),
+            request('offset'),
+            request('limit')
+        );
 
         // Passing only columns needed to Resource Cafe
         return CafeResource::collection($places);

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Queries\FilterAndChunk;
 use App\Queries\SortCafes;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 
 class Cafe extends Model
 {
-    use HasFactory, SortCafes;
+    use HasFactory, SortCafes, FilterAndChunk;
 
     protected $guarded = [];
 

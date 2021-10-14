@@ -8,17 +8,21 @@ use App\Actions\Image\SetImageAsMain;
 use App\Actions\Owner\Place\UploadPlaceImages;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UploadPlaceImagesRequest;
+use App\Http\Resources\ImageResource;
 use App\Models\Image;
 use App\Models\Product;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ImageController extends Controller
 {
-    public function storeForPlace(UploadPlaceImagesRequest $request, UploadPlaceImages $uploadPlaceImages): void
+    public function storeForPlace(UploadPlaceImagesRequest $request, UploadPlaceImages $uploadPlaceImages): ResourceCollection
     {
         $place = auth()->user()->ownerCafes;
         $storePath = "places/$place->name";
 
-        $uploadPlaceImages->handle($request->validated(), $place, $storePath);
+        $createdImages = $uploadPlaceImages->handle($request->validated(), $place, $storePath);
+
+        return ImageResource::collection($createdImages);
     }
 
     public function storeForProduct(Product $product, UploadPlaceImagesRequest $request, UploadPlaceImages $uploadPlaceImages)

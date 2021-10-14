@@ -17,19 +17,20 @@ class ProductController extends Controller
 {
     public function index(Cafe $place = null): ResourceCollection
     {
-        $products = $place
+        $productsQuery = $place
             ? $place->products()
             : auth()->user()->ownerCafes->products();
 
-        return ProductResource::collection(
-            $products
-                ->with(['images' => function($query) {
-                    $query->select('id', 'path', 'is_main', 'imagable_id')
-                        ->where('is_main', true);
-                }])
-                ->orderByDesc('id')
-                ->get()
-        );
+        $products = $productsQuery
+            ->with(['images' => function($query) {
+                $query->select('id', 'path', 'is_main', 'imagable_id')
+                    ->where('is_main', true);
+            }])
+            ->orderByDesc('id')
+            ->filterAndChunk('name', request('filter'), request('offset'), request('limit'))
+            ->get();
+
+        return ProductResource::collection($products);
     }
 
     public function show(Product $product): JsonResource
