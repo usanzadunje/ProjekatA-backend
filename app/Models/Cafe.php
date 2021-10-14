@@ -13,6 +13,60 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\Models\Cafe
+ *
+ * @property int $id
+ * @property string $name
+ * @property string|null $city
+ * @property string|null $address
+ * @property string|null $email
+ * @property string|null $phone
+ * @property string $latitude
+ * @property string $longitude
+ * @property string $mon_fri
+ * @property string $saturday
+ * @property string $sunday
+ * @property int $user_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Collection|\App\Models\Category[] $categories
+ * @property-read int|null $categories_count
+ * @property-read Collection|\App\Models\Image[] $images
+ * @property-read int|null $images_count
+ * @property-read \App\Models\User $owner
+ * @property-read Collection|\App\Models\Product[] $products
+ * @property-read int|null $products_count
+ * @property-read Collection|\App\Models\User[] $subscribedUsers
+ * @property-read int|null $subscribed_users_count
+ * @property-read Collection|\App\Models\Table[] $tables
+ * @property-read int|null $tables_count
+ * @method static \Database\Factories\CafeFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe filterAndChunk($filterByColumn, $filter, $offset, $limit)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe sortByAvailability()
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe sortByDefault()
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe sortByDistance()
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe sortByFood()
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe sortedCafes($sortBy)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereLatitude($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereLongitude($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereMonFri($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereSaturday($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereSunday($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Cafe extends Model
 {
     use HasFactory, SortCafes, FilterAndChunk;

@@ -37,16 +37,18 @@ class CategoryController extends Controller
         return new CategoryResource($category);
     }
 
-    public function create(CreateCategoryRequest $request): void
+    public function create(CreateCategoryRequest $request): CategoryResource
     {
         $validatedData = $request->validated();
 
-        auth()->user()
+        $createdCategory = auth()->user()
             ->ownerCafes
             ->categories()
             ->create([
                 'name' => $validatedData['category'],
             ]);
+
+        return new CategoryResource($createdCategory);
     }
 
     public function update(Category $category, UpdateCategoryRequest $request)

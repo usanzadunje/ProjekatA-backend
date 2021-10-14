@@ -38,16 +38,18 @@ class ProductController extends Controller
         return new ProductResource($product->load('category', 'images'));
     }
 
-    public function create(CreateProductRequest $request): void
+    public function create(CreateProductRequest $request): ProductResource
     {
         $validatedData = $request->validated();
 
         //add logic for storing image
 
-        auth()->user()
+        $createdProduct = auth()->user()
             ->ownerCafes
             ->products()
             ->create($validatedData);
+
+        return new ProductResource($createdProduct);
     }
 
     public function update(Product $product, UpdateProductRequest $request): void

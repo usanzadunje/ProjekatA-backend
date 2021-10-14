@@ -55,9 +55,11 @@ class TableController extends Controller
         return response()->success('Successfully changed place availability!', $data);
     }
 
-    public function storeOrUpdate(StoreOrUpdateTableRequest $request, StoreOrUpdateTables $storeOrUpdateTables): void
+    public function storeOrUpdate(StoreOrUpdateTableRequest $request, StoreOrUpdateTables $storeOrUpdateTables): ResourceCollection
     {
-        $storeOrUpdateTables->handle($request->validated(), auth()->user());
+        $createdTables = $storeOrUpdateTables->handle($request->validated(), auth()->user());
+
+        return TableResource::collection($createdTables);
     }
 
 
