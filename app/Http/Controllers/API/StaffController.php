@@ -19,9 +19,11 @@ class StaffController extends Controller
         return UserResource::collection(auth()->user()->staff());
     }
 
-    public function store(CreateStaffMemberRequest $request, CreateStaffMember $createStaffMember): void
+    public function store(CreateStaffMemberRequest $request, CreateStaffMember $createStaffMember): UserResource
     {
-        $createStaffMember->handle($request->validated());
+        $createdStaff = $createStaffMember->handle($request->validated());
+
+        return new UserResource($createdStaff);
     }
 
     public function update(User $staff, UpdateStaffMemberRequest $request, UpdateStaffMember $updateStaffMember): void

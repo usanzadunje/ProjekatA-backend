@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 
 class CreateStaffMember
 {
-    public function handle(array $validatedData, User $providedOwner = null)
+    public function handle(array $validatedData, User $providedOwner = null): User
     {
         $owner = $providedOwner ?: auth()->user();
 
@@ -19,6 +19,6 @@ class CreateStaffMember
 
         $validatedData['password'] = Hash::make($validatedData['password']);
 
-        User::create($validatedData + $additionalInfo);
+        return User::create($validatedData + $additionalInfo);
     }
 }

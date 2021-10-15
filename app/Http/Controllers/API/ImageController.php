@@ -25,11 +25,13 @@ class ImageController extends Controller
         return ImageResource::collection($createdImages);
     }
 
-    public function storeForProduct(Product $product, UploadPlaceImagesRequest $request, UploadPlaceImages $uploadPlaceImages)
+    public function storeForProduct(Product $product, UploadPlaceImagesRequest $request, UploadPlaceImages $uploadPlaceImages): ResourceCollection
     {
         $storePath = "places/{$product->cafe->name}/products/product-$product->id";
 
-        $uploadPlaceImages->handle($request->validated(), $product, $storePath);
+        $createdImages = $uploadPlaceImages->handle($request->validated(), $product, $storePath);
+
+        return ImageResource::collection($createdImages);
     }
 
     public function destroy(Image $image, RemoveImage $removeImage): void
