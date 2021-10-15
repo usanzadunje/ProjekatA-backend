@@ -4,7 +4,6 @@
 namespace App\Actions\Place\Table;
 
 
-use App\Models\Cafe;
 use App\Models\Table;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;

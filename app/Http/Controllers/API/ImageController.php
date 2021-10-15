@@ -39,15 +39,11 @@ class ImageController extends Controller
 
     public function main(Image $image, SetImageAsMain $setImageAsMain): void
     {
-        $imageType = \request('type');
-
-        $setImageAsMain->handle($image, $imageType);
+        $setImageAsMain->handle($image);
     }
 
     public function logo(Image $image, SetImageAsLogo $setImageAsLogo): void
     {
-        $placeId = auth()->user()->isOwner();
-
-        $setImageAsLogo->handle($image, $placeId);
+        $setImageAsLogo->handle($image);
     }
 }

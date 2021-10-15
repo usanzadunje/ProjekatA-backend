@@ -7,10 +7,11 @@ use App\Models\Image;
 class SetImageAsLogo
 {
 
-    public function handle(Image $image, int $placeId)
+    public function handle(Image $image)
     {
         Image::where('is_logo', true)
-            ->where('imagable_id', $placeId)
+            ->where('imagable_id', $image->imagable_id)
+            ->where('imagable_type', $image->imagable_type)
             ->update([
                 'is_logo' => false,
             ]);

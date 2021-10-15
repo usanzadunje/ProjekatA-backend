@@ -5,7 +5,6 @@ namespace App\Actions\Owner\Tables;
 
 use App\Models\Table;
 use App\Models\User;
-use Illuminate\Validation\UnauthorizedException;
 
 class StoreOrUpdateTables
 {

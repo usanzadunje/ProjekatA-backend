@@ -56,7 +56,10 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:sanctum'], function() {
     Route::group(['middleware' => 'throttle:subscribe'], function() {
         Route::get('/subscriptions/place', [PlaceSubscriptionController::class, 'index']);
         Route::post('/subscriptions/place/{cafeId}', [PlaceSubscriptionController::class, 'show']);
-        Route::post('/subscriptions/place/{cafeId}/notify-in-next/{notificationTime?}', [PlaceSubscriptionController::class, 'store']);
+        Route::post(
+            '/subscriptions/place/{cafeId}/notify-in-next/{notificationTime?}',
+            [PlaceSubscriptionController::class, 'store']
+        );
         Route::delete('/subscriptions/place/{cafeId}', [PlaceSubscriptionController::class, 'destroy']);
     });
 });
@@ -76,16 +79,20 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
     // Staff specific router
     Route::get('/staff', [StaffController::class, 'index']);
     Route::post('/staff', [StaffController::class, 'store']);
-    Route::put('/staff/{staff}', [StaffController::class, 'update'])->middleware('can:update,staff');
-    Route::delete('/staff/{staff}', [StaffController::class, 'destroy'])->middleware('can:destroy,staff');
+    Route::put('/staff/{staff}', [StaffController::class, 'update'])
+        ->middleware('can:update,staff');
+    Route::delete('/staff/{staff}', [StaffController::class, 'destroy'])
+        ->middleware('can:destroy,staff');
 
     // Place specific routes
     Route::put('/place', [PlaceController::class, 'update']);
     Route::post('/place/images', [ImageController::class, 'storeForPlace']);
     Route::post('/place/images/main/{image}', [ImageController::class, 'main'])
         ->middleware('can:manipulatePlaceImages,image');
-    Route::post('/place/images/logo/{image}', [ImageController::class, 'logo']);
-    Route::delete('/place/images/{image}', [ImageController::class, 'destroy']);
+    Route::post('/place/images/logo/{image}', [ImageController::class, 'logo'])
+        ->middleware('can:manipulatePlaceImages,image');
+    Route::delete('/place/images/{image}', [ImageController::class, 'destroy'])
+        ->middleware('can:manipulatePlaceImages,image');
 
     // Tables specific routes
     Route::get('/place/tables', [TableController::class, 'index']);
