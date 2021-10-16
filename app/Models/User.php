@@ -25,15 +25,15 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $email
  * @property string|null $password
  * @property string|null $fcm_token
- * @property int|null $cafe
+ * @property int|null $place
  * @property int|null $active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read Collection|\App\Models\Cafe[] $cafes
- * @property-read int|null $cafes_count
+ * @property-read Collection|\App\Models\Place[] $places
+ * @property-read int|null $places_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
- * @property-read \App\Models\Cafe|null $ownerCafes
+ * @property-read \App\Models\Place|null $ownerPlaces
  * @property-read Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
  * @method static \Database\Factories\UserFactory factory(...$parameters)
@@ -43,7 +43,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static Builder|User whereActive($value)
  * @method static Builder|User whereAvatar($value)
  * @method static Builder|User whereBday($value)
- * @method static Builder|User whereCafe($value)
+ * @method static Builder|User wherePlace($value)
  * @method static Builder|User whereCreatedAt($value)
  * @method static Builder|User whereEmail($value)
  * @method static Builder|User whereFcmToken($value)
@@ -91,14 +91,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function cafes(): BelongsToMany
+    public function places(): BelongsToMany
     {
-        return $this->belongsToMany(Cafe::class)->withTimestamps();
+        return $this->belongsToMany(Place::class)->withTimestamps();
     }
 
-    public function ownerCafes(): HasOne
+    public function ownerPlaces(): HasOne
     {
-        return $this->hasOne(Cafe::class);
+        return $this->hasOne(Place::class);
     }
 
     public function staff()
@@ -108,36 +108,36 @@ class User extends Authenticatable
         return
             $place ?
                 User::select('id', 'fname', 'lname', 'bday', 'phone', 'username', 'avatar', 'email', 'active')
-                    ->whereCafe($place)
+                    ->wherePlace($place)
                     ->orderByDesc('active')
                     ->get()
                 :
                 null;
     }
 
-    public function getCafeAttribute($value)
+    public function getPlaceAttribute($value)
     {
         return $value ?: $this->isOwner();
     }
 
     public function isStaff(): ?int
     {
-        return $this->cafe;
+        return $this->place;
     }
 
     public function isOwner(): ?int
     {
-        return $this->ownerCafes()
+        return $this->ownerPlaces()
             ->select('id')
             ->firstOr(fn() => null)
             ?->id;
     }
 
-    //Cafes user has subscribed to
-    public function subscribedToCafes(string $sortBy = 'default'): Collection
+    //Places user has subscribed to
+    public function subscribedToPlaces(string $sortBy = 'default'): Collection
     {
         return $this
-            ->cafes()
+            ->places()
             ->select('id', 'name', 'city', 'address', 'latitude', 'longitude')
             ->withCount([
                 'tables',
@@ -149,7 +149,7 @@ class User extends Authenticatable
                 $query->select('id', 'path', 'imagable_id')->where('is_main', true);
             }])
             ->withPivot('expires_in')
-            ->sortedCafes($sortBy)
+            ->sortedPlaces($sortBy)
             ->get();
     }
 }

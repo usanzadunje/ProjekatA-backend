@@ -10,7 +10,7 @@ class RemoveAllProductImages
     public function handle(Product $product)
     {
         Storage::disk('public')
-            ->deleteDirectory("img/places/{$product->cafe->name}/products/product-$product->id");
+            ->deleteDirectory("img/places/{$product->place->name}/products/product-$product->id");
 
         $product->images()->delete();
     }

@@ -17,7 +17,7 @@ class ImageController extends Controller
 {
     public function storeForPlace(UploadPlaceImagesRequest $request, UploadPlaceImages $uploadPlaceImages): ResourceCollection
     {
-        $place = auth()->user()->ownerCafes;
+        $place = auth()->user()->ownerPlaces;
         $storePath = "places/$place->name";
 
         $createdImages = $uploadPlaceImages->handle($request->validated(), $place, $storePath);
@@ -27,7 +27,7 @@ class ImageController extends Controller
 
     public function storeForProduct(Product $product, UploadPlaceImagesRequest $request, UploadPlaceImages $uploadPlaceImages): ResourceCollection
     {
-        $storePath = "places/{$product->cafe->name}/products/product-$product->id";
+        $storePath = "places/{$product->place->name}/products/product-$product->id";
 
         $createdImages = $uploadPlaceImages->handle($request->validated(), $product, $storePath);
 

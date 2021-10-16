@@ -4,29 +4,29 @@
 namespace App\Actions\User\Subscription;
 
 
-use App\Jobs\RemoveUserSubscriptionOnCafe;
-use App\Models\CafeUser;
+use App\Jobs\RemoveUserSubscriptionOnPlace;
+use App\Models\PlaceUser;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
 class SubscribeToPlace
 {
-    protected int $cafeId;
+    protected int $placeId;
     protected int|null $notificationTime;
 
     public function __construct()
     {
-        $this->cafeId = (int)request()->route('cafeId');
+        $this->placeId = (int)request()->route('placeId');
         $this->notificationTime = (int)request()->route('notificationTime') ?: null;
 
         Validator::make(
-            ['cafe_id' => $this->cafeId],
+            ['place_id' => $this->placeId],
             [
-                'cafe_id' => [
-                    Rule::unique(CafeUser::class)
+                'place_id' => [
+                    Rule::unique(PlaceUser::class)
                         ->where(function($query) {
-                            return $query->where('cafe_id', $this->cafeId)
+                            return $query->where('place_id', $this->placeId)
                                 ->where('user_id', auth()->id());
                         }),
                 ],
@@ -41,15 +41,15 @@ class SubscribeToPlace
     {
         $user = $providedUser ?: auth()->user();
 
-        $newlyCreatedSubscription = CafeUser::create([
+        $newlyCreatedSubscription = PlaceUser::create([
             'user_id' => $user->id,
-            'cafe_id' => $this->cafeId,
+            'place_id' => $this->placeId,
             'expires_in' => $this->notificationTime,
         ]);
 
         if($this->notificationTime)
         {
-            RemoveUserSubscriptionOnCafe::dispatch($user->id, $this->cafeId)
+            RemoveUserSubscriptionOnPlace::dispatch($user->id, $this->placeId)
                 ->delay($newlyCreatedSubscription->created_at->addMinutes($this->notificationTime));
         }
     }

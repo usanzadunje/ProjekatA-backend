@@ -18,7 +18,7 @@ class CategoryResource extends JsonResource
             'id' => $this->when(!is_null($this->id), $this->id),
             'name' => $this->name,
             'products' => ProductResource::collection($this->whenLoaded('products')),
-            'cafe_id' => $this->when(!is_null($this->cafe_id), $this->cafe_id),
+            'place_id' => $this->when(!is_null($this->place_id), $this->place_id),
         ];
     }
 }

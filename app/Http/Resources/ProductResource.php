@@ -22,7 +22,7 @@ class ProductResource extends JsonResource
             'images' => ImageResource::collection($this->whenLoaded('images')),
             'category' => new CategoryResource($this->whenLoaded('category')),
             'category_id' => $this->when(!is_null($this->category_id), $this->category_id),
-            'cafe_id' => $this->cafe_id,
+            'place_id' => $this->place_id,
         ];
     }
 }

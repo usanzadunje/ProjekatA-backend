@@ -11,7 +11,7 @@ class UpdatePlaceInfo
     {
         $owner = $providedOwner ?: auth()->user();
 
-        $place = $owner->ownerCafes;
+        $place = $owner->ownerPlaces;
 
         if(!$place)
         {

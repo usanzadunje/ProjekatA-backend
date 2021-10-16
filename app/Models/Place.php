@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Queries\FilterAndChunk;
-use App\Queries\SortCafes;
+use App\Queries\SortPlaces;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\DB;
 
 /**
- * App\Models\Cafe
+ * App\Models\Place
  *
  * @property int $id
  * @property string $name
@@ -41,35 +41,35 @@ use Illuminate\Support\Facades\DB;
  * @property-read int|null $subscribed_users_count
  * @property-read Collection|\App\Models\Table[] $tables
  * @property-read int|null $tables_count
- * @method static \Database\Factories\CafeFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe filterAndChunk($filterByColumn, $filter, $offset, $limit)
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe query()
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe sortByAvailability()
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe sortByDefault()
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe sortByDistance()
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe sortByFood()
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe sortedCafes($sortBy)
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereAddress($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereCity($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereLatitude($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereLongitude($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereMonFri($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe wherePhone($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereSaturday($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereSunday($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Cafe whereUserId($value)
+ * @method static \Database\Factories\PlaceFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Place filterAndChunk($filterByColumn, $filter, $offset, $limit)
+ * @method static \Illuminate\Database\Eloquent\Builder|Place newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Place newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Place query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Place sortByAvailability()
+ * @method static \Illuminate\Database\Eloquent\Builder|Place sortByDefault()
+ * @method static \Illuminate\Database\Eloquent\Builder|Place sortByDistance()
+ * @method static \Illuminate\Database\Eloquent\Builder|Place sortByFood()
+ * @method static \Illuminate\Database\Eloquent\Builder|Place sortedPlaces($sortBy)
+ * @method static \Illuminate\Database\Eloquent\Builder|Place whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Place whereCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Place whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Place whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Place whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Place whereLatitude($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Place whereLongitude($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Place whereMonFri($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Place whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Place wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Place whereSaturday($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Place whereSunday($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Place whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Place whereUserId($value)
  * @mixin \Eloquent
  */
-class Cafe extends Model
+class Place extends Model
 {
-    use HasFactory, SortCafes, FilterAndChunk;
+    use HasFactory, SortPlaces, FilterAndChunk;
 
     protected $guarded = [];
 
@@ -85,7 +85,7 @@ class Cafe extends Model
 
     public function allAvailableCategories(): Collection
     {
-        $defaultCategories = Category::whereNull('cafe_id')->get();
+        $defaultCategories = Category::whereNull('place_id')->get();
 
         return $defaultCategories->merge($this->categories);
     }
@@ -100,7 +100,7 @@ class Cafe extends Model
                             ->select('id', 'path', 'is_main', 'imagable_id')
                             ->where('is_main', true);
                     }])
-                    ->where('cafe_id', $this->id)
+                    ->where('place_id', $this->id)
                     ->take(10);
             }])
             ->whereIn('id', function($query) {
@@ -108,7 +108,7 @@ class Cafe extends Model
                     ->select('category_id')
                     ->distinct()
                     ->from('products')
-                    ->where('cafe_id', $this->id);
+                    ->where('place_id', $this->id);
             })->get();
     }
 
@@ -149,7 +149,7 @@ class Cafe extends Model
 
     public function takenMaxCapacityTableRatio(): string
     {
-        // Returning how many tables are taken out of cafe capacity
+        // Returning how many tables are taken out of place capacity
         // in a form taken/capacity *20/40*
 
         return $this->taken_tables_count . '/' . $this->tables_count;

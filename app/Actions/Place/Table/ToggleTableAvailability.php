@@ -15,7 +15,7 @@ class ToggleTableAvailability
     {
         $staff = $providedUser ?? auth()->user();
 
-        $table = Table::where('cafe_id', $staff->cafe)
+        $table = Table::where('place_id', $staff->place)
             ->available(!($available === 'true'))
             ->sharedLock()
             ->firstOr(function() {
@@ -30,7 +30,7 @@ class ToggleTableAvailability
         }
 
         $place = $table
-            ->cafe()
+            ->place()
             ->withCount([
                 'tables',
                 'tables as taken_tables_count' => function(Builder $query) {

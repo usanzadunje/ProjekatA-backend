@@ -61,7 +61,7 @@ class UserSeeder extends Seeder
             'username' => 'petar',
             'email' => 'petar@cafe1.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'cafe' => 1,
+            'place' => 1,
             'active' => false,
         ]);
         User::create([
@@ -72,7 +72,7 @@ class UserSeeder extends Seeder
             'username' => 'pavle',
             'email' => 'pavle@cafe1.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'cafe' => 1,
+            'place' => 1,
             'active' => false,
         ]);
         User::create([
@@ -83,7 +83,7 @@ class UserSeeder extends Seeder
             'username' => 'nikola',
             'email' => 'nikola@cafe1.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'cafe' => 1,
+            'place' => 1,
             'active' => false,
         ]);
         User::create([
@@ -94,7 +94,7 @@ class UserSeeder extends Seeder
             'username' => 'nenad',
             'email' => 'nenad@cafe1.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'cafe' => 1,
+            'place' => 1,
             'active' => false,
         ]);
         User::create([
@@ -105,7 +105,7 @@ class UserSeeder extends Seeder
             'username' => 'marko',
             'email' => 'marko@cafe1.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'cafe' => 1,
+            'place' => 1,
             'active' => false,
         ]);
         User::create([
@@ -116,7 +116,7 @@ class UserSeeder extends Seeder
             'username' => 'jeka',
             'email' => 'jeka@cafe1.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'cafe' => 1,
+            'place' => 1,
             'active' => false,
         ]);
         User::create([
@@ -127,7 +127,7 @@ class UserSeeder extends Seeder
             'username' => 'marija',
             'email' => 'marija@cafe2.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'cafe' => 2,
+            'place' => 2,
             'active' => false,
         ]);
         User::create([
@@ -138,7 +138,7 @@ class UserSeeder extends Seeder
             'username' => 'marina',
             'email' => 'marina@cafe2.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'cafe' => 2,
+            'place' => 2,
             'active' => false,
         ]);
         User::create([
@@ -149,7 +149,7 @@ class UserSeeder extends Seeder
             'username' => 'masa',
             'email' => 'masa@cafe2.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'cafe' => 2,
+            'place' => 2,
             'active' => false,
         ]);
 

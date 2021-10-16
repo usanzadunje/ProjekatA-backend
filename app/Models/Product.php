@@ -15,9 +15,9 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @property string $name
  * @property string|null $description
  * @property int|null $price
- * @property int $cafe_id
+ * @property int $place_id
  * @property int $category_id
- * @property-read \App\Models\Cafe $cafe
+ * @property-read \App\Models\Place $place
  * @property-read \App\Models\Category $category
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Image[] $images
  * @property-read int|null $images_count
@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product query()
- * @method static \Illuminate\Database\Eloquent\Builder|Product whereCafeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product wherePlaceId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereId($value)
@@ -42,9 +42,9 @@ class Product extends Model
 
     protected $guarded = [];
 
-    public function cafe(): BelongsTo
+    public function place(): BelongsTo
     {
-        return $this->belongsTo(Cafe::class);
+        return $this->belongsTo(Place::class);
     }
 
     public function category(): BelongsTo

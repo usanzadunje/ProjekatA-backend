@@ -104,13 +104,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function configureUserRoutePatterns()
     {
-        Route::pattern('cafeId', '[0-9]+');
+        Route::pattern('placeId', '[0-9]+');
         Route::pattern('notificationTime', '[0-9]+');
-        Route::pattern('start', '[0-9]+');
-        Route::pattern('numberOfCafes', '[0-9]+');
-        Route::pattern('serialNumber', '[0-9]+');
-        Route::pattern('driver', '[a-z]+');
-        Route::pattern('imageId', '[0-9]+');
     }
 
     /**

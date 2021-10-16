@@ -6,28 +6,25 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
-use App\Models\Cafe;
+use App\Models\Place;
 use App\Models\Category;
-use App\Models\Product;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use Psy\Util\Json;
 
 class CategoryController extends Controller
 {
-    public function index(Cafe $place = null): ResourceCollection
+    public function index(Place $place = null): ResourceCollection
     {
         //$place->allProductCategories();
         // Request for specific place and its categories that are used on products
         // Meaning products of this place have categories returned here
 
-        //auth()->user()->ownerCafes->allAvailableCategories;
+        //auth()->user()->ownerPlaces->allAvailableCategories;
         // Request for all available categories which may not be used on any product
 
         $categories = $place
             ? $place->allProductCategories()
-            : auth()->user()->ownerCafes->allAvailableCategories();
+            : auth()->user()->ownerPlaces->allAvailableCategories();
 
         return CategoryResource::collection($categories);
     }
@@ -42,7 +39,7 @@ class CategoryController extends Controller
         $validatedData = $request->validated();
 
         $createdCategory = auth()->user()
-            ->ownerCafes
+            ->ownerPlaces
             ->categories()
             ->create([
                 'name' => $validatedData['category'],

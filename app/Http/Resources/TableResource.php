@@ -22,7 +22,7 @@ class TableResource extends JsonResource
                 'top' => $this->when(!is_null($this->top), $this->top),
                 'left' => $this->when(!is_null($this->left), $this->left),
             ],
-            'cafe_id' => $this->cafe_id,
+            'place_id' => $this->place_id,
         ];
     }
 }

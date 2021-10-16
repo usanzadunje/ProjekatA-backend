@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCafeUserTable extends Migration
+class CreatePlaceUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateCafeUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('cafe_user', function(Blueprint $table) {
+        Schema::create('place_user', function(Blueprint $table) {
             $table->integer('user_id');
-            $table->integer('cafe_id');
-            $table->primary(['user_id', 'cafe_id']);
+            $table->integer('place_id');
+            $table->primary(['user_id', 'place_id']);
             $table->integer('expires_in')->nullable();
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ class CreateCafeUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cafe_user');
+        Schema::dropIfExists('place_user');
     }
 }

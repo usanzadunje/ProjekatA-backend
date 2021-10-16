@@ -28,7 +28,7 @@ class TableObserver
 
     public function updated(Table $table)
     {
-        $place = $table->cafe()
+        $place = $table->place()
             ->withCount([
                 'tables',
                 'tables as taken_tables_count' => function(Builder $query) {
@@ -47,7 +47,7 @@ class TableObserver
          */
         if($place->freeTablesCount() === 1 && $table->empty)
         {
-            // Notify all subscribed users that table has been freed in cafe
+            // Notify all subscribed users that table has been freed in place
             $this->sendTableFreedNotification->handle($place);
         }
 

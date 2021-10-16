@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Cafe;
+use App\Models\Place;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -30,7 +30,7 @@ class UpdatePlaceRequest extends FormRequest
                 'nullable',
                 'string',
                 'max:255',
-                Rule::unique(Cafe::class)->ignore(auth()->user()->isOwner()),
+                Rule::unique(Place::class)->ignore(auth()->user()->isOwner()),
             ],
             'city' => [
                 'nullable',
@@ -47,7 +47,7 @@ class UpdatePlaceRequest extends FormRequest
                 'string',
                 'email',
                 'max:255',
-                Rule::unique(Cafe::class)->ignore(auth()->user()->isOwner()),
+                Rule::unique(Place::class)->ignore(auth()->user()->isOwner()),
             ],
             'phone' => [
                 'nullable',

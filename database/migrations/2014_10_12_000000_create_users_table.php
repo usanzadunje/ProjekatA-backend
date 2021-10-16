@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             //$table->timestamp('email_verified_at')->nullable()->default(null);
             $table->string('password')->nullable()->default(null);
             $table->string('fcm_token', '255')->nullable()->default(null);
-            $table->unsignedBigInteger('cafe')->nullable()->default(null);
+            $table->unsignedBigInteger('place')->nullable()->default(null);
             $table->boolean('active')->nullable()->default(null);
             //$table->rememberToken();
             $table->timestamps();

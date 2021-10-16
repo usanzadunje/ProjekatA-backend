@@ -27,7 +27,7 @@ class TablePolicy
 
     public function toggle(User $user, Table $table): bool
     {
-        return $user->cafe === $table->cafe_id;
+        return $user->place === $table->place_id;
     }
 
 }

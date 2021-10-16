@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Cafe;
+use App\Models\Place;
 use Illuminate\Database\Seeder;
 
-class CafeSeeder extends Seeder
+class PlaceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +15,9 @@ class CafeSeeder extends Seeder
     public function run()
     {
 
-        Cafe::factory(500)
+        Place::factory(1000)
             ->hasTables(4)
-            ->hasProducts(300)
+            ->hasProducts(200)
             ->hasCategories(5)
             ->create();
     }

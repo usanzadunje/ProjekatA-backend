@@ -6,9 +6,9 @@ namespace App\Queries;
 
 use Illuminate\Support\Facades\DB;
 
-trait SortCafes
+trait SortPlaces
 {
-    public function scopeSortedCafes($query, $sortBy)
+    public function scopeSortedPlaces($query, $sortBy)
     {
         return match ($sortBy)
         {
@@ -27,7 +27,7 @@ trait SortCafes
     public function scopeSortByFood($query)
     {
         return $query->whereIn('id', function($query) {
-            $query->select('cafe_id')
+            $query->select('place_id')
                 ->distinct()
                 ->from('products')
                 ->where('category_id', function($query) {
@@ -41,7 +41,7 @@ trait SortCafes
     public function scopeSortByAvailability($query)
     {
         return $query->whereIn('id', function($query) {
-            $query->select('cafe_id')
+            $query->select('place_id')
                 ->distinct()
                 ->from('tables')
                 ->where('empty', true);
@@ -56,7 +56,7 @@ trait SortCafes
         $sqlDistance = DB::raw('
             ST_Distance_Sphere(
                 point(' . $lng . ', ' . $lat . '),
-                point(cafes.longitude, cafes.latitude)
+                point(places.longitude, places.latitude)
             )
         ');
 

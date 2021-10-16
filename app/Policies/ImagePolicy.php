@@ -33,7 +33,7 @@ class ImagePolicy
         $imageParentId = $image->imagable_id;
 
         $isOwnersPlaceImage = $user->isOwner() === $imageParentId;
-        $isOwnersProductImage = $user->ownerCafes->products()->pluck('id')->contains($imageParentId);
+        $isOwnersProductImage = $user->ownerPlaces->products()->pluck('id')->contains($imageParentId);
 
         return $isOwnersPlaceImage || $isOwnersProductImage;
     }

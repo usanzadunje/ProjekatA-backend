@@ -2,34 +2,34 @@
 
 namespace App\Jobs;
 
-use App\Models\CafeUser;
+use App\Models\PlaceUser;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class RemoveUserSubscriptionOnCafe implements ShouldQueue
+class RemoveUserSubscriptionOnPlace implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * The user cafe subscription instance.
+     * The user place subscription instance.
      *
      */
     protected int $userId;
-    protected int $cafeId;
+    protected int $placeId;
 
     /**
      * Create a new job instance.
      * @param int $userId
-     * @param int $cafeId
+     * @param int $placeId
      * @return void
      */
-    public function __construct(int $userId, int $cafeId)
+    public function __construct(int $userId, int $placeId)
     {
         $this->userId = $userId;
-        $this->cafeId = $cafeId;
+        $this->placeId = $placeId;
     }
 
     /**
@@ -39,7 +39,7 @@ class RemoveUserSubscriptionOnCafe implements ShouldQueue
      */
     public function handle()
     {
-        $userSubscription = CafeUser::where(['user_id' => $this->userId, 'cafe_id' => $this->cafeId]);
+        $userSubscription = PlaceUser::where(['user_id' => $this->userId, 'place_id' => $this->placeId]);
 
         if($userSubscription)
         {

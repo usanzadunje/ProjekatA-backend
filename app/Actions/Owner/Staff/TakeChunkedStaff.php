@@ -11,7 +11,7 @@ class TakeChunkedStaff
     public function handle(int $placeId, $start, $staffNumber): Collection
     {
         User::select('id', 'fname', 'lname', 'bday', 'phone', 'username', 'avatar', 'email', 'active')
-            ->whereCafe($placeId)
+            ->wherePlace($placeId)
             ->skip($start)
             ->take($staffNumber)
             ->orderByDesc('active')

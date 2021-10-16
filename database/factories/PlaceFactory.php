@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Cafe;
+use App\Models\Place;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CafeFactory extends Factory
+class PlaceFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Cafe::class;
+    protected $model = Place::class;
 
     public $store = 0;
 
@@ -28,13 +28,13 @@ class CafeFactory extends Factory
             if($this->store === 1)
             {
                 return [
-                    'name' => 'Cafe ' . 1,
+                    'name' => 'Place ' . 1,
                     'city' => 'City ' . 1,
                     'address' => 'Address ' . 1,
                     'latitude' => '43.31782022634103',
                     'longitude' => '21.89577969079342',
                     'phone' => '111111',
-                    'email' => 'cafe1@live.com',
+                    'email' => 'Place1@live.com',
                     'user_id' => 3,
                 ];
             }
@@ -42,25 +42,25 @@ class CafeFactory extends Factory
             if($this->store === 2)
             {
                 return [
-                    'name' => 'Cafe ' . 2,
+                    'name' => 'Place ' . 2,
                     'city' => 'City ' . 2,
                     'address' => 'Address ' . 2,
                     'latitude' => '43.31782022634103',
                     'longitude' => '21.89577969079340',
                     'phone' => '222222',
-                    'email' => 'cafe2@live.com',
+                    'email' => 'Place2@live.com',
                     'user_id' => 4,
                 ];
             }
 
             return [
-                'name' => 'Cafe ' . $this->store,
+                'name' => 'Place ' . $this->store,
                 'city' => 'City ' . $this->store,
                 'address' => 'Address ' . $this->store,
                 'latitude' => $this->faker->latitude,
                 'longitude' => $this->faker->longitude,
                 'phone' => $this->store . $this->store . $this->store . $this->store . $this->store . $this->store,
-                'email' => 'cafe' . $this->store . '@live.com',
+                'email' => 'Place' . $this->store . '@live.com',
                 'user_id' => 2,
             ];
         }

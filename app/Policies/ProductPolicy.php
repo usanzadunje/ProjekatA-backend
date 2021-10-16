@@ -31,16 +31,16 @@ class ProductPolicy
 
     public function update(User $user, Product $product): bool
     {
-        return $product->cafe_id === $user->isOwner();
+        return $product->place_id === $user->isOwner();
     }
 
     public function destroy(User $user, Product $product): bool
     {
-        return $product->cafe_id === $user->isOwner();
+        return $product->place_id === $user->isOwner();
     }
 
     public function upload(User $user, Product $product): bool
     {
-        return $product->cafe_id === $user->isOwner();
+        return $product->place_id === $user->isOwner();
     }
 }

@@ -5,35 +5,30 @@ namespace App\Http\Controllers\API;
 use App\Actions\User\Subscription\SubscribeToPlace;
 use App\Actions\User\Subscription\UnsubscribeFromPlace;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CafeResource;
+use App\Http\Resources\PlaceResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class PlaceSubscriptionController extends Controller
 {
     /*
-    * Returning all cafes logged in users has subscribed to
+    * Returning all places logged in users has subscribed to
     */
     public function index(): ResourceCollection
     {
         $sortBy = request('sortBy') ?? 'default';
 
-        return CafeResource::collection(
+        return PlaceResource::collection(
             auth()->user()
-                ->subscribedToCafes($sortBy)
+                ->subscribedToPlaces($sortBy)
         );
     }
 
-    /*
-     * Checking if users is subscribed to specific cafe
-     *
-     * @param int $cafeId
-     */
-    public function show(int $cafeId): JsonResponse
+    public function show(int $placeId): JsonResponse
     {
         $subscribed = auth()->user()
-            ->cafes()
-            ->where('cafe_id', $cafeId)
+            ->places()
+            ->where('place_id', $placeId)
             ->first();
 
         return response()->success('User subscription status', [
@@ -41,22 +36,11 @@ class PlaceSubscriptionController extends Controller
         ]);
     }
 
-    /*
-      * Subscribing to specific cafe
-      *
-      * @param int $cafeId
-      * @param int $notificationTime
-      */
     public function store(SubscribeToPlace $subscribeToPlace): void
     {
         $subscribeToPlace->handle();
     }
 
-    /*
-     * Unsubscribing specific cafe
-     *
-     * @param int $cafeId
-     */
     public function destroy(UnsubscribeFromPlace $unsubscribeFromPlace): void
     {
         $unsubscribeFromPlace->handle();

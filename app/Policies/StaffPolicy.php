@@ -26,11 +26,11 @@ class StaffPolicy
 
     public function update(User $user, User $staff): bool
     {
-        return $user->isOwner() === $staff->cafe;
+        return $user->isOwner() === $staff->place;
     }
 
     public function destroy(User $user, User $staff): bool
     {
-        return $user->isOwner() === $staff->cafe;
+        return $user->isOwner() === $staff->place;
     }
 }

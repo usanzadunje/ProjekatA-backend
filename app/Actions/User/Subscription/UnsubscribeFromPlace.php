@@ -8,17 +8,17 @@ use Illuminate\Support\Facades\Validator;
 
 class UnsubscribeFromPlace
 {
-    protected int $cafeId;
+    protected int $placeId;
 
     public function __construct()
     {
-        $this->cafeId = (int)request()->route('cafeId');
+        $this->placeId = (int)request()->route('placeId');
 
         Validator::make(
-            ['cafe_id' => $this->cafeId],
+            ['place_id' => $this->placeId],
             [
-                'cafe_id' => [
-                    'exists:cafe_user',
+                'place_id' => [
+                    'exists:place_user',
                 ],
             ],
         )->validate();
@@ -28,7 +28,7 @@ class UnsubscribeFromPlace
     {
         $user = $providedUser ?: auth()->user();
         $user
-            ->cafes()
-            ->detach($this->cafeId);
+            ->places()
+            ->detach($this->placeId);
     }
 }

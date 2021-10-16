@@ -13,7 +13,7 @@ class CreateStaffMember
 
         //Making staff belong to place that is owned by person who is creating him
         $additionalInfo = [
-            'cafe' => $owner->isOwner(),
+            'place' => $owner->isOwner(),
             'active' => false,
         ];
 

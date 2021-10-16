@@ -7,7 +7,7 @@ use App\Actions\Place\Table\ToggleTableAvailability;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrUpdateTableRequest;
 use App\Http\Resources\TableResource;
-use App\Models\Cafe;
+use App\Models\Place;
 use App\Models\Table;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -21,15 +21,15 @@ class TableController extends Controller
         $providedPlaceId = $placeId ?: auth()->user()->isOwner();
 
         return TableResource::collection(
-            Table::select('id', 'empty', 'smoking_allowed', 'top', 'left', 'cafe_id')
-                ->where('cafe_id', $providedPlaceId)
+            Table::select('id', 'empty', 'smoking_allowed', 'top', 'left', 'place_id')
+                ->where('place_id', $providedPlaceId)
                 ->get()
         );
     }
 
-    public function show(Cafe $cafe, $serialNumber): TableResource
+    public function show(Place $place, $serialNumber): TableResource
     {
-        return new TableResource($cafe->getTableWithSerialNumber($serialNumber));
+        return new TableResource($place->getTableWithSerialNumber($serialNumber));
     }
 
     //Eventually logic will be switched to this when there will be shown all off tables and specific table

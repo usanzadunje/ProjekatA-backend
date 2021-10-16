@@ -25,7 +25,7 @@ class ImageSeeder extends Seeder
                         'is_main' => true,
                         'is_logo' => true,
                         'imagable_id' => $i,
-                        'imagable_type' => 'App\Models\Cafe',
+                        'imagable_type' => 'App\Models\Place',
                     ]);
                 }
                 else
@@ -33,7 +33,7 @@ class ImageSeeder extends Seeder
                     Image::create([
                         'path' => "/places/Cafe $i/2_{$j}cafe.png",
                         'imagable_id' => $i,
-                        'imagable_type' => 'App\Models\Cafe',
+                        'imagable_type' => 'App\Models\Place',
                     ]);
                 }
             }

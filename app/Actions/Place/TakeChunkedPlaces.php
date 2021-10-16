@@ -3,7 +3,7 @@
 
 namespace App\Actions\Place;
 
-use App\Models\Cafe;
+use App\Models\Place;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -12,7 +12,7 @@ class TakeChunkedPlaces
     public function handle($getAllColumns, $sortBy, $filter, $offset, $limit): Collection
     {
         $placeQuery = $getAllColumns
-            ? Cafe::select('id', 'name', 'city', 'address', 'latitude', 'longitude')
+            ? Place::select('id', 'name', 'city', 'address', 'latitude', 'longitude')
                 ->withCount([
                     'tables',
                     'tables as taken_tables_count' => function(Builder $query) {
@@ -25,7 +25,7 @@ class TakeChunkedPlaces
                         ->where('is_main', true)
                         ->orWhere('is_logo', true);
                 }])
-            : Cafe::select('id', 'name', 'latitude', 'longitude')
+            : Place::select('id', 'name', 'latitude', 'longitude')
                 ->withCount([
                     'tables',
                     'tables as taken_tables_count' => function(Builder $query) {
@@ -40,7 +40,7 @@ class TakeChunkedPlaces
                 }]);
 
         return $placeQuery
-            ->sortedCafes($sortBy)
+            ->sortedPlaces($sortBy)
             ->filterAndChunk('name', $filter, $offset, $limit)
             ->get();
     }

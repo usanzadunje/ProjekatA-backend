@@ -14,16 +14,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int|null $smoking_allowed
  * @property int $top
  * @property float $left
- * @property int $cafe_id
+ * @property int $place_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Cafe $cafe
+ * @property-read \App\Models\Place $place
  * @method static \Illuminate\Database\Eloquent\Builder|Table available(bool $availability)
  * @method static \Database\Factories\TableFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Table newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Table newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Table query()
- * @method static \Illuminate\Database\Eloquent\Builder|Table whereCafeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Table wherePlaceId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Table whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Table whereEmpty($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Table whereId($value)
@@ -39,9 +39,9 @@ class Table extends Model
 
     protected $guarded = [];
 
-    public function cafe(): BelongsTo
+    public function place(): BelongsTo
     {
-        return $this->belongsTo(Cafe::class);
+        return $this->belongsTo(Place::class);
     }
 
     public function scopeAvailable($query, bool $availability)

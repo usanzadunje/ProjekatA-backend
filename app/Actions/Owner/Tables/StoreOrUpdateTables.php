@@ -22,7 +22,7 @@ class StoreOrUpdateTables
             $existingTable = Table::where('id', $table['id'])
                 ->firstOr(function() use ($table, $owner, &$createdTables) {
                     $createdTable = Table::create([
-                        'cafe_id' => $owner->isOwner(),
+                        'place_id' => $owner->isOwner(),
                         'empty' => true,
                         'top' => $table['position']['top'],
                         'left' => $table['position']['left'],
@@ -34,7 +34,7 @@ class StoreOrUpdateTables
 
             if($existingTable)
             {
-                abort_if($existingTable->cafe_id !== $owner->isOwner(), 403);
+                abort_if($existingTable->place_id !== $owner->isOwner(), 403);
 
                 $existingTable->update([
                     'top' => $table['position']['top'],

@@ -8,18 +8,18 @@ use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ImageResource;
 use App\Http\Resources\ProductResource;
-use App\Models\Cafe;
+use App\Models\Place;
 use App\Models\Product;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ProductController extends Controller
 {
-    public function index(Cafe $place = null): ResourceCollection
+    public function index(Place $place = null): ResourceCollection
     {
         $productsQuery = $place
             ? $place->products()
-            : auth()->user()->ownerCafes->products();
+            : auth()->user()->ownerPlaces->products();
 
         $products = $productsQuery
             ->with(['images' => function($query) {
@@ -45,7 +45,7 @@ class ProductController extends Controller
         //add logic for storing image
 
         $createdProduct = auth()->user()
-            ->ownerCafes
+            ->ownerPlaces
             ->products()
             ->create($validatedData);
 

@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 
-class CafeResource extends JsonResource
+class PlaceResource extends JsonResource
 {
     public function toArray($request): array
     {
@@ -20,11 +20,11 @@ class CafeResource extends JsonResource
             'longitude' => $this->when(!is_null($this->longitude), $this->longitude),
             'availability_ratio' => $this->takenMaxCapacityTableRatio(),
             'categories' => $this->when(
-                $request->routeIs('cafes/show') && $request->query('products'),
+                $request->routeIs('place.show') && $request->query('products'),
                 CategoryResource::collection($this->allProductCategories())
             ),
             'images' => ImageResource::collection($this->whenLoaded('images')),
-            'subscription_expires_in' => $this->whenPivotLoaded('cafe_user', function() {
+            'subscription_expires_in' => $this->whenPivotLoaded('place_user', function() {
                 if($this->pivot->expires_in)
                 {
                     $expires_at = $this->pivot->created_at->addMinutes($this->pivot->expires_in);

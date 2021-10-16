@@ -7,7 +7,7 @@ use App\Http\Controllers\API\FirebaseController;
 use App\Http\Controllers\API\PlaceSubscriptionController;
 use App\Http\Controllers\API\StaffController;
 use App\Http\Controllers\API\TableController;
-use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\ProfileController;
 use App\Http\Controllers\GithubWebhooksController;
 use App\Http\Controllers\API\ImageController;
 use App\Http\Controllers\API\ProductController;
@@ -49,25 +49,25 @@ Route::group(['middleware' => 'throttle:fcm'], function() {
 // User routes
 Route::group(['prefix' => 'user', 'middleware' => 'auth:sanctum'], function() {
     // User specific routes
-    Route::put('/profile-information', [UserController::class, 'update'])->middleware('throttle:update');
+    Route::put('/profile-information', [ProfileController::class, 'update'])->middleware('throttle:update');
 
 
     // Place subscription routes
     Route::group(['middleware' => 'throttle:subscribe'], function() {
         Route::get('/subscriptions/place', [PlaceSubscriptionController::class, 'index']);
-        Route::post('/subscriptions/place/{cafeId}', [PlaceSubscriptionController::class, 'show']);
+        Route::post('/subscriptions/place/{placeId}', [PlaceSubscriptionController::class, 'show']);
         Route::post(
-            '/subscriptions/place/{cafeId}/notify-in-next/{notificationTime?}',
+            '/subscriptions/place/{placeId}/notify-in-next/{notificationTime?}',
             [PlaceSubscriptionController::class, 'store']
         );
-        Route::delete('/subscriptions/place/{cafeId}', [PlaceSubscriptionController::class, 'destroy']);
+        Route::delete('/subscriptions/place/{placeId}', [PlaceSubscriptionController::class, 'destroy']);
     });
 });
 
-//Routes for cafes
+//Routes for places
 Route::group(['prefix' => 'places', 'middleware' => 'throttle:places'], function() {
-    Route::get('/', [PlaceController::class, 'index'])->name('cafes/chunked');
-    Route::get('/{placeId}', [PlaceController::class, 'show'])->name('cafes/show');
+    Route::get('/', [PlaceController::class, 'index']);
+    Route::get('/{placeId}', [PlaceController::class, 'show'])->name('place.show');
     Route::get('/{place}/images', [PlaceController::class, 'images']);
     Route::get('/product/{product}/images', [ProductController::class, 'images']);
     Route::get('/{place}/working-hours', [PlaceController::class, 'workingHours']);
@@ -126,16 +126,3 @@ Route::group(['prefix' => 'staff', 'middleware' => ['auth:sanctum', 'staff', 'th
     //Route::post('/table/{table}/toggle', [TableController::class, 'toggle'])->middleware('can:toggle,table');
     Route::post('/table/toggle/{available}', [TableController::class, 'toggle']);
 });
-
-/*
- *
- * ODAVCE NA DOLE TREBA DA SE DORADE STVARI
- *
- * */
-//Route for tables in certain cafe
-Route::group(['prefix' => 'cafe', 'middleware' => 'throttle:tables'], function() {
-    //Route::get('/{cafe}/tables', [TableController::class, 'index']);
-    //Route::get('/{cafe}/tables/{serialNumber}', [TableController::class, 'show']);
-});
-
-//Route for changing availability of tables in a certain cafe

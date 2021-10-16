@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Cafe;
 use Illuminate\Support\Facades\Broadcast;
 
 /*

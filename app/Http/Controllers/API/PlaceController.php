@@ -6,9 +6,9 @@ use App\Actions\Owner\Place\UpdatePlaceInfo;
 use App\Actions\Place\TakeChunkedPlaces;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdatePlaceRequest;
-use App\Http\Resources\CafeResource;
+use App\Http\Resources\PlaceResource;
 use App\Http\Resources\ImageResource;
-use App\Models\Cafe;
+use App\Models\Place;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -29,15 +29,15 @@ class PlaceController extends Controller
             request('limit')
         );
 
-        // Passing only columns needed to Resource Cafe
-        return CafeResource::collection($places);
+        // Passing only columns needed to Resource Place
+        return PlaceResource::collection($places);
     }
 
-    public function show(int $placeId): CafeResource
+    public function show(int $placeId): PlaceResource
     {
         // Passing only columns needed to show only one place
-        return new CafeResource(
-            Cafe::with('images')
+        return new PlaceResource(
+            Place::with('images')
                 ->withCount([
                     'tables',
                     'tables as taken_tables_count' => function(Builder $query) {
@@ -64,14 +64,14 @@ class PlaceController extends Controller
 
     public function availability(): JsonResponse
     {
-        $place = Cafe::select('id')
+        $place = Place::select('id')
             ->withCount([
                 'tables',
                 'tables as taken_tables_count' => function(Builder $query) {
                     $query->where('empty', false);
                 },
             ])
-            ->where('id', auth()->user()->cafe)
+            ->where('id', auth()->user()->place)
             ->firstOr(function() {
                 abort(403);
             });
@@ -81,12 +81,12 @@ class PlaceController extends Controller
         return response()->success('Successfully fetched place availability!', $data);
     }
 
-    public function images(Cafe $place): ResourceCollection
+    public function images(Place $place): ResourceCollection
     {
         return ImageResource::collection($place->images()->select('path', 'is_main', 'is_logo')->get());
     }
 
-    public function workingHours(Cafe $place): JsonResponse
+    public function workingHours(Place $place): JsonResponse
     {
         return response()->json([
             'mon_fri' => $place->mon_fri,
