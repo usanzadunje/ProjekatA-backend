@@ -14,6 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        //Admin user
         User::create([
             'fname' => 'Dusan',
             'lname' => 'Djordjevic',
@@ -24,6 +25,7 @@ class UserSeeder extends Seeder
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
 
+        //Test user which will be assigned to all cafes
         User::create([
             'fname' => 'Test',
             'lname' => 'Test',
@@ -34,7 +36,7 @@ class UserSeeder extends Seeder
             'password' => '$2y$10$92IXUNpkjO0dsadrOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
 
-        /* Users factory */
+        //Owners of cafe1 and cafe2 palces
         User::create([
             'fname' => 'Cafe 1',
             'lname' => 'Cafe 1',
@@ -53,68 +55,15 @@ class UserSeeder extends Seeder
             'email' => 'cafe2@live.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);
+
+        // Staff of cafe1 and cafe2 places
         User::create([
             'fname' => 'Petar',
             'lname' => 'Petrovic',
             'bday' => '1998-07-21',
             'phone' => 'petar',
-            'username' => 'petar',
-            'email' => 'petar@cafe1.com',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'place' => 1,
-            'active' => false,
-        ]);
-        User::create([
-            'fname' => 'Pavle',
-            'lname' => 'Pavlobiv',
-            'bday' => '1998-07-21',
-            'phone' => 'pavle',
-            'username' => 'pavle',
-            'email' => 'pavle@cafe1.com',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'place' => 1,
-            'active' => false,
-        ]);
-        User::create([
-            'fname' => 'Nikola',
-            'lname' => 'Nikolic',
-            'bday' => '1998-07-21',
-            'phone' => 'nikola',
-            'username' => 'nikola',
-            'email' => 'nikola@cafe1.com',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'place' => 1,
-            'active' => false,
-        ]);
-        User::create([
-            'fname' => 'Nenad',
-            'lname' => 'Nedovic',
-            'bday' => '1998-07-21',
-            'phone' => 'nenad',
-            'username' => 'nenad',
-            'email' => 'nenad@cafe1.com',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'place' => 1,
-            'active' => false,
-        ]);
-        User::create([
-            'fname' => 'Marko',
-            'lname' => 'Markovic',
-            'bday' => '1998-07-21',
-            'phone' => 'marko',
-            'username' => 'marko',
-            'email' => 'marko@cafe1.com',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'place' => 1,
-            'active' => false,
-        ]);
-        User::create([
-            'fname' => 'Jelena',
-            'lname' => 'Jelovic',
-            'bday' => '1998-07-21',
-            'phone' => 'jeka',
-            'username' => 'jeka',
-            'email' => 'jeka@cafe1.com',
+            'username' => 'staffcafe1',
+            'email' => 'staff@cafe1.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'place' => 1,
             'active' => false,
@@ -124,34 +73,19 @@ class UserSeeder extends Seeder
             'lname' => 'Marinkovic',
             'bday' => '1998-07-21',
             'phone' => 'marija',
-            'username' => 'marija',
-            'email' => 'marija@cafe2.com',
+            'username' => 'staffcafe2',
+            'email' => 'staff@cafe2.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'place' => 2,
             'active' => false,
         ]);
-        User::create([
-            'fname' => 'Marina',
-            'lname' => 'Neisc',
-            'bday' => '1998-07-21',
-            'phone' => 'marina',
-            'username' => 'marina',
-            'email' => 'marina@cafe2.com',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'place' => 2,
-            'active' => false,
-        ]);
-        User::create([
-            'fname' => 'Masa',
-            'lname' => 'Masic',
-            'bday' => '1998-07-21',
-            'phone' => 'masa',
-            'username' => 'masa',
-            'email' => 'masa@cafe2.com',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'place' => 2,
-            'active' => false,
-        ]);
+
+        for($i = 1; $i <= 20; $i++)
+        {
+            User::factory(49)->create([
+                'place' => $i,
+            ]);
+        }
 
         User::factory(10)->create();
     }

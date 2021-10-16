@@ -66,13 +66,13 @@ class PlaceFactory extends Factory
         }
 
         return [
-            'name' => $this->faker->unique(true)->name,
-            'city' => $this->faker->unique(true)->city,
-            'address' => $this->faker->unique(true)->address,
+            'name' => $this->faker->unique(true, 30000)->name . $this->faker->numberBetween(0, 50),
+            'city' => $this->faker->unique(true, 30000)->city . $this->faker->numberBetween(0, 50),
+            'address' => $this->faker->unique(true, 30000)->address,
             'latitude' => $this->faker->latitude,
             'longitude' => $this->faker->longitude,
             'phone' => $this->faker->numberBetween(1, 9000000),
-            'email' => $this->faker->unique(true)->safeEmail,
+            'email' => $this->faker->unique(true, 30000)->safeEmail . $this->faker->numberBetween(0, 50),
             'user_id' => 2,
         ];
     }

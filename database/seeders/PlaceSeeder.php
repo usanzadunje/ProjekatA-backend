@@ -15,10 +15,10 @@ class PlaceSeeder extends Seeder
     public function run()
     {
 
-        Place::factory(1000)
-            ->hasTables(4)
+        Place::factory(500)
+            ->hasTables(10)
             ->hasProducts(200)
-            ->hasCategories(5)
+            ->hasCategories(10)
             ->create();
     }
 }
