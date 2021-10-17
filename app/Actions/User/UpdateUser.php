@@ -18,7 +18,7 @@ class UpdateUser
         $this->uploadImage = $uploadImage;
     }
 
-    public function handle(array $validatedData, User $providedUser = null)
+    public function handle(array $validatedData, User $providedUser = null): void
     {
         $user = $providedUser ?: auth()->user();
         if(array_key_exists('password', $validatedData) && !is_null($validatedData['password']))
@@ -35,8 +35,8 @@ class UpdateUser
                 $validatedData['avatar'],
                 $avatarName,
                 'img/users/',
-                75,
-                75
+                85,
+                85
             );
 
             $validatedData['avatar'] = $avatar;
