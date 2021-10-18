@@ -3,6 +3,7 @@
 
 namespace App\Actions\Notifications;
 
+use App\Models\Table;
 use App\Models\User;
 
 class SendTableAvailabilityChangedNotification
@@ -14,7 +15,7 @@ class SendTableAvailabilityChangedNotification
         $this->sendDataNotificationViaFCM = $sendDataNotificationViaFCM;
     }
 
-    public function handle($place): void
+    public function handle($place, Table $table): void
     {
         $tokens = User::select('fcm_token')
             ->whereNotNull('fcm_token')
@@ -30,6 +31,8 @@ class SendTableAvailabilityChangedNotification
                 $tokens,
                 [
                     'type' => 'availabilityChanged',
+                    'table_id' => $table->id,
+                    'empty' => $table->empty,
                     'availability_ratio' => $place->takenMaxCapacityTableRatio(),
                 ]
             );

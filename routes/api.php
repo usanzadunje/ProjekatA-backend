@@ -95,7 +95,6 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
         ->middleware('can:manipulatePlaceImages,image');
 
     // Tables specific routes
-    Route::get('/place/tables', [TableController::class, 'index']);
     Route::post('/place/tables', [TableController::class, 'storeOrUpdate']);
 
     // Categories specific routes
@@ -122,7 +121,9 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
 // Routes for staff that works in place
 Route::group(['prefix' => 'staff', 'middleware' => ['auth:sanctum', 'staff', 'throttle:staff']], function() {
     Route::post('/activity', [StaffController::class, 'toggle']);
+    Route::get('/place/tables', [TableController::class, 'index']);
     Route::get('/table/availability', [PlaceController::class, 'availability']);
-    //Route::post('/table/{table}/toggle', [TableController::class, 'toggle'])->middleware('can:toggle,table');
-    Route::post('/table/toggle/{available}', [TableController::class, 'toggle']);
+    Route::post('/table/{table}/toggle', [TableController::class, 'toggle'])
+        ->middleware('can:toggle,table');
+    Route::post('/table/toggle/{available}', [TableController::class, 'randomToggle']);
 });

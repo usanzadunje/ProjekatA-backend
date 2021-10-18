@@ -9,6 +9,7 @@ use App\Http\Requests\StoreOrUpdateTableRequest;
 use App\Http\Resources\TableResource;
 use App\Models\Place;
 use App\Models\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Validation\UnauthorizedException;
@@ -18,7 +19,7 @@ class TableController extends Controller
 
     public function index($placeId = null): ResourceCollection
     {
-        $providedPlaceId = $placeId ?: auth()->user()->isOwner();
+        $providedPlaceId = $placeId ?: auth()->user()->isStaff();
 
         return TableResource::collection(
             Table::select('id', 'empty', 'smoking_allowed', 'top', 'left', 'place_id')
@@ -34,14 +35,26 @@ class TableController extends Controller
 
     //Eventually logic will be switched to this when there will be shown all off tables and specific table
     // would be managable from frontend
-    //public function toggle(Table $table): JsonResponse
-    //{
-    //    $table->toggleAvailability();
-    //
-    //    return response()->success('Successfully changed place availability!');
-    //}
+    public function toggle(Table $table): JsonResponse
+    {
+        $table->toggleAvailability();
 
-    public function toggle($available, ToggleTableAvailability $toggleTableAvailability): JsonResponse
+        $place = $table
+            ->place()
+            ->withCount([
+                'tables',
+                'tables as taken_tables_count' => function(Builder $query) {
+                    $query->where('empty', false);
+                },
+            ])
+            ->first();
+
+        return response()->success('Successfully changed place availability!', [
+            'availability_ratio' => $place->takenMaxCapacityTableRatio(),
+        ]);
+    }
+
+    public function randomToggle($available, ToggleTableAvailability $toggleTableAvailability): JsonResponse
     {
         $data = [];
         try

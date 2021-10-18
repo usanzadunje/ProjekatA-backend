@@ -48,4 +48,11 @@ class Table extends Model
     {
         return $query->where('empty', $availability);
     }
+
+    public function toggleAvailability()
+    {
+        $this->update([
+            'empty' => !$this->empty,
+        ]);
+    }
 }
