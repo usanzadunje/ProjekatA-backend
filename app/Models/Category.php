@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Queries\FilterAndChunk;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,7 +29,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Category extends Model
 {
-    use HasFactory;
+    use HasFactory, FilterAndChunk;
 
     public $timestamps = false;
 
@@ -41,5 +43,20 @@ class Category extends Model
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function chunkedProductsForPlace($placeId, $offset = 0, $limit = 10): Collection
+    {
+        return $this
+            ->products()
+            ->with(
+                ['images' => function($query) {
+                    $query
+                        ->select('id', 'path', 'is_main', 'imagable_id')
+                        ->where('is_main', true);
+                }])
+            ->where('place_id', $placeId)
+            ->filterAndChunk(null, null, $offset, $limit)
+            ->get();
     }
 }

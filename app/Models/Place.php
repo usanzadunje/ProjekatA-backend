@@ -90,14 +90,22 @@ class Place extends Model
         return $defaultCategories->merge($this->categories);
     }
 
-    public function allProductCategories(): Collection
+    public function categoriesWithProducts(): Collection
     {
-        return Category::whereIn('id', function($query) {
+        $categories = Category::whereIn('id', function($query) {
             $query
                 ->select('category_id')
                 ->from('products')
                 ->where('place_id', $this->id);
         })->get();
+
+        $collectionOfCategories = $categories->map(function($category) {
+            $category->products = $category->chunkedProductsForPlace($this->id);
+
+            return $category;
+        });
+
+        return Category::hydrate($collectionOfCategories->toArray());
     }
 
     public function products(): HasMany

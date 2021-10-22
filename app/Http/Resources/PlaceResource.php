@@ -21,7 +21,7 @@ class PlaceResource extends JsonResource
             'availability_ratio' => $this->takenMaxCapacityTableRatio(),
             'categories' => $this->when(
                 $request->routeIs('place.show') && $request->query('categories'),
-                CategoryResource::collection($this->allProductCategories())
+                CategoryResource::collection($this->categoriesWithProducts())
             ),
             'tables' => TableResource::collection($this->whenLoaded('tables')),
             'images' => ImageResource::collection($this->whenLoaded('images')),

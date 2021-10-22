@@ -15,10 +15,10 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class ProductController extends Controller
 {
-    public function index(Place $place = null): ResourceCollection
+    public function index(Place $place = null, $categoryId = null): ResourceCollection
     {
         $productsQuery = $place
-            ? $place->products()
+            ? $place->products()->where('category_id', $categoryId)
             : auth()->user()->ownerPlaces->products();
 
         $products = $productsQuery

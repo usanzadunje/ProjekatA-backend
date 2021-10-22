@@ -69,6 +69,7 @@ Route::group(['prefix' => 'places', 'middleware' => 'throttle:places'], function
     Route::get('/', [PlaceController::class, 'index']);
     Route::get('/{placeId}', [PlaceController::class, 'show'])->name('place.show');
     Route::get('/{place}/images', [PlaceController::class, 'images']);
+    Route::get('/{place}/category/{category}/products', [ProductController::class, 'index']);
     Route::get('/product/{product}/images', [ProductController::class, 'images']);
     Route::get('/{place}/working-hours', [PlaceController::class, 'workingHours']);
     Route::get('/{placeId}/tables', [TableController::class, 'index']);
@@ -107,7 +108,7 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
         ->middleware('can:destroy,category');
 
     // Products specific routes
-    Route::get('/menu/product/place/{place?}', [ProductController::class, 'index']);
+    Route::get('/menu/product/place/', [ProductController::class, 'index']);
     Route::get('/menu/product/{product}', [ProductController::class, 'show']);
     Route::post('/menu/product', [ProductController::class, 'create']);
     Route::put('/menu/product/{product}', [ProductController::class, 'update'])
