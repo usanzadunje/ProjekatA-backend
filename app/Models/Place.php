@@ -92,24 +92,12 @@ class Place extends Model
 
     public function allProductCategories(): Collection
     {
-        return Category::with(
-            ['products' => function($query) {
-                $query
-                    ->with(['images' => function($query) {
-                        $query
-                            ->select('id', 'path', 'is_main', 'imagable_id')
-                            ->where('is_main', true);
-                    }])
-                    ->where('place_id', $this->id)
-                    ->take(10);
-            }])
-            ->whereIn('id', function($query) {
-                $query
-                    ->select('category_id')
-                    ->distinct()
-                    ->from('products')
-                    ->where('place_id', $this->id);
-            })->get();
+        return Category::whereIn('id', function($query) {
+            $query
+                ->select('category_id')
+                ->from('products')
+                ->where('place_id', $this->id);
+        })->get();
     }
 
     public function products(): HasMany
@@ -119,7 +107,7 @@ class Place extends Model
 
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function subscribedUsers(): BelongsToMany

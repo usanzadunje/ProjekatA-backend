@@ -35,19 +35,33 @@ class PlaceController extends Controller
 
     public function show(int $placeId): PlaceResource
     {
-        // Passing only columns needed to show only one place
+        $showScreen = \request()->query('showScreen');
+
+        $basicColumns = ['id', 'name', 'city', 'address', 'email', 'phone', 'latitude', 'longitude'];
+        $workHoursColumns = ['mon_fri', 'saturday', 'sunday'];
+
+        $columns = $showScreen
+            ? $basicColumns
+            : array_merge($basicColumns, $workHoursColumns);
+
         return new PlaceResource(
-            Place::with('images')
+            Place::select($columns)
+                ->when(
+                    $showScreen,
+                    function(Builder $query) {
+                        $query->with('tables');
+                    },
+                    function(Builder $query) {
+                        $query->with('images');
+                    }
+                )
                 ->withCount([
                     'tables',
                     'tables as taken_tables_count' => function(Builder $query) {
                         $query->where('empty', false);
                     },
                 ])
-                ->findOrFail(
-                    $placeId,
-                    ['id', 'name', 'city', 'address', 'email', 'phone', 'latitude', 'longitude', 'mon_fri', 'saturday', 'sunday']
-                )
+                ->findOrFail($placeId)
         );
     }
 

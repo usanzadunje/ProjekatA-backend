@@ -20,9 +20,10 @@ class PlaceResource extends JsonResource
             'longitude' => $this->when(!is_null($this->longitude), $this->longitude),
             'availability_ratio' => $this->takenMaxCapacityTableRatio(),
             'categories' => $this->when(
-                $request->routeIs('place.show') && $request->query('products'),
+                $request->routeIs('place.show') && $request->query('categories'),
                 CategoryResource::collection($this->allProductCategories())
             ),
+            'tables' => TableResource::collection($this->whenLoaded('tables')),
             'images' => ImageResource::collection($this->whenLoaded('images')),
             'subscription_expires_in' => $this->whenPivotLoaded('place_user', function() {
                 if($this->pivot->expires_in)
