@@ -30,4 +30,14 @@ class TablePolicy
         return $user->place === $table->place_id;
     }
 
+    public function update(User $user, Table $table): bool
+    {
+        return $user->isOwner() === $table->place_id;
+    }
+
+    public function destroy(User $user, Table $table): bool
+    {
+        return $user->isOwner() === $table->place_id;
+    }
+
 }

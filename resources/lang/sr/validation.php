@@ -42,6 +42,7 @@ return [
     'bad_category' => 'Greška prilikom izbora kategorije.',
     'uploaded' => ':Attribute nije uspešno dodata. Fajl je možda preveliki. Maksimalno dozvoljeno 2048kB',
     'non_existing_category' => 'Prosledili ste nepostojeću kategoriju!',
+    'bad_smoking_choice' => 'Morate izabrati između 2 vrednosti za :attribute.',
 
 
     /*
@@ -84,6 +85,7 @@ return [
         'address' => 'adresa',
         'city' => 'grad',
         'category' => 'kategorija',
+        'smoking_allowed' => 'izbor za pušenje',
     ],
 
 ];

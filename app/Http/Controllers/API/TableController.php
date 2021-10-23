@@ -6,6 +6,7 @@ use App\Actions\Owner\Tables\StoreOrUpdateTables;
 use App\Actions\Place\Table\ToggleTableAvailability;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrUpdateTableRequest;
+use App\Http\Requests\UpdateTableRequest;
 use App\Http\Resources\TableResource;
 use App\Models\Place;
 use App\Models\Table;
@@ -75,9 +76,13 @@ class TableController extends Controller
         return TableResource::collection($createdTables);
     }
 
-
-    public function destroy(Table $table)
+    public function update(Table $table, UpdateTableRequest $updateTableRequest)
     {
-        //
+        $table->update($updateTableRequest->validated());
+    }
+
+    public function destroy(Table $table): void
+    {
+        $table->delete();
     }
 }

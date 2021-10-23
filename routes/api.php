@@ -97,6 +97,10 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
 
     // Tables specific routes
     Route::post('/place/tables', [TableController::class, 'storeOrUpdate']);
+    Route::put('/place/tables/{table}', [TableController::class, 'update'])
+        ->middleware('can:update,table');
+    Route::delete('/place/tables/{table}', [TableController::class, 'destroy'])
+        ->middleware('can:destroy,table');
 
     // Categories specific routes
     Route::get('/menu/category/place/{place?}', [CategoryController::class, 'index']);
