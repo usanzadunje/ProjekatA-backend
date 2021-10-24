@@ -21,7 +21,7 @@ class ImageSeeder extends Seeder
                 if($j === 0)
                 {
                     Image::create([
-                        'path' => "/places/Cafe $i/1_1cafe.png",
+                        'path' => "/places/$i/1_1cafe.png",
                         'is_main' => true,
                         'is_logo' => true,
                         'imagable_id' => $i,
@@ -31,7 +31,7 @@ class ImageSeeder extends Seeder
                 else
                 {
                     Image::create([
-                        'path' => "/places/Cafe $i/2_{$j}cafe.png",
+                        'path' => "/places/$i/2_{$j}cafe.png",
                         'imagable_id' => $i,
                         'imagable_type' => 'App\Models\Place',
                     ]);
@@ -45,7 +45,7 @@ class ImageSeeder extends Seeder
                 if($j === 1)
                 {
                     Image::create([
-                        'path' => "/places/Cafe $i/products/product_$j.jpg",
+                        'path' => "/places/$i/products/product_$j.jpg",
                         'is_main' => true,
                         'imagable_id' => $i,
                         'imagable_type' => 'App\Models\Product',
@@ -54,7 +54,7 @@ class ImageSeeder extends Seeder
                 else
                 {
                     Image::create([
-                        'path' => "/places/Cafe $i/products/product_$j.jpg",
+                        'path' => "/places/$i/products/product_$j.jpg",
                         'imagable_id' => $i,
                         'imagable_type' => 'App\Models\Product',
                     ]);
