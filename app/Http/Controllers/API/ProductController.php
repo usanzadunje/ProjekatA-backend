@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Actions\Owner\Products\RemoveAllProductImages;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateProductRequest;
+use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ImageResource;
 use App\Http\Resources\ProductResource;
@@ -38,7 +38,7 @@ class ProductController extends Controller
         return new ProductResource($product->load('category', 'images'));
     }
 
-    public function create(CreateProductRequest $request): ProductResource
+    public function create(StoreProductRequest $request): ProductResource
     {
         $validatedData = $request->validated();
 

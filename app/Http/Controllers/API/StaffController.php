@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Actions\Owner\Staff\CreateStaffMember;
 use App\Actions\Owner\Staff\UpdateStaffMember;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateStaffMemberRequest;
+use App\Http\Requests\StoreStaffMemberRequest;
 use App\Http\Requests\ToggleActivityStaffRequest;
 use App\Http\Requests\UpdateStaffMemberRequest;
 use App\Http\Resources\UserResource;
@@ -19,7 +19,7 @@ class StaffController extends Controller
         return UserResource::collection(auth()->user()->staff());
     }
 
-    public function store(CreateStaffMemberRequest $request, CreateStaffMember $createStaffMember): UserResource
+    public function store(StoreStaffMemberRequest $request, CreateStaffMember $createStaffMember): UserResource
     {
         $createdStaff = $createStaffMember->handle($request->validated());
 

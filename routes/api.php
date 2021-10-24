@@ -55,7 +55,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:sanctum'], function() {
     // Place subscription routes
     Route::group(['middleware' => 'throttle:subscribe'], function() {
         Route::get('/subscriptions/place', [PlaceSubscriptionController::class, 'index']);
-        Route::post('/subscriptions/place/{placeId}', [PlaceSubscriptionController::class, 'show']);
+        Route::get('/subscriptions/place/{placeId}', [PlaceSubscriptionController::class, 'show']);
         Route::post(
             '/subscriptions/place/{placeId}/notify-in-next/{notificationTime?}',
             [PlaceSubscriptionController::class, 'store']

@@ -19,16 +19,11 @@ class UpdatePlaceInfo
         }
 
         // Working hours
-        $validatedData['mon_fri'] = "{$validatedData['mon_fri_start']}-{$validatedData['mon_fri_end']}";
-        $validatedData['saturday'] = "{$validatedData['saturday_start']}-{$validatedData['saturday_end']}";
-        $validatedData['sunday'] = "{$validatedData['sunday_start']}-{$validatedData['sunday_end']}";
+        $validatedData['mon_fri'] = $validatedData['working_hours']['mon_fri'];
+        $validatedData['saturday'] = $validatedData['working_hours']['saturday'];
+        $validatedData['sunday'] = $validatedData['working_hours']['sunday'];
 
-        unset($validatedData['mon_fri_start']);
-        unset($validatedData['mon_fri_end']);
-        unset($validatedData['saturday_start']);
-        unset($validatedData['saturday_end']);
-        unset($validatedData['sunday_start']);
-        unset($validatedData['sunday_end']);
+        unset($validatedData['working_hours']);
 
         $place
             ->update($validatedData);

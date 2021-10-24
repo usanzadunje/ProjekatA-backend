@@ -66,7 +66,7 @@ class PlaceFactory extends Factory
         }
 
         return [
-            'name' => $this->faker->unique(true, 30000)->name . $this->faker->numberBetween(0, 50),
+            'name' => $this->faker->unique(true, 30000)->word . $this->faker->numberBetween(0, 50),
             'city' => $this->faker->unique(true, 30000)->city . $this->faker->numberBetween(0, 50),
             'address' => $this->faker->unique(true, 30000)->address,
             'latitude' => $this->faker->latitude,

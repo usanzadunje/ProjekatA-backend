@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Place;
@@ -34,7 +34,7 @@ class CategoryController extends Controller
         return new CategoryResource($category);
     }
 
-    public function create(CreateCategoryRequest $request): CategoryResource
+    public function create(StoreCategoryRequest $request): CategoryResource
     {
         $validatedData = $request->validated();
 
