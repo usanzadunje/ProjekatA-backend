@@ -11,7 +11,7 @@ class PlaceResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            'name' => $this->when(!is_null($this->name), $this->name),
             'city' => $this->when(!is_null($this->city), $this->city),
             'address' => $this->when(!is_null($this->address), $this->address),
             'email' => $this->when(!is_null($this->email), $this->email),

@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'lname' => 'Djordjevic',
             'bday' => '1997-07-21',
             'phone' => '0640763084',
-            'username' => 'usanzadunje',
+            'username' => 'admin',
             'email' => 'admin@admin.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ]);

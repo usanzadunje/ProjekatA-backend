@@ -24,15 +24,15 @@ class PlaceSubscriptionController extends Controller
         );
     }
 
-    public function show(int $placeId): JsonResponse
+    public function subscriptionIds(): JsonResponse
     {
-        $subscribed = auth()->user()
+        $subscriptionsIds = auth()->user()
             ->places()
-            ->where('place_id', $placeId)
-            ->first();
+            ->select('id')
+            ->pluck('id');
 
-        return response()->success('User subscription status', [
-            'subscribed' => !!$subscribed,
+        return response()->success('User subscription ids', [
+            'subscriptions' => $subscriptionsIds,
         ]);
     }
 
