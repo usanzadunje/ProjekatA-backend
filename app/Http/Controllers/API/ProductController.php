@@ -23,8 +23,7 @@ class ProductController extends Controller
 
         $products = $productsQuery
             ->with(['images' => function($query) {
-                $query->select('id', 'path', 'is_main', 'imagable_id')
-                    ->where('is_main', true);
+                $query->select('id', 'path', 'is_main', 'imagable_id');
             }])
             ->orderByDesc('id')
             ->filterAndChunk('name', request('filter'), request('offset'), request('limit'))

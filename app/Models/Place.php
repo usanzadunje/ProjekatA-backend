@@ -100,7 +100,7 @@ class Place extends Model
         })->get();
 
         $collectionOfCategories = $categories->map(function($category) {
-            $category->categoryProducts = $category->chunkedProductsForPlace($this->id);
+            $category->setRelation('products', $category->chunkedProductsForPlace($this->id));
 
             return $category;
         });

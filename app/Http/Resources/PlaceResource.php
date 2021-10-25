@@ -20,7 +20,7 @@ class PlaceResource extends JsonResource
             'longitude' => $this->when(!is_null($this->longitude), $this->longitude),
             'availability_ratio' => $this->takenMaxCapacityTableRatio(),
             'categories' => $this->when(
-                $request->routeIs('place.show') && $request->query('categories'),
+                $request->query('categories'),
                 CategoryResource::collection($this->categoriesWithProducts())
             ),
             'tables' => TableResource::collection($this->whenLoaded('tables')),

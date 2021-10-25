@@ -45,15 +45,14 @@ class Category extends Model
         return $this->hasMany(Product::class);
     }
 
-    public function chunkedProductsForPlace($placeId, $offset = 0, $limit = 10): Collection
+    public function chunkedProductsForPlace($placeId, $offset = 0, $limit = 7): Collection
     {
         return $this
             ->products()
             ->with(
                 ['images' => function($query) {
                     $query
-                        ->select('id', 'path', 'is_main', 'imagable_id')
-                        ->where('is_main', true);
+                        ->select('id', 'path', 'is_main', 'imagable_id');
                 }])
             ->where('place_id', $placeId)
             ->filterAndChunk(null, null, $offset, $limit)
