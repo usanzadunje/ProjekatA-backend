@@ -36,11 +36,4 @@ class UploadPlaceImagesRequest extends FormRequest
             'images.*' => trans('attributes.image'),
         ];
     }
-
-    public function messages()
-    {
-        return [
-            'uploaded' => trans('attributes.image'),
-        ];
-    }
 }
