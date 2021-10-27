@@ -13,18 +13,15 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CategoryController extends Controller
 {
-    public function index(Place $place = null): ResourceCollection
+    public function index(): ResourceCollection
     {
-        //$place->allProductCategories();
-        // Request for specific place and its categories that are used on products
-        // Meaning products of this place have categories returned here
+        /* If needed place can be injected and based on which place gather categories
+            only if there is functionality that lists only categories for certain place
+        */
 
-        //auth()->user()->ownerPlaces->allAvailableCategories;
-        // Request for all available categories which may not be used on any product
-
-        $categories = $place
-            ? $place->allProductCategories()
-            : auth()->user()->ownerPlaces->allAvailableCategories();
+        abort_if(!auth()->user()->isOwner(), 403, 'Unauthorized.');
+        
+        $categories = auth()->user()->ownerPlaces->allAvailableCategories();
 
         return CategoryResource::collection($categories);
     }
