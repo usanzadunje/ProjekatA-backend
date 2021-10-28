@@ -14,6 +14,8 @@ trait SortPlaces
         {
             'food' => $query
                 ->sortByFood(),
+            'favorites' => $query
+                ->sortByFavoritePlaces(),
             'availability' => $query
                 ->sortByAvailability(),
             'distance' => $query
@@ -28,7 +30,6 @@ trait SortPlaces
     {
         return $query->whereIn('id', function($query) {
             $query->select('place_id')
-                ->distinct()
                 ->from('products')
                 ->where('category_id', function($query) {
                     $query->select('id')
@@ -42,10 +43,18 @@ trait SortPlaces
     {
         return $query->whereIn('id', function($query) {
             $query->select('place_id')
-                ->distinct()
                 ->from('tables')
                 ->where('empty', true);
         })->inRandomOrder();
+    }
+
+    public function scopeSortByFavoritePlaces($query)
+    {
+        return $query->whereIn('id', function($query) {
+            $query->select('place_id')
+                ->from('favorite_place_user')
+                ->where('user_id', auth('sanctum')->id());
+        });
     }
 
     public function scopeSortByDistance($query)

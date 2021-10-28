@@ -96,6 +96,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Place::class)->withTimestamps();
     }
 
+    public function favoritePlaces(): BelongsToMany
+    {
+        return $this->belongsToMany(Place::class, 'favorite_place_user')->withTimestamps();
+    }
+
     public function ownerPlaces(): HasOne
     {
         return $this->hasOne(Place::class);

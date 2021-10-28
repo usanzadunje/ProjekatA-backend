@@ -22,8 +22,7 @@ class TakeChunkedPlaces
                 ->with(['images' => function($query) {
                     $query
                         ->select('id', 'path', 'is_main', 'is_logo', 'imagable_id')
-                        ->where('is_main', true)
-                        ->orWhere('is_logo', true);
+                        ->where('is_logo', true);
                 }])
             : Place::select('id', 'name', 'latitude', 'longitude')
                 ->withCount([
@@ -35,8 +34,7 @@ class TakeChunkedPlaces
                 ->with(['images' => function($query) {
                     $query
                         ->select('id', 'path', 'is_main', 'is_logo', 'imagable_id')
-                        ->where('is_main', true)
-                        ->orWhere('is_logo', true);
+                        ->where('is_logo', true);
                 }]);
 
         return $placeQuery

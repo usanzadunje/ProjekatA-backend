@@ -126,6 +126,7 @@ return [
     'bad_category' => 'Error while picking product category.',
     'non_existing_category' => 'You are providing category that does not exist!',
     'bad_smoking_choice' => 'You must choose between two values for :attribute.',
+    'favorite_place' => 'Place is already in your favorites.',
 
 
     /*

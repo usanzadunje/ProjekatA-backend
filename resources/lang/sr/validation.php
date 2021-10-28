@@ -43,6 +43,7 @@ return [
     'uploaded' => ':Attribute nije uspešno dodata. Fajl je možda preveliki. Maksimalno dozvoljeno 2048kB',
     'non_existing_category' => 'Prosledili ste nepostojeću kategoriju!',
     'bad_smoking_choice' => 'Morate izabrati između 2 vrednosti za :attribute.',
+    'favorite_place' => 'Objekat je već u omiljenima.',
 
 
     /*

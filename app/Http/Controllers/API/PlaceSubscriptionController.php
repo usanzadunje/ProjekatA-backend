@@ -28,7 +28,6 @@ class PlaceSubscriptionController extends Controller
     {
         $subscriptionsIds = auth()->user()
             ->places()
-            ->select('id')
             ->pluck('id');
 
         return response()->success('User subscription ids', [

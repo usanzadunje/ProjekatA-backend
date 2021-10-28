@@ -4,11 +4,11 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\PlaceController;
 use App\Http\Controllers\API\FirebaseController;
+use App\Http\Controllers\API\PlaceFavoritesController;
 use App\Http\Controllers\API\PlaceSubscriptionController;
 use App\Http\Controllers\API\StaffController;
 use App\Http\Controllers\API\TableController;
 use App\Http\Controllers\API\ProfileController;
-use App\Http\Controllers\GithubWebhooksController;
 use App\Http\Controllers\API\ImageController;
 use App\Http\Controllers\API\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -62,6 +62,11 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:sanctum'], function() {
         );
         Route::delete('/subscriptions/place/{placeId}', [PlaceSubscriptionController::class, 'destroy']);
     });
+
+    // Place favourites routes
+    Route::get('/favorites/place/ids', [PlaceFavoritesController::class, 'index']);
+    Route::post('/favorites/place/{place}', [PlaceFavoritesController::class, 'store']);
+    Route::delete('/favorites/place/{place}', [PlaceFavoritesController::class, 'destroy']);
 });
 
 //Routes for places
