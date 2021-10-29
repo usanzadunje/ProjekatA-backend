@@ -16,7 +16,20 @@ class StaffController extends Controller
 {
     public function index(): ResourceCollection
     {
-        return UserResource::collection(auth()->user()->staff());
+        return UserResource::collection(
+            auth()->user()
+                ->staff(request('offset'), request('limit'))
+        );
+    }
+
+    public function activeIndex(): ResourceCollection
+    {
+        $activeStaff = User::select('fname', 'lname', 'username', 'avatar', 'active')
+            ->wherePlace(auth()->user()->isOwner())
+            ->whereActive(true)
+            ->get();
+
+        return UserResource::collection($activeStaff);
     }
 
     public function store(StoreStaffMemberRequest $request, CreateStaffMember $createStaffMember): UserResource

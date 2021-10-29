@@ -84,6 +84,7 @@ Route::group(['prefix' => 'places', 'middleware' => 'throttle:places'], function
 Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'throttle:owner']], function() {
     // Staff specific router
     Route::get('/staff', [StaffController::class, 'index']);
+    Route::get('/staff/active', [StaffController::class, 'activeIndex']);
     Route::post('/staff', [StaffController::class, 'store']);
     Route::put('/staff/{staff}', [StaffController::class, 'update'])
         ->middleware('can:update,staff');

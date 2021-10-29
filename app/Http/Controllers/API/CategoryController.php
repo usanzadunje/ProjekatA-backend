@@ -18,9 +18,6 @@ class CategoryController extends Controller
         /* If needed place can be injected and based on which place gather categories
             only if there is functionality that lists only categories for certain place
         */
-
-        abort_if(!auth()->user()->isOwner(), 403, 'Unauthorized.');
-        
         $categories = auth()->user()->ownerPlaces->allAvailableCategories();
 
         return CategoryResource::collection($categories);

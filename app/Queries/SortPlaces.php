@@ -20,8 +20,10 @@ trait SortPlaces
                 ->sortByAvailability(),
             'distance' => $query
                 ->sortByDistance(),
+            'random' => $query
+                ->sortByRandomChoice(),
             default => $query
-                ->sortByDefault(),
+                ->scopeSortByName(),
         };
     }
 
@@ -74,7 +76,12 @@ trait SortPlaces
             ->orderBy('distance');
     }
 
-    public function scopeSortByDefault($query)
+    public function scopeSortByRandomChoice($query)
+    {
+        return $query->inRandomOrder();
+    }
+
+    public function scopeSortByName($query)
     {
         return $query->orderBy('name');
     }
