@@ -118,7 +118,7 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
         ->middleware('can:destroy,category');
 
     // Products specific routes
-    Route::get('/menu/product/place/', [ProductController::class, 'index']);
+    Route::get('/menu/product/place', [ProductController::class, 'index']);
     Route::get('/menu/product/{product}', [ProductController::class, 'show']);
     Route::post('/menu/product', [ProductController::class, 'create']);
     Route::put('/menu/product/{product}', [ProductController::class, 'update'])

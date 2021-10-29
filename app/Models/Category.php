@@ -56,6 +56,7 @@ class Category extends Model
                 }])
             ->where('place_id', $placeId)
             ->filterAndChunk(null, null, $offset, $limit)
+            ->orderByDesc('id')
             ->get();
     }
 }

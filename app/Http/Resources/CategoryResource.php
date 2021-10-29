@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Product;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CategoryResource extends JsonResource
@@ -19,7 +20,9 @@ class CategoryResource extends JsonResource
             'name' => $this->name,
             'products' => $this->when(
                 $request->query('categories'),
-                $this->products
+                function() {
+                    return $this->products ? ProductResource::collection($this->products) : null;
+                }
             ),
             'place_id' => $this->when(!is_null($this->place_id), $this->place_id),
         ];
