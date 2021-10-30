@@ -153,7 +153,9 @@ class User extends Authenticatable
                 },
             ])
             ->with(['images' => function($query) {
-                $query->select('id', 'path', 'imagable_id')->where('is_main', true);
+                $query
+                    ->select('id', 'path', 'is_logo', 'imagable_id')
+                    ->where('is_logo', true);
             }])
             ->withPivot('expires_in')
             ->sortedPlaces($sortBy)
