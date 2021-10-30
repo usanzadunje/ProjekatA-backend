@@ -16,14 +16,17 @@ class CategorySeeder extends Seeder
     {
         Category::create([
             'name' => 'Food',
+            'icon' => 'pizzaOutline',
         ]);
 
         Category::create([
             'name' => 'Drinks',
+            'icon' => 'beerOutline',
         ]);
 
         Category::create([
             'name' => 'Sweets',
+            'icon' => 'iceCreamOutline',
         ]);
     }
 }

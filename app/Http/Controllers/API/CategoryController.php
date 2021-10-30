@@ -35,9 +35,7 @@ class CategoryController extends Controller
         $createdCategory = auth()->user()
             ->ownerPlaces
             ->categories()
-            ->create([
-                'name' => $validatedData['category'],
-            ]);
+            ->create($validatedData);
 
         return new CategoryResource($createdCategory);
     }
@@ -46,9 +44,7 @@ class CategoryController extends Controller
     {
         $validatedData = $request->validated();
 
-        $category->update([
-            'name' => $validatedData['category'],
-        ]);
+        $category->update($validatedData);
     }
 
     public function destroy(Category $category): void

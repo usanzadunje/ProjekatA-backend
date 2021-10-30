@@ -44,6 +44,7 @@ return [
     'non_existing_category' => 'Prosledili ste nepostojeću kategoriju!',
     'bad_smoking_choice' => 'Morate izabrati između 2 vrednosti za :attribute.',
     'favorite_place' => 'Objekat je već u omiljenima.',
+    'bad_icon' => 'Izaberite ikonicu iz liste.',
 
 
     /*
@@ -87,6 +88,7 @@ return [
         'city' => 'grad',
         'category' => 'kategorija',
         'smoking_allowed' => 'izbor za pušenje',
+        'icon' => 'ikonica',
     ],
 
 ];
