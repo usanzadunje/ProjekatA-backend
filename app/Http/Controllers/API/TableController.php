@@ -23,7 +23,7 @@ class TableController extends Controller
         $providedPlaceId = $placeId ?: auth()->user()->isStaff();
 
         return TableResource::collection(
-            Table::select('id', 'empty', 'smoking_allowed', 'top', 'left', 'place_id')
+            Table::select('id', 'empty', 'smoking_allowed', 'seats', 'top', 'left', 'place_id')
                 ->where('place_id', $providedPlaceId)
                 ->get()
         );

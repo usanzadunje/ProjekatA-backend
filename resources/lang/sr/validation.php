@@ -28,6 +28,7 @@ return [
     ],
     'date' => ':Attribute nije validan datum.',
     'string' => ':Attribute mora biti string.',
+    'integer' => 'Polje :attribute mora biti broj.',
     'numeric' => 'Polje :attribute mora biti broj.',
     'password' => 'Lozinka nije ispravna.',
     'required' => 'Polje :attribute je obavezno.',

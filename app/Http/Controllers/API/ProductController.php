@@ -48,7 +48,7 @@ class ProductController extends Controller
             ->products()
             ->create($validatedData);
 
-        return new ProductResource($createdProduct);
+        return new ProductResource($createdProduct->load('images'));
     }
 
     public function update(Product $product, UpdateProductRequest $request): void

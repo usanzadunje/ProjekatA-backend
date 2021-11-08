@@ -24,6 +24,7 @@ class TableFactory extends Factory
         return [
             'empty' => rand(0, 1),
             'smoking_allowed' => rand(0, 1),
+            'seats' => rand(2, 10),
             'top' => rand(0, 140),
             'left' => rand(0, 100),
         ];

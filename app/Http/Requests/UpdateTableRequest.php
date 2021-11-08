@@ -25,6 +25,7 @@ class UpdateTableRequest extends FormRequest
     {
         return [
             'smoking_allowed' => ['required', 'boolean'],
+            'seats' => ['nullable', 'numeric', 'integer'],
         ];
     }
 
