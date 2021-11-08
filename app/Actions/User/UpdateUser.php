@@ -41,6 +41,10 @@ class UpdateUser
 
             $validatedData['avatar'] = $avatar;
         }
+        else
+        {
+            unset($validatedData['avatar']);
+        }
 
         unset($validatedData['old_password']);
 
