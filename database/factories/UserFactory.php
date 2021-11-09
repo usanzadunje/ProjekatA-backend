@@ -26,8 +26,8 @@ class UserFactory extends Factory
             'lname' => $this->faker->word,
             'bday' => $this->faker->date(),
             'phone' => $this->faker->unique()->numberBetween(1, 9000000),
-            'username' => $this->faker->unique(true, 30000)->word() . $this->faker->numberBetween(0, 10000),
-            'email' => $this->faker->unique(true, 30000)->safeEmail . $this->faker->numberBetween(0, 50),
+            'username' => $this->faker->word() . $this->faker->numberBetween(0, 10000),
+            'email' => $this->faker->safeEmail . $this->faker->numberBetween(0, 10000),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         ];
     }
