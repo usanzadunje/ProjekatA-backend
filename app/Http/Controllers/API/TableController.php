@@ -18,15 +18,23 @@ use Illuminate\Validation\UnauthorizedException;
 class TableController extends Controller
 {
 
-    public function index($placeId = null): ResourceCollection
+    public function index($placeId = null): JsonResponse
     {
         $providedPlaceId = $placeId ?: auth()->user()->isStaff();
 
-        return TableResource::collection(
-            Table::select('id', 'empty', 'smoking_allowed', 'seats', 'top', 'left', 'place_id')
+        $place = Place::findOrFail($providedPlaceId, ['id']);
+
+        $tables = TableResource::collection(
+            Table::with('section')
+                ->select('id', 'empty', 'smoking_allowed', 'seats', 'top', 'left', 'place_id', 'section_id')
                 ->where('place_id', $providedPlaceId)
                 ->get()
         );
+
+        return response()->success('Successfuly fetched table info.', [
+            'tables' => $tables,
+            'sections' => $place->sections,
+        ]);
     }
 
     public function show(Place $place, $serialNumber): TableResource
@@ -76,9 +84,9 @@ class TableController extends Controller
         return TableResource::collection($createdTables);
     }
 
-    public function update(Table $table, UpdateTableRequest $updateTableRequest)
+    public function update(Table $table, UpdateTableRequest $request): void
     {
-        $table->update($updateTableRequest->validated());
+        $table->update($request->validated());
     }
 
     public function destroy(Table $table): void

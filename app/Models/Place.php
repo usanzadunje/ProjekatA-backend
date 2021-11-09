@@ -83,6 +83,11 @@ class Place extends Model
         return $this->hasMany(Category::class);
     }
 
+    public function sections(): HasMany
+    {
+        return $this->hasMany(Section::class);
+    }
+
     public function allAvailableCategories(): Collection
     {
         $defaultCategories = Category::whereNull('place_id')->get();

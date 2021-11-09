@@ -44,6 +44,11 @@ class Table extends Model
         return $this->belongsTo(Place::class);
     }
 
+    public function section(): BelongsTo
+    {
+        return $this->belongsTo(Section::class);
+    }
+
     public function scopeAvailable($query, bool $availability)
     {
         return $query->where('empty', $availability);

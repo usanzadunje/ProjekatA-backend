@@ -28,7 +28,7 @@ class CategoryController extends Controller
         return new CategoryResource($category);
     }
 
-    public function create(StoreCategoryRequest $request): CategoryResource
+    public function store(StoreCategoryRequest $request): CategoryResource
     {
         $validatedData = $request->validated();
 
@@ -42,9 +42,7 @@ class CategoryController extends Controller
 
     public function update(Category $category, UpdateCategoryRequest $request)
     {
-        $validatedData = $request->validated();
-
-        $category->update($validatedData);
+        $category->update($request->validated());
     }
 
     public function destroy(Category $category): void

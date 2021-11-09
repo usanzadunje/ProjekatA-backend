@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Category;
+use App\Models\Section;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CategoryPolicy
+class SectionPolicy
 {
     use HandlesAuthorization;
 
@@ -29,13 +29,13 @@ class CategoryPolicy
         }
     }
 
-    public function update(User $user, Category $category): bool
+    public function update(User $user, Section $section): bool
     {
-        return $category->place_id === $user->isOwner() && $category->place_id;
+        return $section->place_id === $user->isOwner() && $section->place_id;
     }
 
-    public function destroy(User $user, Category $category): bool
+    public function destroy(User $user, Section $section): bool
     {
-        return $category->place_id === $user->isOwner() && $category->place_id;
+        return $section->place_id === $user->isOwner() && $section->place_id;
     }
 }

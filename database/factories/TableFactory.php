@@ -27,6 +27,7 @@ class TableFactory extends Factory
             'seats' => rand(2, 10),
             'top' => rand(0, 140),
             'left' => rand(0, 100),
+            'section_id' => 1,
         ];
     }
 }

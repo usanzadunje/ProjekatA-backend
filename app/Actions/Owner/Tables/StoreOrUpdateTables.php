@@ -26,8 +26,9 @@ class StoreOrUpdateTables
                         'empty' => true,
                         'top' => $table['position']['top'],
                         'left' => $table['position']['left'],
+                        'section_id' => $table['section']['id'],
                     ]);
-                    array_push($createdTables, $createdTable);
+                    array_push($createdTables, $createdTable->load('section'));
 
                     return null;
                 });

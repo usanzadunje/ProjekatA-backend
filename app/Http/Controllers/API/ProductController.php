@@ -37,7 +37,7 @@ class ProductController extends Controller
         return new ProductResource($product->load('category', 'images'));
     }
 
-    public function create(StoreProductRequest $request): ProductResource
+    public function store(StoreProductRequest $request): ProductResource
     {
         $validatedData = $request->validated();
 
@@ -53,9 +53,7 @@ class ProductController extends Controller
 
     public function update(Product $product, UpdateProductRequest $request): void
     {
-        $validatedData = $request->validated();
-
-        $product->update($validatedData);
+        $product->update($request->validated());
     }
 
     public function destroy(Product $product, RemoveAllProductImages $removeAllProductImages): void

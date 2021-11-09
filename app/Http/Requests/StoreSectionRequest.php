@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreOrUpdateTableRequest extends FormRequest
+class StoreSectionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,7 @@ class StoreOrUpdateTableRequest extends FormRequest
     public function rules()
     {
         return [
-            '*.id' => ['required', 'numeric', 'integer'],
-            '*.position.top' => ['required', 'numeric', 'integer'],
-            // Has to be leftToSave since there are bugs in frontend while there is only one left property
-            '*.position.leftToSave' => ['required', 'numeric'],
-            '*.section.id' => ['required', 'numeric', 'integer'],
+            'name' => ['required', 'string', 'max:50'],
         ];
     }
 }

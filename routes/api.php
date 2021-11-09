@@ -6,6 +6,7 @@ use App\Http\Controllers\API\PlaceController;
 use App\Http\Controllers\API\FirebaseController;
 use App\Http\Controllers\API\PlaceFavoritesController;
 use App\Http\Controllers\API\PlaceSubscriptionController;
+use App\Http\Controllers\API\SectionController;
 use App\Http\Controllers\API\StaffController;
 use App\Http\Controllers\API\TableController;
 use App\Http\Controllers\API\ProfileController;
@@ -108,10 +109,17 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
     Route::delete('/place/tables/{table}', [TableController::class, 'destroy'])
         ->middleware('can:destroy,table');
 
+    // Table sections specific routes
+    Route::post('/place/tables/sections', [SectionController::class, 'store']);
+    Route::put('/place/tables/sections/{section}', [SectionController::class, 'update'])
+        ->middleware('can:update,section');
+    Route::delete('/place/tables/sections/{section}', [SectionController::class, 'destroy'])
+        ->middleware('can:destroy,section');
+
     // Categories specific routes
     Route::get('/menu/category/place', [CategoryController::class, 'index']);
     Route::get('/menu/category/{category}', [CategoryController::class, 'show']);
-    Route::post('/menu/category', [CategoryController::class, 'create']);
+    Route::post('/menu/category', [CategoryController::class, 'store']);
     Route::put('/menu/category/{category}', [CategoryController::class, 'update'])
         ->middleware('can:update,category');
     Route::delete('/menu/category/{category}', [CategoryController::class, 'destroy'])
@@ -120,7 +128,7 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
     // Products specific routes
     Route::get('/menu/product/place', [ProductController::class, 'index']);
     Route::get('/menu/product/{product}', [ProductController::class, 'show']);
-    Route::post('/menu/product', [ProductController::class, 'create']);
+    Route::post('/menu/product', [ProductController::class, 'store']);
     Route::put('/menu/product/{product}', [ProductController::class, 'update'])
         ->middleware('can:update,product');
     Route::delete('/menu/product/{product}', [ProductController::class, 'destroy'])
