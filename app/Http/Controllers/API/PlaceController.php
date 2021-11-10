@@ -49,12 +49,13 @@ class PlaceController extends Controller
                 ->when(
                     $showScreen,
                     function(Builder $query) {
-                        $query->with('tables');
+                        $query->with('tables.section');
                     },
                     function(Builder $query) {
                         $query->with('images');
                     }
                 )
+                ->with('sections')
                 ->withCount([
                     'tables',
                     'tables as taken_tables_count' => function(Builder $query) {

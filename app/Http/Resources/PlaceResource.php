@@ -24,6 +24,7 @@ class PlaceResource extends JsonResource
                 CategoryResource::collection($this->categoriesWithProducts())
             ),
             'tables' => TableResource::collection($this->whenLoaded('tables')),
+            'sections' => SectionResource::collection($this->whenLoaded('sections')),
             'images' => ImageResource::collection($this->whenLoaded('images')),
             'subscription_expires_in' => $this->whenPivotLoaded('place_user', function() {
                 if($this->pivot->expires_in)
