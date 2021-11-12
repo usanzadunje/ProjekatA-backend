@@ -57,6 +57,9 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User whereUsername($value)
  * @mixin \Eloquent
+ * @property-read Collection|\App\Models\Place[] $favoritePlaces
+ * @property-read int|null $favorite_places_count
+ * @method static Builder|User filterAndChunk($filterByColumn, $filter, $offset, $limit)
  */
 class User extends Authenticatable
 {

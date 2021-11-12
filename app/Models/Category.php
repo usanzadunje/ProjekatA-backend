@@ -26,6 +26,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereName($value)
  * @mixin \Eloquent
+ * @property string $icon
+ * @method static \Illuminate\Database\Eloquent\Builder|Category filterAndChunk($filterByColumn, $filter, $offset, $limit)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereIcon($value)
  */
 class Category extends Model
 {

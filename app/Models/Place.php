@@ -66,6 +66,11 @@ use Illuminate\Support\Facades\DB;
  * @method static \Illuminate\Database\Eloquent\Builder|Place whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Place whereUserId($value)
  * @mixin \Eloquent
+ * @property-read Collection|\App\Models\Section[] $sections
+ * @property-read int|null $sections_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Place sortByFavoritePlaces()
+ * @method static \Illuminate\Database\Eloquent\Builder|Place sortByName()
+ * @method static \Illuminate\Database\Eloquent\Builder|Place sortByRandomChoice()
  */
 class Place extends Model
 {

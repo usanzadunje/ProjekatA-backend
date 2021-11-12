@@ -32,6 +32,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Table whereTop($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Table whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int|null $seats
+ * @property int $section_id
+ * @property-read \App\Models\Section $section
+ * @method static \Illuminate\Database\Eloquent\Builder|Table whereSeats($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Table whereSectionId($value)
  */
 class Table extends Model
 {

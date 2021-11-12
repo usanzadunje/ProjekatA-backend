@@ -51,7 +51,7 @@ class TableObserver
             if($place->freeTablesCount() === 1 && $table->empty)
             {
                 // Notify all subscribed users that table has been freed in place
-                $this->sendTableFreedNotification->handle($place);
+                $this->sendTableFreedNotification->handle($place, $table);
             }
 
             // Notify all staff for place that availability has changed
