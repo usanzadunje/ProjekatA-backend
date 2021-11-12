@@ -14,8 +14,8 @@ class CreateFavoritePlaceUserTable extends Migration
     public function up()
     {
         Schema::create('favorite_place_user', function(Blueprint $table) {
-            $table->integer('user_id');
-            $table->integer('place_id');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('place_id')->constrained()->cascadeOnDelete();
             $table->primary(['user_id', 'place_id']);
             $table->timestamps();
         });
