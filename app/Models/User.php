@@ -113,7 +113,7 @@ class User extends Authenticatable
 
     public function allDayOffRequestsForPlace()
     {
-        return OffDay::select('id', 'start_date', 'number_of_days', 'message', 'user_id')
+        return OffDay::select('id', 'start_date', 'number_of_days', 'message', 'status', 'user_id')
             ->with(['user' => function($query) {
                 $query->select('id', 'fname', 'lname', 'username');
             }])

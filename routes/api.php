@@ -159,9 +159,12 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
         });
     });
 
-    Route::group(['prefix' => 'days-off', 'middleware' => ['can:changeStatus,offDay']], function() {
-        Route::put('/{offDay}/approve', [OffDayController::class, 'approve']);
-        Route::put('/{offDay}/decline', [OffDayController::class, 'decline']);
+    Route::group(['prefix' => 'days-off'], function() {
+        Route::get('/', [OffDayController::class, 'indexByPlace']);
+        Route::put('/{offDay}/approve', [OffDayController::class, 'approve'])
+            ->middleware('can:changeStatus,offDay');
+        Route::put('/{offDay}/decline', [OffDayController::class, 'decline'])
+            ->middleware('can:changeStatus,offDay');
     });
 
 });

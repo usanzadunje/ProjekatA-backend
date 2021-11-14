@@ -32,6 +32,15 @@ class OffDayController extends Controller
 
     }
 
+    public function indexByPlace(): ResourceCollection
+    {
+        return OffDayResource::collection(
+            auth()
+                ->user()
+                ->allDayOffRequestsForPlace()
+        );
+    }
+
     public function approve(OffDay $offDay): void
     {
         $offDay->update([

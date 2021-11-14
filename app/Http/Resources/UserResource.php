@@ -35,7 +35,7 @@ class UserResource extends JsonResource
                     }
                 }
             ),
-            'email' => $this->email,
+            'email' => $this->when($this->email, $this->email),
             'place' => $this->when($this->place, $this->place),
             'active' => $this->when(!is_null($this->active), $this->active),
             'role' => $this->isOwner() ? User::IS_ADMIN : ($this->isStaff() ? User::IS_STAFF : null),
