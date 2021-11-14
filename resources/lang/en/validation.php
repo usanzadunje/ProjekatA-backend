@@ -161,6 +161,10 @@ return [
     'attributes' => [
         'old_password' => 'current password',
         'smoking_allowed' => 'smoking choice',
+        'category_id' => "category",
+        'start_date' => "start date",
+        'number_of_days' => "number of days",
+        'images.*' => "image",
     ],
 
 ];

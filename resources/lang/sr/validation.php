@@ -90,6 +90,11 @@ return [
         'category' => 'kategorija',
         'smoking_allowed' => 'izbor za pušenje',
         'icon' => 'ikonica',
+        'image' => "slika",
+        'images.*' => "slika",
+        'category_id' => "kategorija",
+        'start_date' => "datum početka",
+        'number_of_days' => "broj dana",
     ],
 
 ];

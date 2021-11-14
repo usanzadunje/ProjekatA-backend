@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -103,6 +104,26 @@ class User extends Authenticatable
     public function favoritePlaces(): BelongsToMany
     {
         return $this->belongsToMany(Place::class, 'favorite_place_user')->withTimestamps();
+    }
+
+    public function dayOffRequests(): HasMany
+    {
+        return $this->hasMany(OffDay::class);
+    }
+
+    public function allDayOffRequestsForPlace()
+    {
+        return OffDay::select('id', 'start_date', 'number_of_days', 'message', 'user_id')
+            ->with(['user' => function($query) {
+                $query->select('id', 'fname', 'lname', 'username');
+            }])
+            ->whereIn(
+                'user_id',
+                User::select('id')
+                    ->whereNotNull('place')
+                    ->where('place', $this->isOwner())
+                    ->pluck('id')
+            )->get();
     }
 
     public function ownerPlaces(): HasOne

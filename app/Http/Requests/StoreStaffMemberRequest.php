@@ -3,9 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\User;
-use App\Rules\Avatar;
 use App\Rules\Password;
-use App\Rules\Staff;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

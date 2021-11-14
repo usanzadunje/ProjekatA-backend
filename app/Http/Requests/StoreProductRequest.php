@@ -39,11 +39,4 @@ class StoreProductRequest extends FormRequest
             'category_id.exists' => trans('validation.non_existing_category'),
         ];
     }
-
-    public function attributes()
-    {
-        return [
-            'category_id' => trans('attributes.category_id'),
-        ];
-    }
 }

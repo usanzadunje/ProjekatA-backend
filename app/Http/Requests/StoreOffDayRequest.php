@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UploadPlaceImagesRequest extends FormRequest
+class StoreOffDayRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UploadPlaceImagesRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->isOwner();
+        return true;
     }
 
     /**
@@ -24,8 +24,9 @@ class UploadPlaceImagesRequest extends FormRequest
     public function rules()
     {
         return [
-            'images' => ['required'],
-            'images.*' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'start_date' => ['required', 'date'],
+            'number_of_days' => ['required', 'numeric', 'integer', 'max:100'],
+            'message' => ['nullable', 'max:300'],
         ];
     }
 }

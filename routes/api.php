@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\OffDayController;
 use App\Http\Controllers\API\PlaceController;
 use App\Http\Controllers\API\FirebaseController;
 use App\Http\Controllers\API\PlaceFavoritesController;
@@ -54,20 +55,22 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:sanctum'], function() {
 
 
     // Place subscription routes
-    Route::group(['middleware' => 'throttle:subscribe'], function() {
-        Route::get('/subscriptions/place', [PlaceSubscriptionController::class, 'index']);
-        Route::get('/subscriptions/place/ids', [PlaceSubscriptionController::class, 'subscriptionIds']);
+    Route::group(['prefix' => 'subscriptions', 'middleware' => 'throttle:subscribe'], function() {
+        Route::get('/place', [PlaceSubscriptionController::class, 'index']);
+        Route::get('/place/ids', [PlaceSubscriptionController::class, 'subscriptionIds']);
         Route::post(
-            '/subscriptions/place/{placeId}/notify-in-next/{notificationTime?}',
+            '/place/{placeId}/notify-in-next/{notificationTime?}',
             [PlaceSubscriptionController::class, 'store']
         );
-        Route::delete('/subscriptions/place/{placeId}', [PlaceSubscriptionController::class, 'destroy']);
+        Route::delete('/place/{placeId}', [PlaceSubscriptionController::class, 'destroy']);
     });
 
     // Place favourites routes
-    Route::get('/favorites/place/ids', [PlaceFavoritesController::class, 'index']);
-    Route::post('/favorites/place/{place}', [PlaceFavoritesController::class, 'store']);
-    Route::delete('/favorites/place/{place}', [PlaceFavoritesController::class, 'destroy']);
+    Route::group(['prefix' => 'favorites'], function() {
+        Route::get('/place/ids', [PlaceFavoritesController::class, 'index']);
+        Route::post('/place/{place}', [PlaceFavoritesController::class, 'store']);
+        Route::delete('/place/{place}', [PlaceFavoritesController::class, 'destroy']);
+    });
 });
 
 //Routes for places
@@ -84,65 +87,102 @@ Route::group(['prefix' => 'places', 'middleware' => 'throttle:places'], function
 // Routes for owner of the place
 Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'throttle:owner']], function() {
     // Staff specific router
-    Route::get('/staff', [StaffController::class, 'index']);
-    Route::get('/staff/active', [StaffController::class, 'activeIndex']);
-    Route::post('/staff', [StaffController::class, 'store']);
-    Route::put('/staff/{staff}', [StaffController::class, 'update'])
-        ->middleware('can:update,staff');
-    Route::delete('/staff/{staff}', [StaffController::class, 'destroy'])
-        ->middleware('can:destroy,staff');
+    Route::group(['prefix' => 'staff'], function() {
+        Route::get('/', [StaffController::class, 'index']);
+        Route::get('/active', [StaffController::class, 'activeIndex']);
+        Route::post('', [StaffController::class, 'store']);
+        Route::put('/{staff}', [StaffController::class, 'update'])
+            ->middleware('can:update,staff');
+        Route::delete('/{staff}', [StaffController::class, 'destroy'])
+            ->middleware('can:destroy,staff');
+    });
+
 
     // Place specific routes
-    Route::put('/place', [PlaceController::class, 'update']);
-    Route::post('/place/images', [ImageController::class, 'storeForPlace']);
-    Route::post('/place/images/main/{image}', [ImageController::class, 'main'])
-        ->middleware('can:manipulatePlaceImages,image');
-    Route::post('/place/images/logo/{image}', [ImageController::class, 'logo'])
-        ->middleware('can:manipulatePlaceImages,image');
-    Route::delete('/place/images/{image}', [ImageController::class, 'destroy'])
-        ->middleware('can:manipulatePlaceImages,image');
+    Route::group(['prefix' => 'place'], function() {
+        Route::put('/', [PlaceController::class, 'update']);
 
-    // Tables specific routes
-    Route::post('/place/tables', [TableController::class, 'storeOrUpdate']);
-    Route::put('/place/tables/{table}', [TableController::class, 'update'])
-        ->middleware('can:update,table');
-    Route::delete('/place/tables/{table}', [TableController::class, 'destroy'])
-        ->middleware('can:destroy,table');
+        // Place images specific routes
+        Route::group(['prefix' => 'images'], function() {
+            Route::post('/', [ImageController::class, 'storeForPlace']);
+            Route::post('/main/{image}', [ImageController::class, 'main'])
+                ->middleware('can:manipulatePlaceImages,image');
+            Route::post('/logo/{image}', [ImageController::class, 'logo'])
+                ->middleware('can:manipulatePlaceImages,image');
+            Route::delete('/{image}', [ImageController::class, 'destroy'])
+                ->middleware('can:manipulatePlaceImages,image');
+        });
 
-    // Table sections specific routes
-    Route::post('/place/tables/sections', [SectionController::class, 'store']);
-    Route::put('/place/tables/sections/{section}', [SectionController::class, 'update'])
-        ->middleware('can:update,section');
-    Route::delete('/place/tables/sections/{section}', [SectionController::class, 'destroy'])
-        ->middleware('can:destroy,section');
+        // Tables specific routes
+        Route::group(['prefix' => 'tables'], function() {
+            Route::post('/', [TableController::class, 'storeOrUpdate']);
+            Route::put('/{table}', [TableController::class, 'update'])
+                ->middleware('can:update,table');
+            Route::delete('/{table}', [TableController::class, 'destroy'])
+                ->middleware('can:destroy,table');
 
-    // Categories specific routes
-    Route::get('/menu/category/place', [CategoryController::class, 'index']);
-    Route::get('/menu/category/{category}', [CategoryController::class, 'show']);
-    Route::post('/menu/category', [CategoryController::class, 'store']);
-    Route::put('/menu/category/{category}', [CategoryController::class, 'update'])
-        ->middleware('can:update,category');
-    Route::delete('/menu/category/{category}', [CategoryController::class, 'destroy'])
-        ->middleware('can:destroy,category');
+            // Table sections specific routes
+            Route::group(['prefix' => 'sections'], function() {
+                Route::post('/', [SectionController::class, 'store']);
+                Route::put('/{section}', [SectionController::class, 'update'])
+                    ->middleware('can:update,section');
+                Route::delete('/{section}', [SectionController::class, 'destroy'])
+                    ->middleware('can:destroy,section');
+            });
+        });
 
-    // Products specific routes
-    Route::get('/menu/product/place', [ProductController::class, 'index']);
-    Route::get('/menu/product/{product}', [ProductController::class, 'show']);
-    Route::post('/menu/product', [ProductController::class, 'store']);
-    Route::put('/menu/product/{product}', [ProductController::class, 'update'])
-        ->middleware('can:update,product');
-    Route::delete('/menu/product/{product}', [ProductController::class, 'destroy'])
-        ->middleware('can:destroy,product');
-    Route::post('/product/{product}/images', [ImageController::class, 'storeForProduct'])
-        ->middleware('can:upload,product');
+        // Menu specific routes
+        Route::group(['prefix' => 'menu'], function() {
+            // Categories specific routes
+            Route::group(['prefix' => 'category'], function() {
+                Route::get('/place', [CategoryController::class, 'index']);
+                Route::get('/{category}', [CategoryController::class, 'show']);
+                Route::post('/', [CategoryController::class, 'store']);
+                Route::put('/{category}', [CategoryController::class, 'update'])
+                    ->middleware('can:update,category');
+                Route::delete('/{category}', [CategoryController::class, 'destroy'])
+                    ->middleware('can:destroy,category');
+            });
+
+            // Products specific routes
+            Route::group(['prefix' => 'product'], function() {
+            });
+            Route::get('/place', [ProductController::class, 'index']);
+            Route::get('/{product}', [ProductController::class, 'show']);
+            Route::post('/', [ProductController::class, 'store']);
+            Route::put('/{product}', [ProductController::class, 'update'])
+                ->middleware('can:update,product');
+            Route::delete('/{product}', [ProductController::class, 'destroy'])
+                ->middleware('can:destroy,product');
+            Route::post('/{product}/images', [ImageController::class, 'storeForProduct'])
+                ->middleware('can:upload,product');
+        });
+    });
+
+    Route::group(['prefix' => 'days-off', 'middleware' => ['can:changeStatus,offDay']], function() {
+        Route::put('/{offDay}/approve', [OffDayController::class, 'approve']);
+        Route::put('/{offDay}/decline', [OffDayController::class, 'decline']);
+    });
+
 });
 
 // Routes for staff that works in place
 Route::group(['prefix' => 'staff', 'middleware' => ['auth:sanctum', 'staff', 'throttle:staff']], function() {
     Route::post('/activity', [StaffController::class, 'toggle']);
+
     Route::get('/place/tables', [TableController::class, 'index']);
-    Route::get('/table/availability', [PlaceController::class, 'availability']);
-    Route::post('/table/{table}/toggle', [TableController::class, 'toggle'])
-        ->middleware('can:toggle,table');
-    Route::post('/table/toggle/{available}', [TableController::class, 'randomToggle']);
+
+    // Table specific routes
+    Route::group(['prefix' => 'table'], function() {
+        Route::get('/availability', [PlaceController::class, 'availability']);
+        Route::post('/{table}/toggle', [TableController::class, 'toggle'])
+            ->middleware('can:toggle,table');
+        Route::post('/toggle/{available}', [TableController::class, 'randomToggle']);
+    });
+
+    Route::group(['prefix' => 'days-off'], function() {
+        Route::get('/', [OffDayController::class, 'index']);
+        Route::post('/', [OffDayController::class, 'store']);
+    });
+
 });
