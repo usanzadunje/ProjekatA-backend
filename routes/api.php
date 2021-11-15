@@ -146,16 +146,16 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
 
             // Products specific routes
             Route::group(['prefix' => 'product'], function() {
+                Route::get('/place', [ProductController::class, 'index']);
+                Route::get('/{product}', [ProductController::class, 'show']);
+                Route::post('/', [ProductController::class, 'store']);
+                Route::put('/{product}', [ProductController::class, 'update'])
+                    ->middleware('can:update,product');
+                Route::delete('/{product}', [ProductController::class, 'destroy'])
+                    ->middleware('can:destroy,product');
+                Route::post('/{product}/images', [ImageController::class, 'storeForProduct'])
+                    ->middleware('can:upload,product');
             });
-            Route::get('/place', [ProductController::class, 'index']);
-            Route::get('/{product}', [ProductController::class, 'show']);
-            Route::post('/', [ProductController::class, 'store']);
-            Route::put('/{product}', [ProductController::class, 'update'])
-                ->middleware('can:update,product');
-            Route::delete('/{product}', [ProductController::class, 'destroy'])
-                ->middleware('can:destroy,product');
-            Route::post('/{product}/images', [ImageController::class, 'storeForProduct'])
-                ->middleware('can:upload,product');
         });
     });
 

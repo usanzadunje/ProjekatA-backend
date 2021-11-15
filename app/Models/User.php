@@ -123,7 +123,9 @@ class User extends Authenticatable
                     ->whereNotNull('place')
                     ->where('place', $this->isOwner())
                     ->pluck('id')
-            )->get();
+            )
+            ->orderBy('start_date')
+            ->get();
     }
 
     public function ownerPlaces(): HasOne
