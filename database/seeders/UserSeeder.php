@@ -82,7 +82,7 @@ class UserSeeder extends Seeder
 
         for($i = 1; $i <= 20; $i++)
         {
-            User::factory(49)->create([
+            User::factory(10)->create([
                 'place' => $i,
             ]);
         }
