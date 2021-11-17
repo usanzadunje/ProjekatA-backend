@@ -8,11 +8,8 @@ use App\Models\User;
 
 class SendTableAvailabilityChangedNotification
 {
-    protected SendDataNotificationViaFCM $sendDataNotificationViaFCM;
-
-    public function __construct(SendDataNotificationViaFCM $sendDataNotificationViaFCM)
+    public function __construct(protected SendDataNotificationViaFCM $sendDataNotificationViaFCM)
     {
-        $this->sendDataNotificationViaFCM = $sendDataNotificationViaFCM;
     }
 
     public function handle($place, Table $table): void

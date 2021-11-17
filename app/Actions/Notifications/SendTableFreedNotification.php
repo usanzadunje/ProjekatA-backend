@@ -25,8 +25,9 @@ class SendTableFreedNotification
             $this->sendDataNotificationViaFCM->handle(
                 $tokens,
                 [
-                    'type' => 'notification',
+                    'type' => 'tableFreed',
                     'id' => abs(crc32(uniqid())),
+                    'place_id' => $place->id,
                     'place_name' => $place->name,
                     'seats' => $table->seats,
                 ]

@@ -10,7 +10,7 @@ use LaravelFCM\Message\PayloadDataBuilder;
 
 class SendDataNotificationViaFCM
 {
-    public function handle(array $tokens, $notificationData = []): void
+    public function handle($tokens, $notificationData = []): void
     {
         $optionsBuilder = new OptionsBuilder();
         $optionsBuilder->setContentAvailable(true)

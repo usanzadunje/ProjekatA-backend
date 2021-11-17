@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\OffDay;
 use App\Models\Table;
+use App\Observers\OffDayObserver;
 use App\Observers\TableObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -29,5 +31,6 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         Table::observe(TableObserver::class);
+        OffDay::observe(OffDayObserver::class);
     }
 }
