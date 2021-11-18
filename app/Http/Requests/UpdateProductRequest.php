@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateProductRequest extends FormRequest
 {
@@ -25,7 +26,14 @@ class UpdateProductRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'category_id' => ['required', 'numeric', 'integer', 'exists:categories,id'],
+            'category_id' => [
+                'required',
+                'numeric',
+                'integer',
+                Rule::exists('categories', 'id')->where(function($query) {
+                    return $query->whereIn('id', $this->user()->ownerPlaces->allAvailableCategories()->pluck('id'));
+                }),
+            ],
             'description' => ['nullable', 'string', 'max:255'],
             'price' => ['nullable', 'numeric', 'integer'],
         ];

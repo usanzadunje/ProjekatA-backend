@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OffDayResource extends JsonResource
+class ScheduleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -24,17 +24,11 @@ class OffDayResource extends JsonResource
                 !is_null($this->start_date),
                 "{$this->start_date?->day}-{$this->start_date?->month}-{$this->start_date?->year}"
             ),
-            'end_date' => $this->when(
-                !is_null($this->start_date) && !is_null($this->number_of_days),
-                function() {
-                    $endDate = $this->start_date->addDays($this->number_of_days - 1);
-
-                    return "{$endDate->day}-{$endDate->month}-{$endDate->year}";
-                }
+            'start_time' => $this->when(
+                !is_null($this->start_time),
+                substr($this->start_time, 0, 5)
             ),
-            'number_of_days' => $this->when(!is_null($this->number_of_days), $this->number_of_days),
-            'status' => $this->when(!is_null($this->status), $this->status),
-            'message' => $this->when(!is_null($this->message), $this->message),
+            'number_of_hours' => $this->when(!is_null($this->number_of_hours), $this->number_of_hours),
         ];
     }
 }

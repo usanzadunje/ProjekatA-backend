@@ -16,7 +16,7 @@ class UpdateStaffMemberRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->isOwner();
+        return $this->user()->can('update', $this->route('staff'));
     }
 
     /**

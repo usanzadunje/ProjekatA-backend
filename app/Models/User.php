@@ -128,6 +128,28 @@ class User extends Authenticatable
             ->get();
     }
 
+    public function schedules(): HasMany
+    {
+        return $this->hasMany(Schedule::class);
+    }
+
+    public function allSchedulesForPlace()
+    {
+        return Schedule::select('id', 'start_date', 'start_time', 'number_of_hours', 'user_id')
+            ->with(['user' => function($query) {
+                $query->select('id', 'fname', 'lname', 'username');
+            }])
+            ->whereIn(
+                'user_id',
+                User::select('id')
+                    ->whereNotNull('place')
+                    ->where('place', $this->isOwner())
+                    ->pluck('id')
+            )
+            ->orderByDesc('start_time')
+            ->get();
+    }
+
     public function ownerPlaces(): HasOne
     {
         return $this->hasOne(Place::class);

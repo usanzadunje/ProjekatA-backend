@@ -7,6 +7,7 @@ use App\Http\Controllers\API\PlaceController;
 use App\Http\Controllers\API\FirebaseController;
 use App\Http\Controllers\API\PlaceFavoritesController;
 use App\Http\Controllers\API\PlaceSubscriptionController;
+use App\Http\Controllers\API\ScheduleController;
 use App\Http\Controllers\API\SectionController;
 use App\Http\Controllers\API\StaffController;
 use App\Http\Controllers\API\TableController;
@@ -167,6 +168,15 @@ Route::group(['prefix' => 'owner', 'middleware' => ['auth:sanctum', 'owner', 'th
             ->middleware('can:changeStatus,offDay');
     });
 
+    Route::group(['prefix' => 'schedule'], function() {
+        Route::get('/', [ScheduleController::class, 'indexByPlace']);
+        Route::post('/', [ScheduleController::class, 'store']);
+        Route::put('/{schedule}', [ScheduleController::class, 'update'])
+            ->middleware('can:update,schedule');
+        Route::delete('/{schedule}', [ScheduleController::class, 'destroy'])
+            ->middleware('can:destroy,schedule');
+    });
+
 });
 
 // Routes for staff that works in place
@@ -186,6 +196,13 @@ Route::group(['prefix' => 'staff', 'middleware' => ['auth:sanctum', 'staff', 'th
     Route::group(['prefix' => 'days-off'], function() {
         Route::get('/', [OffDayController::class, 'index']);
         Route::post('/', [OffDayController::class, 'store']);
+        Route::put('/{offDay}', [OffDayController::class, 'update'])
+            ->middleware('can:update,offDay');
+        Route::get('/statuses', [OffDayController::class, 'statuses']);
+    });
+
+    Route::group(['prefix' => 'schedule'], function() {
+        Route::get('/', [ScheduleController::class, 'index']);
     });
 
 });

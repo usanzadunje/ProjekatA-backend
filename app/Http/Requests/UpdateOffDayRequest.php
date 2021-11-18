@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreOffDayRequest extends FormRequest
+class UpdateOffDayRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreOffDayRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->isStaff();
+        return $this->user()->can('update', $this->route('offDay'));
     }
 
     /**

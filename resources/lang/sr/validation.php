@@ -46,6 +46,8 @@ return [
     'bad_smoking_choice' => 'Morate izabrati između 2 vrednosti za :attribute.',
     'favorite_place' => 'Objekat je već u omiljenima.',
     'bad_icon' => 'Izaberite ikonicu iz liste.',
+    'bad_staff' => 'Greška prilikom izbora zaposlenog.',
+    'non_existing_staff' => 'Prosledili ste nepostojećeg zaposlenog!',
 
 
     /*
@@ -95,6 +97,8 @@ return [
         'category_id' => "kategorija",
         'start_date' => "datum početka",
         'number_of_days' => "broj dana",
+        'start_time' => "vreme početka",
+        'number_of_hours' => "broj sati",
     ],
 
 ];

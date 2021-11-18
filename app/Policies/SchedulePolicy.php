@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\OffDay;
+use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class OffDayPolicy
+class SchedulePolicy
 {
     use HandlesAuthorization;
 
@@ -29,13 +29,13 @@ class OffDayPolicy
         }
     }
 
-    public function update(User $user, OffDay $offDay): bool
+    public function update(User $user, Schedule $schedule): bool
     {
-        return $offDay->user_id === $user->id;
+        return $schedule->user->place === $user->isOwner();
     }
 
-    public function changeStatus(User $user, OffDay $offDay): bool
+    public function destroy(User $user, Schedule $schedule): bool
     {
-        return $offDay->user->place === $user->isOwner();
+        return $schedule->user->place === $user->isOwner();
     }
 }

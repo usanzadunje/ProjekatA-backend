@@ -128,7 +128,8 @@ return [
     'bad_smoking_choice' => 'You must choose between two values for :attribute.',
     'favorite_place' => 'Place is already in your favorites.',
     'bad_icon' => 'Choose icon from the list.',
-
+    'bad_staff' => 'Error while picking employee.',
+    'non_existing_staff' => 'You are providing employee that does not exist!',
 
     /*
     |--------------------------------------------------------------------------
@@ -164,6 +165,8 @@ return [
         'category_id' => "category",
         'start_date' => "start date",
         'number_of_days' => "number of days",
+        'start_time' => "start time",
+        'number_of_hours' => "number of hours",
         'images.*' => "image",
     ],
 
