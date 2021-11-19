@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'index');
+Route::get('/projekata/{secret}', function(string $secret) {
+    if($secret !== 'opasnasifra') {
+        return response('You are not allowed here!', 403);
+    }
+
+    return view('projekata.index');
+});
 
 Route::any('{any}', function() {
     abort(403);
