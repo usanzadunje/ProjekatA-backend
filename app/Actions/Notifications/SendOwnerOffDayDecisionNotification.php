@@ -14,8 +14,8 @@ class SendOwnerOffDayDecisionNotification
     public function handle(OffDay $offDay): void
     {
         $token = $offDay->user->fcm_token;
-        if(!empty($token))
-        {
+
+        if(!empty($token)) {
             $this->sendDataNotificationViaFCM->handle(
                 $token,
                 [

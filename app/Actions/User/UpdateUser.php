@@ -12,22 +12,18 @@ class UpdateUser
     protected CheckIfPasswordMatch $checkPasswordMatch;
     protected UploadImage $uploadImage;
 
-    public function __construct(CheckIfPasswordMatch $checkPasswordMatch, UploadImage $uploadImage)
-    {
+    public function __construct(CheckIfPasswordMatch $checkPasswordMatch, UploadImage $uploadImage) {
         $this->checkPasswordMatch = $checkPasswordMatch;
         $this->uploadImage = $uploadImage;
     }
 
-    public function handle(array $validatedData, User $providedUser = null): void
-    {
+    public function handle(array $validatedData, User $providedUser = null): void {
         $user = $providedUser ?: auth()->user();
-        if(array_key_exists('password', $validatedData) && !is_null($validatedData['password']))
-        {
+        if(array_key_exists('password', $validatedData) && !is_null($validatedData['password'])) {
             $this->checkPasswordMatch->handle($validatedData['old_password']);
             $validatedData['password'] = Hash::make($validatedData['password']);
         }
-        if(array_key_exists('avatar', $validatedData) && !is_null($validatedData['avatar']))
-        {
+        if(array_key_exists('avatar', $validatedData) && !is_null($validatedData['avatar'])) {
             $avatarName = auth()->id() . '_avatar_' . uniqid();
 
             $avatar = $this->uploadImage->handle(
@@ -40,9 +36,7 @@ class UpdateUser
             );
 
             $validatedData['avatar'] = $avatar;
-        }
-        else
-        {
+        }else {
             unset($validatedData['avatar']);
         }
 
