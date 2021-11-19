@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Actions\Notifications\SendScheduleAddedNotification;
+use App\Actions\Notifications\SendScheduleRemovedNotification;
 use App\Actions\Notifications\SendScheduleUpdatedNotification;
 use App\Models\Schedule;
 
@@ -11,6 +12,7 @@ class ScheduleObserver
     public function __construct(
         protected SendScheduleAddedNotification $sendScheduleAddedNotification,
         protected SendScheduleUpdatedNotification $sendScheduleUpdatedNotification,
+        protected SendScheduleRemovedNotification $sendScheduleRemovedNotification,
     )
     {
     }
@@ -33,6 +35,6 @@ class ScheduleObserver
 
     public function deleted(Schedule $schedule)
     {
-        //
+        $this->sendScheduleRemovedNotification->handle($schedule);
     }
 }
