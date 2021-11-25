@@ -1,0 +1,39 @@
+version: "3.8"
+services:
+  app:
+    image: usanzadunje/laravel-prod
+    container_name: projekata-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - app-data:/var/www
+
+  db:
+    image: mysql:5.7
+    container_name: projekata-db
+    restart: unless-stopped
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      SERVICE_NAME: mysql
+
+  nginx:
+    image: nginx:alpine
+    container_name: projekata-nginx
+    restart: unless-stopped
+    ports:
+      - 443:443
+      - 8000:80
+    volumes:
+      - app-data:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d
+    depends_on:
+      - app
+
+volumes:
+  mysql-data:
+  app-data:
