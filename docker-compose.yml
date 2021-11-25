@@ -7,7 +7,11 @@ services:
     working_dir: /var/www
     volumes:
       - ./:/var/www
-    command: npm run watch
+    ports:
+      - 8000:8000
+      - 3000:3000
+      - 3001:3001
+    command: npm run serve
 
   db:
     image: mysql:5.7
@@ -21,16 +25,6 @@ services:
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       SERVICE_NAME: mysql
-
-  nginx:
-    image: nginx:alpine
-    container_name: projekata-nginx
-    restart: unless-stopped
-    ports:
-      - 8000:80
-    volumes:
-      - ./:/var/www
-      - ./docker-compose/nginx:/etc/nginx/conf.d
 
 volumes:
   mysql-data:

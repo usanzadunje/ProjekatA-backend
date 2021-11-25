@@ -1,18 +1,21 @@
 {
-    "private": true,
-    "scripts": {
-        "dev": "npm run development",
-        "development": "mix",
-        "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000",
-        "hot": "mix watch --hot",
-        "prod": "npm run production",
-        "production": "mix --production"
-    },
-    "devDependencies": {
-        "autoprefixer": "^10.4.0",
-        "laravel-mix": "^6.0.1",
-        "postcss": "^8.3.11",
-        "tailwindcss": "^2.2.19"
-    }
+  "private": true,
+  "scripts": {
+    "dev": "npm run development",
+    "development": "mix",
+    "watch": "mix watch",
+    "serve": "php /var/www/artisan serve --host=0.0.0.0 --port=80 & npm run watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "prod": "npm run production",
+    "production": "mix --production"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.0",
+    "browser-sync": "^2.27.7",
+    "browser-sync-webpack-plugin": "^2.2.2",
+    "laravel-mix": "^6.0.1",
+    "postcss": "^8.3.11",
+    "tailwindcss": "^2.2.19"
+  }
 }
