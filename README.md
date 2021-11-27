@@ -1,62 +1,54 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Backend application of ProjekatA
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### Start application using [Docker](https://docs.docker.com/get-docker/)
 
-## About Laravel
+1. Position yourself inside root folder of this application inside terminal.
+2. Run ```docker-compose up -d``` to run it in development mode with livereload while changing local files (all files in
+   docker container are synced to your local ones be careful to install all dependencies locally).
+3. Or you can run ```docker-compose -f docker-compose.prod.yml up -d``` to run production version which will copy files
+   and bundle application up and run it despite you running npm install and composer install locally.
+4. Since this is API only you will need to use API Client such as Postman(described bellow)
+5. Address on which application is hosted is: http://localhost/
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Start application without [Docker](https://docs.docker.com/get-docker/)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### Prerequisites
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP
+- Web server (Apache/Nginx)
+- MySQL
+- You could be using:  [laragon](https://laragon.org/) (Windows only), [WAMP](https://www.wampserver.com/en/)
+  , [XAMPP](https://www.apachefriends.org/index.html), [LAMP](https://bitnami.com/stack/lamp/installer)
+- [Composer](https://getcomposer.org/download/)
 
-## Learning Laravel
+#### Installing application
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. Clone repo ```git clone https://github.com/usanzadunje/ProjekatA-backend.git```
+2. Run ```composer install```
+3. Copy .env.example into .env ```cp .env.example .env``` and populate values (if you are running application using
+   Docker you should set ```DB_HOST=db``` so container works as expected)
+4. Generate encryption key ```php artisan key:generate```
+5. Create a database called  ```projekata```
+6. Run migrations and seed database by running ```php artisan migrate --seed```
+7. Run ```php artisan optimize```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Testing application using API Client | [Postman](https://www.postman.com/downloads/)
 
-## Laravel Sponsors
+1. Download Postman collection [here](#).
+2. Clink on collection options (three dots) and choose Edit.
+3. Go to Variables section and set local_api_path to application URL which should be http://localhost/
+4. For some routes you will need to be logged in. Inside Auth folder you will find Login/Register routes, use them and
+   copy token you get in return. This token should be value of local_token variable.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Testing application without installation
 
-### Premium Partners
+*You can use remote section of this collection which has same routes but against already hosted and runnign application,
+this way you do not need to install application at all. Process is the same as in this 4 steps to get your Postman
+client to work.*
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+# Contact
 
-## Contributing
+- E-mail: [dusan.djordjevic.biz@gmail.com](mailto:dusan.djordjevic.biz@gmail.com)
+  | [dussann1997@live.com](mailto:dussann1997@live.comm)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<br>
