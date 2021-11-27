@@ -6,3 +6,7 @@ vendor
 storage/framework/cache/**
 storage/framework/sessions/**
 storage/framework/views/**
+public/css/*.css
+public/js/*.js
+docker-compose.*
+Dockerfile
