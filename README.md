@@ -34,9 +34,9 @@
 
 ### Testing application using API Client | [Postman](https://www.postman.com/downloads/)
 
-1. Download Postman collection [here](#).
+1. Download Postman collection [here](https://www.mediafire.com/file/gjn5soweuj9nqtt/ProjectA.postman_collection.json/file).
 2. Clink on collection options (three dots) and choose Edit.
-3. Go to Variables section and set local_api_path to application URL which should be http://localhost/
+3. Go to Variables section and set local_api_path to application URL which should be http://localhost/api
 4. For some routes you will need to be logged in. Inside Auth folder you will find Login/Register routes, use them and
    copy token you get in return. This token should be value of local_token variable.
 
