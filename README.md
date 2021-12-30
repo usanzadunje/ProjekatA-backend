@@ -40,7 +40,7 @@
 4. For some routes you will need to be logged in. Inside Auth folder you will find Login/Register routes, use them and
    copy token you get in return. This token should be value of local_token variable.
 
-### Testing application without installation
+### Testing application without installation (Hosted application server has been shut down, this part will no longer work)
 
 *You can use remote section of this collection which has same routes but against already hosted and runnign application,
 this way you do not need to install application at all. Process is the same as in this 4 steps to get your Postman
