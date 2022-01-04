@@ -23,7 +23,7 @@ trait SortPlaces
             'random' => $query
                 ->sortByRandomChoice(),
             default => $query
-                ->scopeSortByName(),
+                ->sortByName(),
         };
     }
 
